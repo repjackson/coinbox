@@ -1,0 +1,160 @@
+template(name='profile')
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
+    with user_from_username_param
+        .ui.stackable.padded.grid
+            .three.column.row
+                //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
+                .column
+                    a.item(href="/user/#{username}")
+                        img.ui.centered.rounded.image(src="{{c.url image_id height=500 width=500 gravity='face' crop='fill'}}")
+                    .spacer
+                    a(href="/user/#{username}")
+                        .ui.header
+                            strong @#{username}
+                            //- small @#{user.username}        
+                        a.ui.header(href="/user/#{username}/points" title='points')
+                            //- +i name='coins'
+                            //- i.coins.icon
+                            |#{points} pts
+                    // if is_current_user
+                    a.ui.large.button(href="/user/#{username}/edit" title='profile settings')
+                        i.cog.icon
+                        |account
+                    // else if is_admin
+                    //     a.ui.icon.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                    //         +i name='settings' cl='ui avatar image'
+                    if is_current_user
+                        +logout_button
+                        //- +logout_other_clients_button
+                    if in_dev 
+                        +print_this
+                    // +send_points_button
+                    // +request_button
+                    // i.refresh.link.icon.calc_user_points
+                if is_current_user
+                    .column
+                        .ui.header 
+                            +i name='donate'
+                            |deposits
+                        // |includes 2% points card processing fee
+                        .ui.action.fluid.input
+                            input.deposit_amount(type='number' min='1' placeholder='deposit')
+                            .ui.icon.button.add_points   
+                                i.right.chevron.icon
+                                
+                        .ui.large.bulleted.list.smallscroll
+                            each deposit_docs
+                                .item 
+                                    .content
+                                        .header 
+                                            |$#{amount}
+                                        .description #{when} {{long_date _timestamp}}
+                                        //- if is_dev
+                                        +remove_button
+                                        
+                .column
+                    .ui.header 
+                        +i name='shopping-cart'
+                        |#{user_rental_docs.count} rentals
+                    .ui.selection.animated.large.list
+                        each user_rental_docs 
+                            a.item(href="/rental/#{_id}") 
+                                img.ui.avatar.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                                .content
+                                    .title 
+                                        |#{title}
+                                        strong #{daily_rate}p/day
+                .column
+                    .ui.header 
+                        +i name='order-history'
+                        |rented to
+                    .ui.items
+                        each received_orders
+                            +profile_order_item
+                .column
+                    .ui.header 
+                        +i name='clock'
+                        |rented from
+                    .scrolling
+                        .ui.items
+                            each purchased_orders
+                                +profile_order_item
+                        
+    else 
+        .ui.basic.center.aligned.segment
+            i.massive.loading.refresh.icon
+                            
+
+
+template(name='logout_other_clients_button')
+    .ui.compact.button.logout_other_clients(title='logout other clients')
+        +i name='globe'
+        |log out other clients
+
+
+
+template(name='logout_button')
+    .ui.large.button.logout(title='log out')
+        // i.sign.out.alternate.icon
+        +i name='exit'
+        |log out
+
+
+// template(name='profile_order_item')
+//     .ui.segment.grid
+//         .row
+//             .column
+//                 .ui.header #{rental.title}
+//         .row
+//             .column
+//                 with rental
+//                     //- img.ui.mini.image(src=image)
+//                     +image_view key='image_id' direct=true cl='zoom ui tiny image'
+//             .column
+//                 a.ui.header.inline.lowercase(href="/order/#{_id}/")
+//                     small from 
+//                     |{{cal_time start_datetime}}
+//                 a.ui.header.inline.lowercase(href="/order/#{_id}/")
+//                     small to 
+//                     |{{cal_time end_datetime}}
+//                 div
+//                 .ui.grey.inline.header #{hour_duration} hrs
+//                 .ui.grey.inline.header(title='pointss')
+//                     i.coins.icon
+//                     | #{cost}
+//                 .ui.small.inline.header #{when} by #{_author_username}
+//                 a.ui.large.button(href="/order/#{_id}/")
+//                     |view
+//                     i.right.chevron.icon
+//                 if is_admin
+//                     +remove_button
+
+
+
+        
+template(name='user_rental_card')
+    .ui.small.card
+        a.zoom(href="/rental/#{_id}/")
+            img.ui.centered.image(src="{{c.url image_id height=200 width=200 background='white' crop='pad'}}")
+        .content
+            a.ui.inline.header(href="/rental/#{_id}/") #{title} 
+                .ui.label #{daily_rate}p/day
+            +rental_status
+        .content
+            span(title='views')
+                +ismall name='eye'
+                |#{views}
+            div
+            +ismall name='marker'
+            each location_tags
+                .ui.label #{this}
+            div
+            +ismall name='tags'
+            each tags
+                .ui.label #{this}
+            div
+            a.ui.button(href="/rental/#{_id}/")
+                |view
+                i.right.chevron.icon
+
+

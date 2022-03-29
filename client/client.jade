@@ -1,0 +1,200 @@
+head
+    title goldrun
+    meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black')
+    meta(name="msapplication-TileColor" content="#000000")
+    meta(name="theme-color" content="#000000")
+    link(rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.css')
+    // link(href="https://fonts.googleapis.com/css?family=Ubuntu:300,400&display=swap" rel="stylesheet")
+    link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
+    link(rel="manifest" href="/site.webmanifest")
+    link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000")
+    link(href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet")
+
+    script(src='https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.js')
+    
+    //- script(src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js')
+    //- link(href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet')
+    
+    //- script(src='https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js')
+    //- link(href='https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css' rel='stylesheet')
+
+    
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+    script(src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/en.js")
+    // link(rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    //     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    //     crossorigin="")
+
+    // script(src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    //     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    //     crossorigin="")
+    
+
+    //- script(async='', src='https://www.googletagmanager.com/gtag/js?id=UA-140259454-1')
+    script.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'G-GLYPPRGJFQ');
+
+    
+    
+template(name='layout')
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
+    +nav
+    .global_container
+        +yield
+
+// template(name='nav')
+//     #topnav.topnav.ui.attached.borderless.four.item.menu.hscroll.clear
+//         if is_loading
+//             .icon.item
+//                 i.big.spinning.grey.yin.yang.icon.cancel
+//         else 
+//             a.icon.item.zoomer.locate(href='/' class="{{isActivePath '/'}}" title='peer to peer rentals')
+//                 //- i.marker.large.icon
+//                 i.shopping.cart.large.icon
+//                 // strong.mobile.hidden gold run
+//         if currentUser
+//             a.ui.icon.item.add_rental(title='add rental')
+//                 i.plus.large.icon
+//             a.ui.icon.item.alerts(title='alerts')
+//                 i.bell.large.icon
+//             // a.item(href="/user/#{current_user.username}/credit" class="{{isActiveRoute regex='user_credit'}}" title='your credits')
+//             a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title=user_nav_button_title)
+//                 // | {{fixed current_user.points}}p
+//                 if currentUser.image_id
+//                     img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200}}")
+//                 else
+//                     i.user.icon
+//                 span #{currentUser.username}
+//                     //- |${{int current_user.credit}}
+//                 |&nbsp;
+//                 | {{currentUser.points}}p
+//             //- else
+//             //-     a#logout.ui.mobile.hidden.icon.item(href='#' title='log out')
+//             //-         i.sign.out.icon
+//         else
+//             // unless current_user
+//             a.item(href='/login' title='enter') 
+//                 i.sign.in.large.icon
+//                 // +i name='internal'
+//                 //- |login
+
+
+// template(name='my_latest_activity')
+//     .ui.grey.header 
+//         i.grey.rss.icon
+//         |your activity
+//     .ui.list
+//         each my_latest_activity
+//             .item 
+//                 img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
+//                 |#{text} #{body}
+//                 small #{when}
+
+
+// template(name='latest_activity')
+//     .ui.header 
+//         +i name='order-history'
+//         | activity
+//     .ui.list
+//         each latest_activity
+//             .item 
+//                 img.ui.avatar.image(src="{{c.url author.image_id width=200 height=200 gravity='face' crop='fill'}}")
+//                 |#{text} #{body} 
+//                 .ui.label(title='log type') #{log_type}
+//                 small #{when}
+
+
+
+template(name='verification_confirmation')
+    .ui.text.container
+        h1.ui.header your email has been verified
+
+
+// template(name='map')
+//     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1527.9701169651082!2d-105.25585774191387!3d40.0097825492517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876bedc5f7dbe969%3A0x1315eee779732075!2sShadow%20Creek%20Dr%2C%20Boulder%2C%20CO%2080303!5e0!3m2!1sen!2sus!4v1632511679104!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+template(name='not_found')
+    .ui.center.aligned.padded.basic.segment
+        .ui.center.aligned.header 
+            +i name='marker'
+            |page not found
+        a.ui.button.fly_up(href="/") 
+          +i name='home' cl='ui avatar image' 
+          |home
+
+
+// template(name='key_value_edit')
+//     .ui.compact.button.set_key_value(class=set_key_value_class)
+//         if icon 
+//             +i name=icon cl='ui avatar image'
+//             // i.icon(class=icon)
+//         if label 
+//             |#{label}
+//         else 
+//             |#{value}
+
+
+// template(name='send_points_button')
+//     .ui.circular.button.send_points
+//         +i name='donate'
+//         |send points
+// template(name='request_button')
+//     .ui.button.request
+//         |request
+
+// template(name='session_key_value_edit')
+//     .ui.button.set_key_value(class=set_key_value_class)
+//         if key_value_is 'key' 'sort_key'
+//             if session_is 'sort_key' value
+//                 if sorting_up
+//                     i.sort.amount.down.icon
+//                 else
+//                     i.sort.amount.up.icon
+//         if icon 
+//             +i name=icon cl='ui avatar image'
+//             // i.icon(class=icon)
+//         |#{label}
+
+
+// template(name='limit_menu')
+//     .ui.inline.small.grey.header
+//         |limit
+//     .ui.compact.menu
+//         .ui.simple.dropdown.item
+//             strong #{current_limit}
+//             i.dropdown.icon
+//             .menu
+//                 +set_limit amount=1
+//                 +set_limit amount=5
+//                 +set_limit amount=10
+//                 +set_limit amount=20
+
+
+// template(name='set_limit')
+//     .ui.button.set_limit #{amount}
+
+
+// template(name='doc_array_togggle')
+//     if currentUser
+//         .ui.button.toggle(class=doc_array_toggle_class title=label)
+//             if in_list member_ids
+//                 if remove_icon
+//                     i.large.icon(class=remove_icon)
+//                 |#{remove_label}
+//             else
+//                 if add_icon
+//                     i.large.icon(class=add_icon)
+//                 |#{add_label}
+//             |#{label}
+//         //- each list_users
+//         //-     +user_info
