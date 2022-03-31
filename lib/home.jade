@@ -1,9 +1,10 @@
 template(name='home')
     .ui.stackable.padded.grid
-        .sixteen.wide.column
-            .ui.header gold run
-            .ui.header hot tub status
-            .ui.header latest posts
+        .eight.wide.column
+            .ui.yellow.massive.header change your coins to cash!
+        .eight.wide.column
+            .ui.rounded.blue.segment
+                
             .ui.list
                 each latest_posts
                     a.ui.item(href="/post/#{_id}")
