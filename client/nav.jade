@@ -22,8 +22,6 @@ template(name='nav')
         //         input.global_search(type='text' autocomplete="off" value=current_searchs)
         .right.menu
             if currentUser
-                .icon.item.add_post 
-                    i.large.plus.icon
                 a.icon.item(href="/inbox")
                     // i.large.inbox.icon
                     +i name='inbox'
@@ -43,14 +41,14 @@ template(name='nav')
                         i.user.icon
                     strong #{currentUser.name}
                     strong #{currentUser.points}p
-                // a.icon.item.toggle_rightbar.no_blink
-                //     // .ui.avatar.image
-                //     //     if currentUser.image_id
-                //     //         img.ui.mini.inline.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
-                //     //     else
-                //     //         i.user.large.icon
-                //     // strong.mobile.hidden #{currentUser.name}
-                //     i.bars.large.grey.icon
+                a.icon.item.toggle_rightbar.no_blink
+                    // .ui.avatar.image
+                    //     if currentUser.image_id
+                    //         img.ui.mini.inline.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    //     else
+                    //         i.user.large.icon
+                    // strong.mobile.hidden #{currentUser.name}
+                    i.bars.large.grey.icon
             // unless subs_ready
             //     .icon.item
             //         i.yin.yang.large.loading.icon
@@ -151,7 +149,7 @@ template(name='walletbar')
         .ui.header wallet
         
 template(name='right_sidebar')
-    .ui.right.sidebar.vertical.borderless.inverted.menu.rightbar
+    .ui.right.sidebar.vertical.borderless.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.name}
@@ -201,7 +199,7 @@ template(name='right_sidebar')
 
 
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.inverted.menu
+    .ui.left.sidebar.vertical.menu
         // a.item.toggle_leftbar.no_blink(href="/" class="{{isActiveRoute '/'}}")
         //     img.ui.avatar.compact.image(src="{{c.url 'one_logo' height=200 width=200 gravity='face' crop='fill'}}")
         //     |One
@@ -210,7 +208,7 @@ template(name='left_sidebar')
             +i name='creek'
             // i.home.icon
             // img.ui.small.centered.image(src="https://nudefoodsmarket.com/wp-content/uploads/2021/03/logo-smaller-300x87.jpg")
-            | Riverside
+            | Coinbox
         .search.item(title='search')
             .ui.icon.input
                 i.search.icon
