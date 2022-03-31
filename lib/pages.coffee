@@ -7,6 +7,10 @@ if Meteor.isClient
         @layout 'layout'
         @render 'about'
         ), name:'about'
+    Router.route '/contact', (->
+        @layout 'layout'
+        @render 'contact'
+        ), name:'contact'
         
     Template.faqs.onCreated ->
     Template.page.onCreated ->

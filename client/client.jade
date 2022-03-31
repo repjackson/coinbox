@@ -49,8 +49,12 @@ head
 template(name='layout')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
-    .global_container
-        +yield
+    .ui.bottom.attached.pushable.segment.scrollin
+        +topbar
+        +left_sidebar
+        +right_sidebar
+        .global_container
+            +yield
     +footer
     
     

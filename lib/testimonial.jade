@@ -1,93 +1,30 @@
 template(name='testimonials')
-    .ui.stackable.padded.grid 
-        .six.wide.column
-            .ui.inline.header 
-                +i name='blog'
-                |testimonials
+    .ui.stackable.padded.centered.grid 
+        .sixteen.wide.center.aligned.column
+            .ui.massive.header 
+                |Testimonials
             if currentUser
                 .ui.icon.button.add_testimonial
                     i.plus.large.icon
-            .ui.compact.button.toggle_yours
-                if viewing_yours
-                    i.undo.green.icon
-                else
-                    i.circle.outline.icon
-                |yours
-            each picked_tags
-                a.ui.blue.button.unpick_testimonial_tag
-                    |#{this}
-            each tag_results
-                // if title
-                a.ui.compact.button.pick_testimonial_tag
-                    |#{name} 
-                    // small.ui.grey.text #{count}
-        .ten.wide.column
-            +session_set key='view_mode' value='grid' icon='th'
-            +session_set key='view_mode' value='list' icon='list'
-            i.large.sort.icon
-            +session_set key='sort_key' value='_timestamp' label='added' icon='clock'
-            +session_set key='sort_key' value='points' label='points' icon='hashtag'
+        .twelve.wide.column
             .scrolling
                 // if subs_ready
-                .ui.centered.stackable.fluid.cards
+                .ui.centered.stackable.cards
                     each testimonial_docs 
                         +testimonial_card
                 // else 
                 //     i.massive.yin.yang.loading.icon
 
 
-template(name='set_testimonial_sort_key')
-    .item.set_sort
-        if color
-            .ui.label(class=color) #{label}
-        else 
-            if emoji
-                em(data-emoji=emoji)
-            else if icon
-                i.icon(class=icon)
-            |#{label}
-        
-        
-                
-                
-        
-        
-
-template(name='set_view_mode_testimonial')
-    .item.set_view
-        i.icon(class=icon)
-        |#{title}
-
-
-// template(name='set_limit')
-    .ui.compact.small.basic.button.set_limit #{amount}
-
-
-
 template(name='testimonial_card')
-    .ui.link.fluid.card.view_testimonial.pointer.fly_right
+    .ui.link.card.view_testimonial.pointer.fly_right
         img.ui.fluid.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
         .content
-            a.ui.header.zoomer(href="/testimonial/#{_id}") #{title}
-            if private 
-                i.large.lock.icon
+            a.ui.header(href="/testimonial/#{_id}") #{title}
             .ui.small.grey.inline.header #{when}
             | !{content}
             // +comments_view_small
             +author_info
-            if group_id     
-                +group_info
-            
-        
-template(name='testimonial_item')
-    .ui.fluid.segment.view_testimonial.pointer
-        a.ui.header(href="/testimonial/#{_id}/view") #{title}
-        div
-        .ui.small.grey.inline.header #{when}
-        | #{content}
-        each tags 
-            .ui.basic.small.label #{this}
-        
 
 template(name='testimonial_view')
     with current_doc
