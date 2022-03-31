@@ -7,10 +7,6 @@ if Meteor.isClient
         @layout 'layout'
         @render 'about'
         ), name:'about'
-    Router.route '/testimonials', (->
-        @layout 'layout'
-        @render 'testimonials'
-        ), name:'testimonials'
         
     Template.faqs.onCreated ->
     Template.page.onCreated ->
@@ -22,7 +18,7 @@ if Meteor.isClient
                 Docs.insert 
                     model:'post'
                     key:@key
-            Router.go "/post/#{new_id}"
+            Router.go "/post/#{new_id}/edit"
             
             
     Template.page.helpers

@@ -19,11 +19,14 @@ template(name='about')
 
 
 template(name='page')
-    with page_doc 
-        |!{content}
-        if currentUser 
-            a.ui.button(href="/post/#{_id}/edit")
-                i.large.pencil.icon
-    else 
-        .ui.button.create_doc
-            i.shield.icon
+    .ui.hidden.divider
+    .ui.container
+        with page_doc 
+            |!{content}
+            if currentUser 
+                a.ui.button(href="/post/#{_id}/edit")
+                    i.large.pencil.icon
+        else 
+            .ui.button.create_doc
+                i.shield.icon
+                |create '#{key}' page doc

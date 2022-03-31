@@ -1,11 +1,11 @@
-template(name='posts')
+template(name='testimonials')
     .ui.stackable.padded.grid 
         .six.wide.column
             .ui.inline.header 
                 +i name='blog'
-                |posts
+                |testimonials
             if currentUser
-                .ui.icon.button.add_post
+                .ui.icon.button.add_testimonial
                     i.plus.large.icon
             .ui.compact.button.toggle_yours
                 if viewing_yours
@@ -14,11 +14,11 @@ template(name='posts')
                     i.circle.outline.icon
                 |yours
             each picked_tags
-                a.ui.blue.button.unpick_post_tag
+                a.ui.blue.button.unpick_testimonial_tag
                     |#{this}
             each tag_results
                 // if title
-                a.ui.compact.button.pick_post_tag
+                a.ui.compact.button.pick_testimonial_tag
                     |#{name} 
                     // small.ui.grey.text #{count}
         .ten.wide.column
@@ -30,13 +30,13 @@ template(name='posts')
             .scrolling
                 // if subs_ready
                 .ui.centered.stackable.fluid.cards
-                    each post_docs 
-                        +post_card
+                    each testimonial_docs 
+                        +testimonial_card
                 // else 
                 //     i.massive.yin.yang.loading.icon
 
 
-template(name='set_post_sort_key')
+template(name='set_testimonial_sort_key')
     .item.set_sort
         if color
             .ui.label(class=color) #{label}
@@ -53,7 +53,7 @@ template(name='set_post_sort_key')
         
         
 
-template(name='set_view_mode_post')
+template(name='set_view_mode_testimonial')
     .item.set_view
         i.icon(class=icon)
         |#{title}
@@ -64,11 +64,11 @@ template(name='set_view_mode_post')
 
 
 
-template(name='post_card')
-    .ui.link.fluid.card.view_post.pointer.fly_right
+template(name='testimonial_card')
+    .ui.link.fluid.card.view_testimonial.pointer.fly_right
         img.ui.fluid.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
         .content
-            a.ui.header.zoomer(href="/post/#{_id}") #{title}
+            a.ui.header.zoomer(href="/testimonial/#{_id}") #{title}
             if private 
                 i.large.lock.icon
             .ui.small.grey.inline.header #{when}
@@ -79,9 +79,9 @@ template(name='post_card')
                 +group_info
             
         
-template(name='post_item')
-    .ui.fluid.segment.view_post.pointer
-        a.ui.header(href="/post/#{_id}/view") #{title}
+template(name='testimonial_item')
+    .ui.fluid.segment.view_testimonial.pointer
+        a.ui.header(href="/testimonial/#{_id}/view") #{title}
         div
         .ui.small.grey.inline.header #{when}
         | #{content}
@@ -89,19 +89,19 @@ template(name='post_item')
             .ui.basic.small.label #{this}
         
 
-template(name='post_view')
+template(name='testimonial_view')
     with current_doc
         .ui.stackable.padded.grid
             .row 
                 .four.wide.column.scrolling
-                    a.ui.circular.icon.button(href="/posts" title='posts')
+                    a.ui.circular.icon.button(href="/testimonials" title='testimonials')
                         i.chevron.left.icon
-                        +i name='post'
-                        |posts
+                        +i name='testimonial'
+                        |testimonials
                     .ui.inline.grey.header {{from_now start_datetime}}
                     
                     if can_edit
-                        a.ui.circular.icon.button.fly_down(href="/post/#{_id}/edit" title='edit')
+                        a.ui.circular.icon.button.fly_down(href="/testimonial/#{_id}/edit" title='edit')
                             +i name='pencil'
                     .ui.segment
                         .ui.header 
@@ -138,29 +138,16 @@ template(name='post_view')
 
 
 
-template(name='visibility_settings')
-    .ui.header 
-        i.eye.icon
-        |visibility settings
-    if private 
-        .ui.header 
-            i.lock.icon
-            |private
-    if friends_only
-        .ui.header 
-            +i name='friends'
-            |friends only
 
-
-template(name='post_edit')
+template(name='testimonial_edit')
     with current_doc
         .ui.stackable.padded.grid
             .two.column.row 
                 .column.scrolling
                     .ui.inline.header 
                         +icolor name='news' cl='ui image inline pointer'
-                        |edit post
-                    a.ui.icon.green.big.button(href="/post/#{_id}/view" title='save')
+                        |edit testimonial
+                    a.ui.icon.green.big.button(href="/testimonial/#{_id}/view" title='save')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     
@@ -168,7 +155,7 @@ template(name='post_edit')
                     if has_content
                         +html_edit key='content' label='content' direct=true
                 .column.scrolling
-                    i.large.link.red.remove.icon.delete_post
+                    i.large.link.red.remove.icon.delete_testimonial
                     if is_dev
                         +single_user_edit key='_author_id' label='author' direct=true
                     else 
