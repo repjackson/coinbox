@@ -7,10 +7,10 @@ template(name='nav')
         // else 
         a.icon.item.toggle_leftbar
             i.large.bars.icon
-        a.header.item.zoomer(href='/' class="{{isActivePath '/'}}" )
-            +i name='one-ring'
+        a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" )
+            // +i name='one-ring'
+            img.ui.image(src='logo.png')
             // i.large.home.icon
-            span.mobile.hidden coinbox
         a.icon.item.fly_right(href="/users" class="{{isActiveRoute 'users'}}" title='users')
             // i.large.users.icon
             +i name='groups'
