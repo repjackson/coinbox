@@ -137,21 +137,6 @@ template(name='org_view')
                     //-     |submit
 
 
-
-template(name='visibility_settings')
-    .ui.header 
-        i.eye.icon
-        |visibility settings
-    if private 
-        .ui.header 
-            i.lock.icon
-            |private
-    if friends_only
-        .ui.header 
-            +i name='friends'
-            |friends only
-
-
 template(name='org_edit')
     with current_doc
         .ui.stackable.padded.grid

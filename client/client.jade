@@ -55,6 +55,27 @@ template(name='layout')
     
     
 template(name='footer')
+    .ui.fluid.blue.inverted.segment.grid
+        .three.column.row
+            .column
+                .ui.header links
+            .column
+                .ui.dividing.header 
+                    |Customer Care
+                
+                .ui.link.big.inverted.list
+                    a.item(href="/charities") My Account
+                    a.item(href="/charities") Privacy Policy
+                    a.item(href="/charities") Terms & Conditions
+            .column
+                .ui.dividing.header
+                    |Company Information
+                .ui.link.big.inverted.list
+                    a.item(href="/charities") Contact Us
+                    a.item(href="/charities") About Us
+                    a.item(href="/charities") Testimonials
+                    a.item(href="/charities") Corporate Services
+                    a.item(href="/charities") Charities
 
 template(name='verification_confirmation')
     .ui.text.container

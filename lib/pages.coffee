@@ -7,9 +7,9 @@ if Meteor.isClient
         @layout 'layout'
         @render 'about'
         ), name:'about'
-    Router.route '/charities', (->
+    Router.route '/testimonials', (->
         @layout 'layout'
-        @render 'charities'
-        ), name:'charities'
+        @render 'testimonials'
+        ), name:'testimonials'
         
     Template.faqs.onCreated ->
