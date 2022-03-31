@@ -1,11 +1,72 @@
 template(name='home')
+    if currentUser
+        +user_dashboard
+    else 
+        +landing_page
+    
+    
+template(name='landing_page')    
     .ui.stackable.padded.grid
         .eight.wide.column
             .ui.yellow.massive.header change your coins to cash!
+            .ui.header Do you need cash? Do you have coins just sitting around? 
+            .ui.header Here’s an easy way to turn your coins into cash!
+            a.ui.rounded.blue.button(href="/about")
+                |Learn More
+            a.ui.rounded.blue.button(href="/login")
+                |Login or Register
         .eight.wide.column
             .ui.rounded.blue.segment
-                
+                .ui.stackable.grid 
+                    .sixteen.wide.column 
+                        .ui.inverted.form
+                            .two.fields
+                                .field
+                                    label first name
+                                    .ui.input 
+                                        input.first_name(type='text')
+                                .field
+                                    label last name
+                                    .ui.input 
+                                        input.last_name(type='text')
+                                
+                            .field
+                                label email
+                                .ui.input 
+                                    input(type='text')
+                            .field 
+                                label phone number
+                                .ui.input 
+                                    input(type='text')
+                            .field 
+                                label address
+                                .ui.input 
+                                    input(type='text')
+                            .field 
+                                label city
+                                .ui.input 
+                                    input(type='text')
+                            .field 
+                                label username
+                                .ui.input 
+                                    input.username(type='text')
+                            .field 
+                                label password
+                                .ui.input 
+                                    input.password(type='password')
+                    .sixteen.wide.column 
+                        .ui.small.header payment information
+                        .ui.small.header Preferred Payment Received Method (Select One)
+                    .ui.fluid.green.button.sign_up
+                        |sign up
             .ui.list
                 each latest_posts
                     a.ui.item(href="/post/#{_id}")
                         |#{title}
+                        
+                        
+template(name='user_dashboard')
+    .ui.sixteen.wide.column
+        .ui.header 
+            +i name='dashboard'
+            |user dashboard

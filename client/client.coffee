@@ -49,6 +49,26 @@ Template.nav.events
     #         Session.set('current_lat', position.coords.latitude)
     #         Session.set('current_long', position.coords.longitude)
 
+
+Template.home.events
+    'click .sign_up': ->
+        username = $('.username').val().trim()
+        password = $('.password').val().trim()
+        options = {
+            username:username
+            password:password
+            }
+        
+        if username
+            Meteor.call 'create_user', options, (err,res)=>
+                if err
+                    alert err
+                else
+                    console.log res
+                    console.log username
+                    Router.go "/user/#{username}"
+            
+
 Template.layout.events
     'click .fly_up': (e,t)->
         # console.log 'hi'
