@@ -136,7 +136,7 @@ body {
 }
 
 .rounded {
-    /* border-radius: 10px !important; */
+     border-radius: 10px !important; 
 }
 
 .spacer{
@@ -498,7 +498,7 @@ input.username_search{
     margin:2px !important;
     opacity:.9 !important;
     /*font-family: 'Ubuntu', sans-serif !important;*/
-    border-radius: 20px !important; 
+    /*border-radius: 20px !important; */
 }
 
 .disabled.button, .disabled.segment, .disabled.label{

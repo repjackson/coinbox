@@ -1,9 +1,29 @@
 template(name='faqs')
     .ui.padded.grid
-        .sixteen.wide.column
-            .ui.header faqs
-            .ui.header got questions?
-            .ui.header we can help!
-            .ui.input
-                input(type='text')
-        
+        .sixteen.wide.center.aligned.column
+            .ui.header 
+                |Home > faqs
+            .ui.header Got questions?
+            .ui.massive.header We can help!
+            .ui.action.input
+                input(type='text' placeholder='Ask a question...')
+                .ui.yellow.button
+                    |Search
+            if currentUser 
+                .ui.button.add_faq
+                    i.plus.icon
+                    
+                    
+template(name='about')
+    +page key='about'
+
+
+template(name='page')
+    with page_doc 
+        |!{content}
+        if currentUser 
+            a.ui.button(href="/post/#{_id}/edit")
+                i.large.pencil.icon
+    else 
+        .ui.button.create_doc
+            i.shield.icon
