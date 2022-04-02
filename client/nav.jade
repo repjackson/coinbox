@@ -1,6 +1,6 @@
 template(name='nav')
     // https://fomantic-ui.com/elements/icon.html#/icon
-    #topnav.topnav.ui.attached.borderless.menu.hscroll
+    #topnav.topnav.ui.attached.borderless.blue.menu.hscroll
         // if is_loading
         //     .icon.item
         //         i.big.loading.grey.refresh.icon.cancel
@@ -199,7 +199,7 @@ template(name='right_sidebar')
 
 
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.menu
+    .ui.left.sidebar.vertical.blue.inverted.menu
         // a.item.toggle_leftbar.no_blink(href="/" class="{{isActiveRoute '/'}}")
         //     img.ui.avatar.compact.image(src="{{c.url 'one_logo' height=200 width=200 gravity='face' crop='fill'}}")
         //     |One
@@ -219,11 +219,27 @@ template(name='left_sidebar')
         //         img.ui.avatar.image(src="https://www.lefrenchcafeboulder.com/images/logo.svg")
         a.item.toggle_leftbar(href='/events' class="{{isActivePath '/events'}}" title='events')
             +i name='calendar'
-            |events
-        a.item.toggle_leftbar(href='/orders' class="{{isActivePath '/orders'}}" title='orders')
-            +i name='invoice'
+            |My Account
+        a.item.toggle_leftbar(href='/settings' class="{{isActivePath '/settings'}}" title='orders')
+            // +i name='invoice'
             // i.large.money.icon
-            | orders
+            | Settings
+        a.item.toggle_leftbar(href='/faqs' class="{{isActivePath '/faqs'}}" title='orders')
+            // +i name='invoice'
+            // i.large.money.icon
+            | FAQ
+        a.item.toggle_leftbar(href='/faqs' class="{{isActivePath '/faqs'}}" title='orders')
+            // +i name='invoice'
+            // i.large.money.icon
+            | CoinBoxForCash
+        a.item.toggle_leftbar(href='/charities' class="{{isActivePath '/charities'}}" title='orders')
+            // +i name='invoice'
+            // i.large.money.icon
+            | Charities
+        a.item.toggle_leftbar(href='/blog' class="{{isActivePath '/blog'}}" title='orders')
+            // +i name='invoice'
+            // i.large.money.icon
+            | Blog
         //         // i.newspaper.icon
         //         strong.mobile.hidden get involved
         if is_in_admin
