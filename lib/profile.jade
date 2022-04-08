@@ -20,6 +20,10 @@ template(name='profile')
                     a.ui.large.button(href="/user/#{username}/edit" title='profile settings')
                         i.cog.icon
                         |account
+                    if admin 
+                        .ui.header 
+                            i.shield.icon
+                            |admin
                     // else if is_admin
                     //     a.ui.icon.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                     //         +i name='settings' cl='ui avatar image'
