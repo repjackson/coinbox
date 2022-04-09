@@ -11,6 +11,10 @@ if Meteor.isClient
         @layout 'layout'
         @render 'contact'
         ), name:'contact'
+    Router.route '/get_started', (->
+        @layout 'layout'
+        @render 'get_started'
+        ), name:'get_started'
         
     Template.faqs.onCreated ->
     Template.page.onCreated ->

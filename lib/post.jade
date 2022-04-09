@@ -164,9 +164,7 @@ template(name='post_edit')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     
-                    +boolean_edit key='has_content' label='has content' icon='content' direct=true
-                    if has_content
-                        +html_edit key='content' label='content' direct=true
+                    +html_edit key='content' label='content' direct=true
                 .column.scrolling
                     i.large.link.red.remove.icon.delete_post
                     if is_dev
@@ -175,9 +173,7 @@ template(name='post_edit')
                         .ui.header 
                             small author
                             |#{_author.username}
-                    +boolean_edit key='has_image' label='has image' icon='content' direct=true
-                    if has_image
-                        +image_edit key='image_id' label='image' direct=true
+                    +image_edit key='image_id' label='image' direct=true
                     div 
                     +array_edit key='tags' label='tags' direct=true icon='tags'
                     +boolean_edit key='published' icon='visible' direct=true
