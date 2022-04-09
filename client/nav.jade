@@ -82,6 +82,10 @@ template(name='nav')
                 // i.large.fire.icon
                 +i name='exchange'
                 span.mobile.hidden transfers
+            a.icon.item.fly_right(href="/orders" class="{{isActiveRoute 'orders'}}" title='orders')
+                // i.large.fire.icon
+                +i name='order-history'
+                span.mobile.hidden orders
             a.icon.item.fly_right(href="/tasks" class="{{isActiveRoute 'tasks'}}" title='tasks')
                 // i.large.fire.icon
                 +i name='tasks'
