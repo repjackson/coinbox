@@ -13,13 +13,13 @@ template(name='nav')
             // i.large.home.icon
         // // .icon.item 
         // //     i.large.search.icon
-        // .search.item.zoomer.mobile.hidden(title='search')
-        //     .ui.icon.transparent.input
-        //         if current_product_search
-        //             i.remove.large.red.link.icon.clear_search
-        //         else
-        //             i.search.large.icon
-        //         input.global_search(type='text' autocomplete="off" value=current_searchs)
+        .search.item.zoomer.mobile.hidden(title='search')
+            .ui.icon.transparent.input
+                if current_product_search
+                    i.remove.large.red.link.icon.clear_search
+                else
+                    i.search.large.icon
+                input.global_search(type='text' autocomplete="off" value=current_searchs)
         .right.menu
             if currentUser
                 a.icon.item(href="/inbox")
@@ -34,6 +34,7 @@ template(name='nav')
                     +i name='notification'
                 // a.item(href='/user/#{currentUser.username}/credit' class="{{isActiveRoute 'user_credit'}}" title='current wallet balance')
                 // a.item(href="/user/#{currentUser.username}/credit" class="{{isActiveRoute regex='user_credit'}}" title='your credits')
+                
                 a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title='profile')
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
@@ -77,10 +78,18 @@ template(name='nav')
                 // i.large.fire.icon
                 +i name='campfire'
                 span.mobile.hidden groups
+            a.icon.item.fly_right(href="/transfers" class="{{isActiveRoute 'transfers'}}" title='transfers')
+                // i.large.fire.icon
+                +i name='exchange'
+                span.mobile.hidden transfers
             a.icon.item.fly_right(href="/tasks" class="{{isActiveRoute 'tasks'}}" title='tasks')
                 // i.large.fire.icon
                 +i name='tasks'
                 span.mobile.hidden tasks
+            a.icon.item.fly_right(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" title='testimonials')
+                // i.large.fire.icon
+                +i name='megaphone'
+                span.mobile.hidden testimonials
             a.icon.item.fly_right(href="/users" class="{{isActiveRoute 'users'}}" title='users')
                 // i.large.users.icon
                 +i name='groups'
