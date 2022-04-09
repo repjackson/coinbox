@@ -64,22 +64,22 @@ template(name='footer')
             .column
                 .ui.header links
             .column
-                .ui.dividing.header 
+                .ui.dividing.inverted.header 
                     |Customer Care
                 
                 .ui.link.big.inverted.list
-                    a.item(href="/account") My Account
-                    a.item(href="/privacy") Privacy Policy
-                    a.item(href="/terms") Terms & Conditions
+                    a.item(href="/account" class="{{isActiveRoute 'transfers'}}" ) My Account
+                    a.item(href="/privacy" class="{{isActiveRoute 'privacy'}}" ) Privacy Policy
+                    a.item(href="/terms" class="{{isActiveRoute 'terms'}}" ) Terms & Conditions
             .column
-                .ui.dividing.header
+                .ui.dividing.inverted.header
                     |Company Information
                 .ui.link.big.inverted.list
-                    a.item(href="/contact") Contact Us
-                    a.item(href="/about") About Us
-                    a.item(href="/testimonials") Testimonials
-                    a.item(href="/corporate_services") Corporate Services
-                    a.item(href="/charities") Charities
+                    a.item(href="/contact" class="{{isActiveRoute 'contact'}}" ) Contact Us
+                    a.item(href="/about" class="{{isActiveRoute 'about'}}" ) About Us
+                    a.item(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" ) Testimonials
+                    a.item(href="/corporate_services" class="{{isActiveRoute 'corporate_services'}}" ) Corporate Services
+                    a.item(href="/charities" class="{{isActiveRoute 'charities'}}" ) Charities
 
 template(name='verification_confirmation')
     .ui.text.container

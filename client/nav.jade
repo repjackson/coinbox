@@ -38,7 +38,8 @@ template(name='nav')
                     else
                         i.user.icon
                     strong #{currentUser.name}
-                    strong #{currentUser.points}p
+                    |&nbsp;
+                    small (#{currentUser.points}p)
                 a.icon.item.toggle_rightbar.no_blink
                     // .ui.avatar.image
                     //     if currentUser.image_id
@@ -51,11 +52,11 @@ template(name='nav')
                 .icon.item
                     i.yin.yang.large.loading.icon
             unless currentUser
-                .item 
+                a.item(href='/get-started' class="{{isActiveRoute 'get-started'}}" )
                     |Get Started
-                a.item(href="/faqs")
+                a.item(href="/faqs" class="{{isActiveRoute 'faqs'}}" )
                     |FAQs
-                a.item(href="/about")
+                a.item(href="/about" class="{{isActiveRoute 'about'}}" )
                     |About
                 // a.item(href="/register" title='register')
                 //     +i name='plus'
