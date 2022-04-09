@@ -437,7 +437,7 @@ body {
 
 
 input{
-    border-radius: 20px !important;
+    border-radius: 7px !important;
 }
 input:not(.no_format){
     /*border-radius: 10px !important;*/

@@ -43,7 +43,7 @@ if Meteor.isClient
                         title: "logged in"
                         # message: 'Please see desk staff for key.'
                         class : 'success'
-                        # position:'top center'
+                        position:'bottom center'
                         # className:
                         #     toast: 'ui massive message'
                         # displayTime: 5000

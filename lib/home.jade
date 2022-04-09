@@ -6,59 +6,69 @@ template(name='home')
     
     
 template(name='landing_page')    
-    .ui.stackable.padded.grid
-        .eight.wide.column
-            .ui.yellow.massive.header change your coins to cash!
-            .ui.header Do you need cash? Do you have coins just sitting around? 
-            .ui.header Here’s an easy way to turn your coins into cash!
-            a.ui.rounded.blue.button.fly_right(href="/about")
-                |Learn More
-            a.ui.rounded.blue.button.fly_right(href="/login")
-                |Login or Register
-        .eight.wide.column
+    .ui.stackable.padded.centered.grid
+        .seven.wide.column
+            .ui.basic.segment
+                .ui.yellow.massive.header Change your Coins to Cash!
+                .ui.header Do you need cash? Do you have coins just sitting around? 
+                .ui.header Here’s an easy way to turn your coins into cash!
+                .ui.header Coin Box for Cash is a safe, reliable and secure coin counting service.
+
+                a.ui.rounded.blue.button.fly_right(href="/about")
+                    |Learn More
+                a.ui.rounded.yellow.button.fly_right(href="/login")
+                    |Login or Register
+        .seven.wide.column
             .ui.rounded.blue.segment
                 .ui.stackable.grid 
                     .sixteen.wide.column 
                         .ui.inverted.form
                             .two.fields
                                 .field
-                                    label first name
+                                    label First Name
                                     .ui.input 
                                         input.first_name(type='text')
                                 .field
-                                    label last name
+                                    label Last Name
                                     .ui.input 
                                         input.last_name(type='text')
                                 
                             .field
-                                label email
+                                label Email
+                                    span.ui.red.text *
                                 .ui.input 
                                     input(type='text')
                             .field 
-                                label phone number
+                                label Phone Number
                                 .ui.input 
-                                    input(type='text')
+                                    input(type='text' placeholder='Phone Number')
+                            .two.fields
+                                .field 
+                                    label Street Address
+                                    .ui.input 
+                                        input(type='text')
+                                .field 
+                                    label Suite/Apt #
+                                    .ui.input 
+                                        input(type='number')
                             .field 
-                                label address
-                                .ui.input 
-                                    input(type='text')
-                            .field 
-                                label city
-                                .ui.input 
-                                    input(type='text')
-                            .field 
-                                label username
+                                label 
+                                    i.user.grey.icon
+                                    |Username
                                 .ui.input 
                                     input.username(type='text')
                             .field 
-                                label password
+                                label 
+                                    i.lock.grey.icon
+                                    |Password
                                 .ui.input 
                                     input.password(type='password')
                     .sixteen.wide.column 
-                        .ui.small.header payment information
+                        .ui.small.header Payment Information
                         .ui.small.header Preferred Payment Received Method (Select One)
-                    .ui.fluid.green.button.sign_up
-                        |sign up
+                    .ui.center.aligned.basic.segment
+                        .ui.massive.yellow.rounded.center.aligned.button.sign_up
+                            |Get Cash Now
             .ui.list
                 each latest_posts
                     a.ui.item(href="/post/#{_id}")
