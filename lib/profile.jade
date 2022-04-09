@@ -69,25 +69,27 @@ template(name='profile')
                                         |#{title}
                                         strong #{daily_rate}p/day
                 .column
-                    .ui.header 
-                        +i name='order-history'
-                        |rented to
-                    .ui.items
-                        each received_orders
-                            +profile_order_item
-                .column
-                    .ui.header 
-                        +i name='clock'
-                        |rented from
-                    .scrolling
-                        .ui.items
-                            each purchased_orders
-                                +profile_order_item
-                        
+                    +transfers
     else 
         .ui.basic.center.aligned.segment
             i.massive.loading.refresh.icon
                             
+
+template(name='user_transfers')
+    .ui.header 
+        +i name='order-history'
+        |transfers out
+    .ui.items
+        each transfer_out_docs
+            +transfer_item
+    .ui.header 
+        +i name='clock'
+        |transfers in
+    .ui.items
+        each tranfer_in_docs
+            +transfer_item
+
+
 
 
 template(name='logout_other_clients_button')

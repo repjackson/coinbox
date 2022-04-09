@@ -16,6 +16,11 @@ Template.registerHelper 'current_long', () ->
 # Template.registerHelper 'current_username', () ->
 #     Router.current().params.username
 
+
+Template.registerHelper 'subs_ready', () ->
+    Template.instance().subscriptionsReady()
+
+
 Template.registerHelper 'rental', () ->
     Docs.findOne @rental_id
     # Template.parentData()
