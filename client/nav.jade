@@ -1,6 +1,6 @@
 template(name='nav')
     // https://fomantic-ui.com/elements/icon.html#/icon
-    #topnav.topnav.ui.attached.borderless.blue.inverted.menu.hscroll
+    #topnav.topnav.ui.attached.borderless.menu.hscroll
         // if is_loading
         //     .icon.item
         //         i.big.loading.grey.refresh.icon.cancel
@@ -8,7 +8,7 @@ template(name='nav')
         a.icon.item.toggle_leftbar
             i.large.bars.icon
         a.pointer(href='/' class="{{isActivePath '/'}}" )
-            img.ui.link.image(src='logo.png')
+            img.ui.image(src="{{c.url 'coinbox_logo'}}")
             // +i name='one-ring'
             // i.large.home.icon
         // // .icon.item 
@@ -69,7 +69,7 @@ template(name='nav')
                         // +i name='internal'
                         span.mobile.hidden Login
     if currentUser 
-        .ui.attached.menu
+        .ui.attached.inverted.blue.menu
             a.icon.item.fly_right(href="/posts" class="{{isActiveRoute 'posts'}}" title='posts')
                 // i.large.users.icon
                 +i name='blog'
@@ -162,7 +162,7 @@ template(name='walletbar')
         .ui.header wallet
         
 template(name='right_sidebar')
-    .ui.right.sidebar.vertical.borderless.menu.rightbar
+    .ui.right.sidebar.vertical.borderless.inverted.blue.large.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.name}
