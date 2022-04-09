@@ -1,6 +1,6 @@
 template(name='nav')
     // https://fomantic-ui.com/elements/icon.html#/icon
-    #topnav.topnav.ui.attached.borderless.blue.menu.hscroll
+    #topnav.topnav.ui.attached.borderless.blue.inverted.menu.hscroll
         // if is_loading
         //     .icon.item
         //         i.big.loading.grey.refresh.icon.cancel
@@ -22,16 +22,16 @@ template(name='nav')
                 input.global_search(type='text' autocomplete="off" value=current_searchs)
         .right.menu
             if currentUser
-                a.icon.item(href="/inbox")
+                a.icon.item(href="/inbox" class="{{isActivePath '/inbox'}}")
                     // i.large.inbox.icon
                     +i name='inbox'
-                a.icon.item(href="/chat")
+                a.icon.item(href="/chat" class="{{isActivePath '/chat'}}")
                     // i.large.inbox.icon
                     +i name='chat'
-                a.item.toggle_topbar.mobile.hidden(title='alerts')
-                    // i.wallet.icon
-                    // .ui.avatar.image.bell
-                    +i name='notification'
+                // a.item.toggle_topbar.mobile.hidden(title='alerts')
+                //     // i.wallet.icon
+                //     // .ui.avatar.image.bell
+                //     +i name='notification'
                 // a.item(href='/user/#{currentUser.username}/credit' class="{{isActiveRoute 'user_credit'}}" title='current wallet balance')
                 // a.item(href="/user/#{currentUser.username}/credit" class="{{isActiveRoute regex='user_credit'}}" title='your credits')
                 

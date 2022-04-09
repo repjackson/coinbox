@@ -3,9 +3,9 @@ template(name='login')
         .centered.row
             .eight.wide.column
                 .ui.center.aligned.basic.segment
-                    +ibig name='gold-hallmark' class='spinning' cl='ui inline image'
+                    img.ui.avatar.image(src="{{c.url coinbox_logo}}")
                     .ui.inline.big.header
-                        | login
+                        | Coinbox login
                 .ui.inline.small.header 
                     +i name='user-male'
                     |username
