@@ -1,9 +1,9 @@
 template(name='posts')
     .ui.stackable.padded.grid 
-        .six.wide.column
+        .four.wide.column
             .ui.inline.header 
                 +i name='blog'
-                |posts
+                |blog
             if currentUser
                 .ui.icon.button.add_post
                     i.plus.large.icon
@@ -21,7 +21,7 @@ template(name='posts')
                 a.ui.compact.button.pick_post_tag
                     |#{name} 
                     // small.ui.grey.text #{count}
-        .ten.wide.column
+        .twelve.wide.column
             +session_set key='view_mode' value='grid' icon='th'
             +session_set key='view_mode' value='list' icon='list'
             i.large.sort.icon

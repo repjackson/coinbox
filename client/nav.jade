@@ -232,23 +232,22 @@ template(name='left_sidebar')
             +i name='calendar'
             |My Account
         a.item.toggle_leftbar(href='/settings' class="{{isActivePath '/settings'}}" title='orders')
-            // +i name='invoice'
+            +i name='settings'
             // i.large.money.icon
             | Settings
         a.item.toggle_leftbar(href='/faqs' class="{{isActivePath '/faqs'}}" title='orders')
-            // +i name='invoice'
-            // i.large.money.icon
+            +i name='faq'
             | FAQ
         a.item.toggle_leftbar(href='/faqs' class="{{isActivePath '/faqs'}}" title='orders')
-            // +i name='invoice'
+            +i name='invoice'
             // i.large.money.icon
             | CoinBoxForCash
         a.item.toggle_leftbar(href='/charities' class="{{isActivePath '/charities'}}" title='orders')
-            // +i name='invoice'
+            +i name='globe'
             // i.large.money.icon
             | Charities
         a.item.toggle_leftbar(href='/blog' class="{{isActivePath '/blog'}}" title='orders')
-            // +i name='invoice'
+            +i name='blog'
             // i.large.money.icon
             | Blog
         //         // i.newspaper.icon

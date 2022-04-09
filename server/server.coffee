@@ -114,12 +114,13 @@ Meteor.publish 'doc', (doc_id)->
 
 Meteor.publish 'author_from_doc_id', (doc_id)->
     doc = Docs.findOne doc_id
-    Docs.find user_id
+    Meteor.users.find doc._author_id
 
 Meteor.publish 'page', (slug)->
-    Docs.find
-        model:'page'
-        slug:slug
+    if slug
+        Docs.find
+            model:'page'
+            slug:slug
 
 
 Meteor.publish 'results', (

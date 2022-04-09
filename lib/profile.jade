@@ -29,18 +29,27 @@ template(name='profile')
                     //         +i name='settings' cl='ui avatar image'
                     if is_current_user
                         +logout_button
-                        //- +logout_other_clients_button
+                        +logout_other_clients_button
                     if in_dev 
                         +print_this
-                    // +send_points_button
+                    +send_points_button
                     // +request_button
-                    // i.refresh.link.icon.calc_user_points
+                    i.refresh.link.icon.calc_user_points
                 if is_current_user
                     .column
+                        .ui.header
+                            +i name='globe'
+                            #{carbon_offests_generated} #lbs carbon offset 
+                        .ui.header
+                            +i name='money'
+                            #{carbon_offests_generated} fiat balance 
+                        .ui.header
+                            +i name='cube'
+                            #{carbon_offests_generated} box coin balance 
                         .ui.header 
                             +i name='donate'
                             |deposits
-                        // |includes 2% points card processing fee
+                        |includes 2% points card processing fee
                         .ui.action.fluid.input
                             input.deposit_amount(type='number' min='1' placeholder='deposit')
                             .ui.icon.button.add_points   
@@ -55,6 +64,7 @@ template(name='profile')
                                         .description #{when} {{long_date _timestamp}}
                                         //- if is_dev
                                         +remove_button
+                        +user_transfers
                                         
                 .column
                     .ui.header 
@@ -68,8 +78,6 @@ template(name='profile')
                                     .title 
                                         |#{title}
                                         strong #{daily_rate}p/day
-                .column
-                    +transfers
     else 
         .ui.basic.center.aligned.segment
             i.massive.loading.refresh.icon
