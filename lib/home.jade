@@ -25,9 +25,7 @@ template(name='landing_page')
                 
         .seven.wide.column
             .ui.rounded.blue.segment
-                .ui.stackable.grid 
-                    .sixteen.wide.column 
-                        .ui.inverted.big.form
+                .ui.inverted.big.form
                             .two.fields
                                 .field
                                     label First Name
@@ -68,16 +66,37 @@ template(name='landing_page')
                                     |Password
                                 .ui.input 
                                     input.password(type='password')
-                    .sixteen.wide.column 
-                        .ui.small.header Payment Information
-                        .ui.small.header Preferred Payment Received Method (Select One)
-                    .ui.center.aligned.basic.segment
-                        .ui.massive.yellow.rounded.center.aligned.button.sign_up
-                            |Get Cash Now
-            .ui.list
-                each latest_posts
-                    a.ui.item(href="/post/#{_id}")
-                        |#{title}
+                .ui.small.header Payment Information
+                .ui.small.header Preferred Payment Received Method (Select One)
+                .ui.center.aligned.basic.segment
+                    .ui.massive.yellow.rounded.center.aligned.button.sign_up
+                        |Get Cash Now
+        .sixteen.wide.column
+            .ui.dividing.center.aligned.header 
+                |How it Works
+            .ui.massive.center.aligned.header Find out what works, and do more of that
+            .ui.stackable.grid 
+                .three.column.row
+                    .column
+                        .ui.header Step 1
+                        |Log In or Register and request your free coin mailer!
+                    .column
+                        .ui.header Step 2
+                        |Place and seal your coins in the return mailer and send it to us free of charge!
+                    .column
+                        .ui.header Step 3
+                        |We will pay you the value of your coins
+            .ui.center.aligned.basic.segment 
+                .ui.big.yellow.rounded.button
+                    |How to Package
+            .ui.center.aligned.header
+                |Why Choose Us
+                    
+
+            // .ui.list
+            //     each latest_posts
+            //         a.ui.item(href="/post/#{_id}")
+            //             |#{title}
                         
                         
 template(name='user_dashboard')
