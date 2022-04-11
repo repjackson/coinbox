@@ -5,11 +5,12 @@ template(name='home')
         +landing_page
     
     
-template(name='landing_page')    
+template(name='landing_page')
+    img.ui.fluid.image.checkin_banner(src="{{c.url 'footer_logo' width=1000 height=1000 crop='crop'}}")
     .ui.stackable.padded.centered.grid
         .seven.wide.column
             .ui.basic.segment
-                .ui.yellow.massive.header Change your Coins to Cash!
+                .ui.yellow.massive.header(style="color: #feb100;") Change your Coins to Cash!
                 .ui.header Do you need cash? Do you have coins just sitting around? 
                 .ui.header Here’s an easy way to turn your coins into cash!
                 .ui.header Coin Box for Cash is a safe, reliable and secure coin counting service.
@@ -18,6 +19,10 @@ template(name='landing_page')
                     |Learn More
                 a.ui.rounded.yellow.button.fly_right(href="/login")
                     |Login or Register
+            video(width="100%" controls autoplay)
+                source(src="https://res.cloudinary.com/facet/video/upload/v1649476932/CB4C-Animation-Video-1_kch3jg.mp4" type="video/mp4")
+    
+                
         .seven.wide.column
             .ui.rounded.blue.segment
                 .ui.stackable.grid 

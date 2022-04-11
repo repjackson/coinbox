@@ -136,7 +136,7 @@ body {
 }
 
 .rounded {
-     border-radius: 10px !important; 
+     border-radius: 15px !important; 
 }
 
 .spacer{
@@ -435,6 +435,17 @@ body {
     color: rgba(43, 33, 0, .9) !important;
 }
 
+.checkin_banner {
+    background-attachment: fixed !important;
+    position: absolute !important;
+    max-height: 100% !important;
+    /* max-height: 1000px !important; */
+    /* top:0px; */
+    /* filter: invert(1); */
+    opacity: 0.08;
+    -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+}
 
 input{
     border-radius: 7px !important;
