@@ -2,7 +2,7 @@ template(name='profile')
     img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     with user_from_username_param
         .ui.stackable.padded.grid
-            .three.column.row
+            .four.column.row
                 //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                 .column
                     a.item(href="/user/#{username}")
@@ -39,13 +39,13 @@ template(name='profile')
                     .column
                         .ui.header
                             +i name='globe'
-                            #{carbon_offests_generated} #lbs carbon offset 
+                            |#{carbon_offests_generated} #lbs carbon offset 
                         .ui.header
                             +i name='money'
-                            #{carbon_offests_generated} fiat balance 
+                            |#{carbon_offests_generated} fiat balance 
                         .ui.header
                             +i name='cube'
-                            #{carbon_offests_generated} box coin balance 
+                            |#{carbon_offests_generated} box coin balance 
                         .ui.header 
                             +i name='donate'
                             |deposits

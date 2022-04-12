@@ -1,9 +1,9 @@
 template(name='orgs')
     .ui.stackable.padded.grid 
-        .six.wide.column
+        .four.wide.column
             .ui.inline.header 
                 +i name='blog'
-                |orgs
+                |organizations
             if currentUser
                 .ui.icon.button.add_org
                     i.plus.large.icon
@@ -21,7 +21,7 @@ template(name='orgs')
                 a.ui.compact.button.pick_org_tag
                     |#{name} 
                     // small.ui.grey.text #{count}
-        .ten.wide.column
+        .twelve.wide.column
             +session_set key='view_mode' value='grid' icon='th'
             +session_set key='view_mode' value='list' icon='list'
             i.large.sort.icon
@@ -65,14 +65,15 @@ template(name='set_view_mode_org')
 
 
 template(name='org_card')
-    .ui.link.fluid.card.view_org.pointer.fly_right
-        img.ui.fluid.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+    .ui.link.card.view_org.pointer.fly_right
+        img.ui.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
         .content
             a.ui.header.zoomer(href="/org/#{_id}") #{title}
             if private 
                 i.large.lock.icon
-            .ui.small.grey.inline.header #{when}
-            | !{content}
+            // .ui.small.grey.inline.header #{when}
+            .smallscroll
+                | !{content}
             // +comments_view_small
             +author_info
             if group_id     

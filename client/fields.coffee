@@ -64,7 +64,10 @@ Template.color_edit.events
         if doc
             Docs.update parent._id,
                 $set:"#{@key}":val
-
+        else 
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
+                
 
 
 Template.html_edit.onRendered ->
@@ -398,13 +401,11 @@ Template.boolean_edit.helpers
 Template.boolean_edit.events
     'click .toggle_boolean': (e,t)->
         parent = Template.parentData()
-        $(e.currentTarget).closest('.button').transition('pulse', 100)
+        # $(e.currentTarget).closest('.button').transition('pulse', 100)
+
         doc = Docs.findOne parent._id
         if doc
             Docs.update parent._id,
-                $set:"#{@key}":!parent["#{@key}"]
-        else 
-            Meteor.users.update parent._id,
                 $set:"#{@key}":!parent["#{@key}"]
 
 Template.single_doc_view.onCreated ->
@@ -561,6 +562,7 @@ Template.single_user_edit.events
             Meteor.call 'lookup_user', search_value, @role_filter, (err,res)=>
                 if err then console.error err
                 else
+                    console.log res
                     t.user_results.set res
 
     'click .select_user': (e,t) ->
