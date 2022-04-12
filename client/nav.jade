@@ -88,6 +88,18 @@ template(name='nav')
                 // i.large.fire.icon
                 +i name='tasks'
                 span.mobile.hidden tasks
+            a.icon.item.fly_right(href="/products" class="{{isActiveRoute 'products'}}" title='products')
+                // i.large.fire.icon
+                +i name='products'
+                span.mobile.hidden shop
+            a.icon.item.fly_right(href="/services" class="{{isActiveRoute 'services'}}" title='services')
+                // i.large.fire.icon
+                +i name='services'
+                span.mobile.hidden shop
+            a.icon.item.fly_right(href="/events" class="{{isActiveRoute 'events'}}" title='events')
+                // i.large.fire.icon
+                +i name='calendar'
+                span.mobile.hidden events
             a.icon.item.fly_right(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" title='testimonials')
                 // i.large.fire.icon
                 +i name='megaphone'
