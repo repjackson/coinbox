@@ -66,7 +66,7 @@ template(name='nav')
                         // i.sign.in.large.icon
                         // +i name='internal'
                         span.mobile.hidden Login
-    if currentUser 
+    if true 
         .ui.attached.inverted.blue.menu
             a.icon.item.fly_right(href="/posts" class="{{isActiveRoute 'posts'}}" title='posts')
                 // i.large.users.icon
@@ -90,12 +90,12 @@ template(name='nav')
                 span.mobile.hidden tasks
             a.icon.item.fly_right(href="/products" class="{{isActiveRoute 'products'}}" title='products')
                 // i.large.fire.icon
-                +i name='products'
+                +i name='shop'
                 span.mobile.hidden shop
             a.icon.item.fly_right(href="/services" class="{{isActiveRoute 'services'}}" title='services')
                 // i.large.fire.icon
-                +i name='services'
-                span.mobile.hidden shop
+                +i name='service'
+                span.mobile.hidden services
             a.icon.item.fly_right(href="/events" class="{{isActiveRoute 'events'}}" title='events')
                 // i.large.fire.icon
                 +i name='calendar'

@@ -1,5 +1,4 @@
 if Meteor.isClient
-
     @picked_event_tags = new ReactiveArray []
 
     Router.route '/event/:doc_id', (->
