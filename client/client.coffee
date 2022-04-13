@@ -5,9 +5,9 @@
 
 
 Tracker.autorun ->
-    current = Router.current()
-    Tracker.afterFlush ->
-        $(window).scrollTop 0
+    # current = Router.current()
+    # Tracker.afterFlush ->
+    #     $(window).scrollTop 0
     #   'click .refresh_gps': ->
     #         navigator.geolocation.getCurrentPosition (position) =>
     #             console.log 'navigator position', position
@@ -63,19 +63,19 @@ Template.nav.onRendered ->
                 scrollLock:true
             })
             .sidebar('attach events', '.toggle_leftbar')
-    , 2000
+    , 3000
     Meteor.setTimeout ->
         $('.ui.rightbar')
             .sidebar({
                 context: $('.bottom.segment')
-                transition:'push'
+                transition:'overlay'
                 mobileTransition:'scale'
                 exclusive:true
                 duration:200
                 scrollLock:true
             })
             .sidebar('attach events', '.toggle_rightbar')
-    , 2000
+    , 3000
     # Meteor.setTimeout ->
     #     $('.ui.topbar.sidebar')
     #         .sidebar({
@@ -172,7 +172,7 @@ Template.layout.events
         # console.log 'hi'
         $(e.currentTarget).closest('.card').transition('fly right', 500)
         
-    'click a': ->
+    'click a:not(.no_blink)': ->
         $('.global_container')
         .transition('fade out', 200)
         .transition('fade in', 200)
