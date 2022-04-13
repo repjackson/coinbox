@@ -250,16 +250,16 @@ Meteor.methods
         re.test String(email).toLowerCase()
 
 
-    lookup_user: (username_query, role_filter)->
-        if role_filter
-            Docs.find({
-                username: {$regex:"#{username_query}", $options: 'i'}
-                roles:$in:[role_filter]
-                },{limit:10}).fetch()
-        else
-            Docs.find({
-                username: {$regex:"#{username_query}", $options: 'i'}
-                },{limit:10}).fetch()
+    lookup_user: (username_query)->
+        # if role_filter
+        #     Docs.find({
+        #         username: {$regex:"#{username_query}", $options: 'i'}
+        #         roles:$in:[role_filter]
+        #         },{limit:10}).fetch()
+        # else
+        Meteor.users.find({
+            username: {$regex:"#{username_query}", $options: 'i'}
+            },{limit:10}).fetch()
 
 
     lookup_doc: (guest_name, model_filter)->

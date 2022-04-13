@@ -82,7 +82,7 @@ Template.html_edit.onRendered ->
                 'fontSize' 
                 # 'formatBlock' 
                 'paragraphStyle' 
-                # 'blockquote'
+                'blockquote'
                 'bold' 
                 'underline' 
                 'italic' 
@@ -96,14 +96,14 @@ Template.html_edit.onRendered ->
                 'outdent' 
                 'indent'
                 'align' 
-                # 'horizontalRule' 
+                'horizontalRule' 
                 'list' 
                 # 'lineHeight'
                 'fullScreen' 
-                # 'showBlocks' 
-                # 'codeView' 
-                # 'preview' 
-                # 'table' 
+                'showBlocks' 
+                'codeView' 
+                'preview' 
+                'table' 
                 # 'image' 
                 # 'video' 
                 # 'audio' 
@@ -112,7 +112,7 @@ Template.html_edit.onRendered ->
         ]
         lang: SUNEDITOR_LANG['en']
         # codeMirror: CodeMirror
-    });
+    })
 
 Template.html_edit.events
     'blur .testsun': (e,t)->

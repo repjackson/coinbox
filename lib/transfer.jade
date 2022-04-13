@@ -2,8 +2,8 @@ template(name='transfers')
     .ui.stackable.padded.grid
         .four.wide.column
             .ui.inline.header 
-                // +i name='transfers'
-                i.fire.large.icon
+                +i name='exchange'
+                // i.fire.large.icon
                 |#{transfer_docs.count}
                 |transfers
             if currentUser
@@ -171,7 +171,7 @@ template(name='transfer_edit')
                         unless recipient
                             .ui.divider
                             // i.large.user.plus.icon
-                            +single_user_edit key='recipient_id' label='search member' icon='user plus' direct=true
+                            +single_user_edit key='recipient_id' label='search member' icon='plus' direct=true
                             // .ui.icon.input
                             //     i.search.icon
                             //     input.search_username(type='text' placeholder='username')

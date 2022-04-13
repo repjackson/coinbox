@@ -66,7 +66,21 @@ template(name='profile')
                 .column
                     +user_transfers
                 .column
+                    +user_posts
+                .column
                     +user_rentals
+                    
+                
+template(name='user_posts')                
+    .ui.header 
+        +i name='blog'
+        |user posts
+    .ui.label #{post_points} post points earned
+    .ui.large.link.list
+        each user_post_docs
+            a.ui.header(href="/post/#{_id}") #{title}            
+                    
+                    
                     
                     
 template(name='user_rentals')                    
