@@ -27,8 +27,8 @@ Template.layout.onCreated ->
 
 Template.nav.onCreated ->
     Session.setDefault 'limit', 20
-    @autorun -> Meteor.subscribe 'me'
-    # @autorun -> Meteor.subscribe 'users'
+    @autorun -> Meteor.subscribe 'me', ->
+    @autorun -> Meteor.subscribe 'users', ->
     # @autorun -> Meteor.subscribe 'users_by_role','staff'
     # @autorun -> Meteor.subscribe 'unread_messages'
 
