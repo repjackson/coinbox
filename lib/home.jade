@@ -72,32 +72,59 @@ template(name='landing_page')
                     .ui.massive.yellow.rounded.center.aligned.button.sign_up
                         |Get Cash Now
         .sixteen.wide.column
-            .ui.dividing.center.aligned.header 
-                |How it Works
-            .ui.massive.center.aligned.header Find out what works, and do more of that
-            .ui.stackable.grid 
-                .three.column.row
-                    .column
-                        .ui.header Step 1
-                        |Log In or Register and request your free coin mailer!
-                    .column
-                        .ui.header Step 2
-                        |Place and seal your coins in the return mailer and send it to us free of charge!
-                    .column
-                        .ui.header Step 3
-                        |We will pay you the value of your coins
-            .ui.center.aligned.basic.segment 
-                .ui.big.yellow.rounded.button
-                    |How to Package
-            .ui.center.aligned.header
-                |Why Choose Us
-                    
+            +how_it_works
+            +why_choose_us
+            +testimonials_widget
+            
+template(name='how_it_works')
+    .ui.dividing.center.aligned.header 
+        |How it Works
+    .ui.massive.center.aligned.blue.header Find out what works, and do more of that
+    .ui.stackable.grid 
+        .three.column.row
+            .column
+                .ui.header Step 1
+                |Log In or Register and request your free coin mailer!
+            .column
+                .ui.header Step 2
+                |Place and seal your coins in the return mailer and send it to us free of charge!
+            .column
+                .ui.header Step 3
+                |We will pay you the value of your coins
+    .ui.center.aligned.basic.segment 
+        .ui.big.yellow.rounded.button
+            |How to Package
+            
+            
+template(name='why_choose_us')            
+    .ui.center.aligned.dividing.header
+        |Why Choose Us
+    .ui.center.aligned.massive.blue.header
+        |Find out why you chose us
+    .ui.padded.stackable.grid 
+        .two.column.row
+            .column
+                .ui.header 
+                    |Easy
+                |No heavy lifting! No hauling jars, bags or bulky containers of coins ever again.
+                .ui.header Private
+                |No loud, noisy machines involved. No standing in long lines or need to carry money outside the comfort of your home.
+            .column
+                .ui.header Convenient
+                |24 hour, 7 day a week service and customer support. Order and schedule your shipment any time!
+                .ui.header Secure
+                |Our secure sealed mailer includes a unique tracking and transaction system. Coin Box provides a safe, accurate and protected transport for your coins. Plus all transactions are insured for up to $500 with our CoinBox4Cash Guarantee!
 
-            // .ui.list
-            //     each latest_posts
-            //         a.ui.item(href="/post/#{_id}")
-            //             |#{title}
-                        
+
+
+template(name='testimonials_widget')
+    .ui.header 
+        |Testimonials
+    .ui.center.aligned.header 
+        |What People Say About Us
+
+            
+            
                         
 template(name='user_dashboard')
     .ui.sixteen.wide.column
