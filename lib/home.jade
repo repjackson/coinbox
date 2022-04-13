@@ -118,10 +118,12 @@ template(name='why_choose_us')
 
 
 template(name='testimonials_widget')
-    .ui.header 
+    .ui.center.aligned.dividing.header 
         |Testimonials
-    .ui.center.aligned.header 
+    .ui.center.aligned.massiv.blue.header 
         |What People Say About Us
+    each testimonial_docs
+        .ui.header #{title}
 
             
             

@@ -29,7 +29,7 @@ template(name='posts')
             +session_set key='sort_key' value='points' label='points' icon='hashtag'
             .scrolling
                 // if subs_ready
-                .ui.centered.stackable.fluid.cards
+                .ui.centered.stackable.cards
                     each post_docs 
                         +post_card
                 // else 
@@ -65,14 +65,15 @@ template(name='set_view_mode_post')
 
 
 template(name='post_card')
-    .ui.link.fluid.card.view_post.pointer.fly_right
+    .ui.link.card.view_post.pointer.fly_right
         img.ui.fluid.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
         .content
             a.ui.header.zoomer(href="/post/#{_id}") #{title}
             if private 
                 i.large.lock.icon
             .ui.small.grey.inline.header #{when}
-            | !{content}
+            .smallscroll
+                | !{content}
             // +comments_view_small
             +author_info
             if group_id     
