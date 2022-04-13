@@ -127,6 +127,18 @@ Template.nav.onRendered ->
 
 
 
+Template.rightbar.events
+    'click .logout': ->
+        Session.set('logging_out', true)
+        Meteor.logout ->
+            Session.set('logging_out', false)
+            
+            
+    
+Template.rightbar.helpers
+    
+            
+            
 Template.home.events
     'click .sign_up': ->
         username = $('.username').val().trim()

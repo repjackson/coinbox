@@ -171,8 +171,8 @@ template(name='walletbar')
         // +user_credit
         .ui.header wallet
         
-template(name='right_sidebar')
-    .ui.right.sidebar.vertical.borderless.inverted.blue.large.menu.rightbar
+template(name='rightbar')
+    .ui.right.sidebar.vertical.borderless.inverted.blue.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.name}
@@ -210,10 +210,9 @@ template(name='right_sidebar')
             a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}/edit" title='edit your account')
                 +i name='settings' cl='ui avatar image'
                 |settings
-        else 
-            a.item.logout
-                if is_logging_out
-                    i.refresh.loading.icon
+            a.item.logout.toggle_rightbar
+                if session_is 'logging_out' true
+                    i.refresh.large.loading.icon
                 else
                     +i name='exit-sign' cl='ui avatar image'
                     // i.sign.out.icon
@@ -221,14 +220,14 @@ template(name='right_sidebar')
 
 
 
-template(name='left_sidebar')
+template(name='leftbar')
     .ui.left.sidebar.vertical.blue.inverted.menu
         // a.item.toggle_leftbar.no_blink(href="/" class="{{isActiveRoute '/'}}")
         //     img.ui.avatar.compact.image(src="{{c.url 'one_logo' height=200 width=200 gravity='face' crop='fill'}}")
         //     |One
         // a.item.set_member.toggle_leftbar.no_blink(href="/m/member" class="{{isActivePath 'm/member'}}" title='players')
         a.item.toggle_leftbar.mobile.only(href='/' class="{{isActivePath '/'}}" title='home')
-            +i name='creek'
+            +i name='money'
             // i.home.icon
             // img.ui.small.centered.image(src="https://nudefoodsmarket.com/wp-content/uploads/2021/03/logo-smaller-300x87.jpg")
             | Coinbox
