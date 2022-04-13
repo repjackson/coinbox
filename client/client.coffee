@@ -57,7 +57,7 @@ Template.nav.onRendered ->
             .sidebar({
                 context: $('.bottom.segment')
                 transition:'push'
-                mobileTransition:'scale'
+                mobileTransition:'push'
                 exclusive:true
                 duration:200
                 scrollLock:true
@@ -68,8 +68,8 @@ Template.nav.onRendered ->
         $('.ui.rightbar')
             .sidebar({
                 context: $('.bottom.segment')
-                transition:'overlay'
-                mobileTransition:'scale'
+                transition:'push'
+                mobileTransition:'push'
                 exclusive:true
                 duration:200
                 scrollLock:true
@@ -80,8 +80,8 @@ Template.nav.onRendered ->
     #     $('.ui.topbar.sidebar')
     #         .sidebar({
     #             context: $('.bottom.segment')
-    #             transition:'scale'
-    #             mobileTransition:'scale'
+    #             transition:'push'
+    #             mobileTransition:'push'
     #             exclusive:true
     #             duration:200
     #             scrollLock:true
@@ -92,8 +92,8 @@ Template.nav.onRendered ->
     #     $('.ui.secnav.sidebar')
     #         .sidebar({
     #             context: $('.bottom.segment')
-    #             transition:'scale'
-    #             mobileTransition:'scale'
+    #             transition:'push'
+    #             mobileTransition:'push'
     #             exclusive:true
     #             duration:200
     #             scrollLock:true
@@ -104,8 +104,8 @@ Template.nav.onRendered ->
     #     $('.ui.sidebar.cartbar')
     #         .sidebar({
     #             context: $('.bottom.segment')
-    #             transition:'scale'
-    #             mobileTransition:'scale'
+    #             transition:'push'
+    #             mobileTransition:'push'
     #             exclusive:true
     #             duration:200
     #             scrollLock:true
@@ -117,7 +117,7 @@ Template.nav.onRendered ->
     #         .sidebar({
     #             context: $('.bottom.segment')
     #             transition:''
-    #             mobileTransition:'scale'
+    #             mobileTransition:'push'
     #             exclusive:true
     #             duration:200
     #             scrollLock:true

@@ -3,17 +3,20 @@ template(name='login')
         .centered.row
             .eight.wide.column
                 .ui.center.aligned.basic.segment
-                    img.ui.avatar.image(src="{{c.url coinbox_logo}}")
+                    img.ui.centered.image(src="{{c.url 'coinbox_logo'}}")
                     .ui.inline.big.header
-                        | Coinbox login
-                .ui.inline.small.header 
-                    +i name='user-male'
+                        // +i name='coins'
+                        | login
+                .ui.inline.header 
+                    // +i name='user-male'
+                    i.user.icon
                     |username
                 .ui.fluid.large.input(class=login_class)
                     input.username(type='text')
                 .spacer
-                .ui.inline.small.header 
-                    +i name='password'
+                .ui.inline.header 
+                    // +i name='password'
+                    i.lock.icon
                     | password
                 .ui.fluid.large.input(class=login_class)
                     input#pass(type='password')
