@@ -327,7 +327,9 @@ Template.text_edit.events
         if doc
             Docs.update parent._id,
                 $set:"#{@key}":val
-
+        else 
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
 
 
 Template.location_edit.events
@@ -401,11 +403,14 @@ Template.boolean_edit.helpers
 Template.boolean_edit.events
     'click .toggle_boolean': (e,t)->
         parent = Template.parentData()
-        # $(e.currentTarget).closest('.button').transition('pulse', 100)
+        $(e.currentTarget).closest('.button').transition('pulse', 100)
 
         doc = Docs.findOne parent._id
         if doc
             Docs.update parent._id,
+                $set:"#{@key}":!parent["#{@key}"]
+        else 
+            Meteor.users.update parent._id,
                 $set:"#{@key}":!parent["#{@key}"]
 
 Template.single_doc_view.onCreated ->

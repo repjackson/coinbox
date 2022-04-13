@@ -35,51 +35,52 @@ template(name='profile')
                     +send_points_button
                     // +request_button
                     i.refresh.link.icon.calc_user_points
-                if is_current_user
-                    .column
-                        .ui.header
-                            +i name='globe'
-                            |#{lbs_carbon_offset} #lbs carbon offset 
-                        .ui.header
-                            +i name='money'
-                            |#{user_fiat_balance} fiat balance 
-                        .ui.header
-                            +i name='cube'
-                            |#{box_coin_balance} box coin balance 
-                        .ui.header 
-                            +i name='donate'
-                            |deposits
-                        |includes 2% points card processing fee
-                        .ui.action.fluid.input
-                            input.deposit_amount(type='number' min='1' placeholder='deposit')
-                            .ui.icon.button.add_points   
-                                i.right.chevron.icon
-                                
-                        .ui.large.bulleted.list.smallscroll
-                            each deposit_docs
-                                .item 
-                                    .content
-                                        .header 
-                                            |$#{amount}
-                                        .description #{when} {{long_date _timestamp}}
-                                        //- if is_dev
-                                        +remove_button
-                        +user_transfers
                 .column
+                    .ui.header
+                        +i name='globe'
+                        |#{lbs_carbon_offset} #lbs carbon offset 
+                    .ui.header
+                        +i name='money'
+                        |#{user_fiat_balance} fiat balance 
+                    .ui.header
+                        +i name='cube'
+                        |#{box_coin_balance} box coin balance 
                     .ui.header 
-                        +i name='shopping-cart'
-                        |#{user_rental_docs.count} rentals
-                    .ui.selection.animated.large.list
-                        each user_rental_docs 
-                            a.item(href="/rental/#{_id}") 
-                                img.ui.avatar.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                        +i name='donate'
+                        |deposits
+                    |includes 2% points card processing fee
+                    .ui.action.fluid.input
+                        input.deposit_amount(type='number' min='1' placeholder='deposit')
+                        .ui.icon.button.add_points   
+                            i.right.chevron.icon
+                            
+                    .ui.large.bulleted.list.smallscroll
+                        each deposit_docs
+                            .item 
                                 .content
-                                    .title 
-                                        |#{title}
-                                        strong #{daily_rate}p/day
-    else 
-        .ui.basic.center.aligned.segment
-            i.massive.loading.refresh.icon
+                                    .header 
+                                        |$#{amount}
+                                    .description #{when} {{long_date _timestamp}}
+                                    //- if is_dev
+                                    +remove_button
+                .column
+                    +user_transfers
+                .column
+                    +user_rentals
+                    
+                    
+template(name='user_rentals')                    
+    .ui.header 
+        +i name='shopping-cart'
+        |#{user_rental_docs.count} rentals
+    .ui.selection.animated.large.list
+        each user_rental_docs 
+            a.item(href="/rental/#{_id}") 
+                img.ui.avatar.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+                .content
+                    .title 
+                        |#{title}
+                        strong #{daily_rate}p/day
                             
 
 template(name='user_transfers')

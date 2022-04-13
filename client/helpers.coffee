@@ -21,6 +21,10 @@ Template.registerHelper 'subs_ready', () ->
     Template.instance().subscriptionsReady()
 
 
+Template.registerHelper 'target', () ->
+    Meteor.users.findOne @target_id
+    
+    
 Template.registerHelper 'rental', () ->
     Docs.findOne @rental_id
     # Template.parentData()

@@ -8,20 +8,21 @@ Tracker.autorun ->
     # current = Router.current()
     # Tracker.afterFlush ->
     #     $(window).scrollTop 0
-    #   'click .refresh_gps': ->
-    #         navigator.geolocation.getCurrentPosition (position) =>
-    #             console.log 'navigator position', position
-    #             Session.set('current_lat', position.coords.latitude)
-    #             Session.set('current_long', position.coords.longitude)
-                
-    #             console.log 'saving long', position.coords.longitude
-    #             console.log 'saving lat', position.coords.latitude
+Template.layout.onCreated ->
+    'click .refresh_gps': ->
+        navigator.geolocation.getCurrentPosition (position) =>
+            console.log 'navigator position', position
+            Session.set('current_lat', position.coords.latitude)
+            Session.set('current_long', position.coords.longitude)
             
-    #             pos = Geolocation.currentLocation()
-    #             Docs.update Router.current().params.doc_id, 
-    #                 $set:
-    #                     lat:position.coords.latitude
-    #                     long:position.coords.longitude
+            console.log 'saving long', position.coords.longitude
+            console.log 'saving lat', position.coords.latitude
+        
+            pos = Geolocation.currentLocation()
+            Docs.update Router.current().params.doc_id, 
+                $set:
+                    lat:position.coords.latitude
+                    long:position.coords.longitude
  
 
 Template.nav.onCreated ->

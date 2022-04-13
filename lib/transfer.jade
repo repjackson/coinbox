@@ -44,21 +44,21 @@ template(name='transfers')
                     else
                         i.sort.amount.up.icon
                 |&nbsp;
-            +session_set key='view_mode' value='grid' icon='th'
-            +session_set key='view_mode' value='list' icon='list'
-            if session_is 'view_mode' 'grid'
-                if one_result
-                    .ui.stackable.one.cards.scrolling
-                        each transfer_docs
-                            +transfer_card
-                else
-                    .ui.stackable.three.cards.scrolling
-                        each transfer_docs
-                            +transfer_card
-            if session_is 'view_mode' 'list'
-                .ui.selection.divided.animated.list.scrolling
-                    each transfer_docs 
-                        +transfer_item
+            // +session_set key='view_mode' value='grid' icon='th'
+            // +session_set key='view_mode' value='list' icon='list'
+            // if session_is 'view_mode' 'grid'
+            //     if one_result
+            //         .ui.stackable.one.cards.scrolling
+            //             each transfer_docs
+            //                 +transfer_card
+            //     else
+            .ui.stackable.three.cards.scrolling
+                each transfer_docs
+                    +transfer_card
+            // if session_is 'view_mode' 'list'
+            //     .ui.selection.divided.animated.list.scrolling
+            //         each transfer_docs 
+            //             +transfer_item
 
 
 template(name='transfer_card')
@@ -77,6 +77,9 @@ template(name='transfer_card')
             // if is_admin
             //     .ui.small.header slug: #{slug}
             +print_this
+                    
+                    
+                    
                     
 template(name='transfer_item')
     a.item.zoomer(href="/transfer/#{_id}")
