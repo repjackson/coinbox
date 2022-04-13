@@ -67,7 +67,7 @@ template(name='nav')
                         // +i name='internal'
                         span.mobile.hidden Login
     if true 
-        .ui.attached.inverted.blue.menu
+        .ui.attached.inverted.blue.menu.hscroll
             a.icon.item.fly_right(href="/posts" class="{{isActiveRoute 'posts'}}" title='posts')
                 // i.large.users.icon
                 +i name='blog'
@@ -108,10 +108,10 @@ template(name='nav')
                 // i.large.users.icon
                 +i name='groups'
                 .mobile.hidden users 
-            a.icon.item.fly_right(href="/charities" class="{{isActiveRoute 'charities'}}" title='charities')
-                // i.large.charities.icon
-                +i name='groups'
-                .mobile.hidden charities 
+            a.icon.item.fly_right(href="/organizations" class="{{isActiveRoute 'organizations'}}" title='organizations')
+                // i.large.organizations.icon
+                +i name='hand-holding-heart'
+                .mobile.hidden organizations 
             
                 
 

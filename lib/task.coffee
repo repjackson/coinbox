@@ -11,6 +11,7 @@ if Meteor.isClient
         ), name:'tasks'
     
     Template.tasks.onCreated ->
+        @autorun => @subscribe 'model_docs', 'task', ->
         @autorun => @subscribe 'task_docs',
             picked_tags.array()
             Session.get('task_title_filter')
@@ -24,6 +25,11 @@ if Meteor.isClient
         'click .unpick_task_tag': -> picked_tags.remove @valueOf()
 
                 
+        'click .add_task': ->
+            new_id = 
+                Docs.insert 
+                    model:'task'
+            Router.go "/task/#{new_id}/edit"
             
     Template.tasks.helpers
         picked_tags: -> picked_tags.array()

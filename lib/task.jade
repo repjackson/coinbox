@@ -6,7 +6,8 @@ template(name='tasks')
                 +i name='tasks'
                 |tasks
             div
-            +add_model_button model='task'
+            .ui.icon.button.add_task
+                i.plus.large.icon
             .ui.inline.small.header 
                 i.user.friends.icon
                 |authors
@@ -106,7 +107,7 @@ template(name='task_edit')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
-                    +role_picker key='image_id' label='image' direct=true
+                    // +role_picker key='image_id' label='image' direct=true
                     div
                     +boolean_edit key='complete' label='complete' direct=true
                     unless complete
@@ -131,7 +132,7 @@ template(name='task_edit')
                     div
                     // +boolean_edit key='has_duedatetime' label='has due date/time' icon='calendar' direct=true
                     div
-                    +model_picker model='project' icon='project'
+                    // +model_picker model='project' icon='project'
                 .column
                     // if has_duedatetime
                     +datetime_edit key='due_datetime' label='due date/time' icon='calendar' direct=true
