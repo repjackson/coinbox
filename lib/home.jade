@@ -25,49 +25,71 @@ template(name='landing_page')
                 
         .seven.wide.column
             .ui.rounded.blue.segment
-                .ui.inverted.big.form
+                .ui.inverted.form
                             .two.fields
                                 .field
                                     label First Name
-                                    .ui.input 
+                                    .ui.icon.input 
+                                        i.user.icon
                                         input.first_name(type='text')
                                 .field
                                     label Last Name
-                                    .ui.input 
+                                    .ui.icon.input 
+                                        i.user.icon
                                         input.last_name(type='text')
                                 
                             .field
                                 label Email
                                     span.ui.red.text *
-                                .ui.input 
+                                .ui.icon.input 
+                                    i.message.icon
                                     input(type='text')
                             .field 
                                 label Phone Number
-                                .ui.input 
+                                .ui.icon.input 
+                                    i.phone.icon
                                     input(type='text' placeholder='Phone Number')
                             .two.fields
                                 .field 
                                     label Street Address
-                                    .ui.input 
+                                    .ui.icon.input 
+                                        i.marker.icon
                                         input(type='text')
                                 .field 
                                     label Suite/Apt #
-                                    .ui.input 
+                                    .ui.icon.input 
+                                        i.marker.icon
                                         input(type='number')
                             .field 
                                 label 
                                     i.user.grey.icon
                                     |Username
-                                .ui.input 
+                                .ui.icon.input 
+                                    i.user.icon
                                     input.username(type='text')
                             .field 
                                 label 
                                     i.lock.grey.icon
                                     |Password
-                                .ui.input 
+                                .ui.icon.input 
+                                    i.lock.icon
                                     input.password(type='password')
-                .ui.small.header Payment Information
+                .ui.small.header 
+                    i.money.icon
+                    |Payment Information
                 .ui.small.header Preferred Payment Received Method (Select One)
+                .ui.button
+                    +i name='apple-pay'
+                    |apple pay
+                .ui.button
+                    +i name='paypal'
+                    |paypal
+                .ui.button
+                    +i name='venmo'
+                    |venmo
+                .ui.button
+                    +i name='cash-app'
+                    |cash app
                 .ui.center.aligned.basic.segment
                     .ui.massive.yellow.rounded.center.aligned.button.sign_up
                         |Get Cash Now
