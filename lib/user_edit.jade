@@ -12,6 +12,21 @@ template(name='user_edit')
                     .ui.hidden.divider
                     +image_edit key='image_id' icon='picture' title='profile image' direct=true
                 .column
+                    +text_edit key='first_name' label='first name'
+                    +text_edit key='last_name' label='last name'
+                    +text_edit key='display_name' label='display name'
+                    .ui.dividing.header 
+                        +i name='money'
+                        |preferred payment received method
+                        .ui.button
+                            +i name='apple-pay'
+                            |apple pay
+                        .ui.button
+                            +i name='paypal'
+                            |paypal
+                        .ui.button 
+                            +i name='venmo'
+                            |venmo
                     if is_current_user
                         +password_edit
                         //- +phone_editor

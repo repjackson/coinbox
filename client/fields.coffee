@@ -330,6 +330,14 @@ Template.text_edit.events
         else 
             Meteor.users.update parent._id,
                 $set:"#{@key}":val
+        $('body').toast(
+            showIcon: 'checkmark'
+            message: "#{@key}: #{val}"
+            # showProgress: 'bottom'
+            class: 'success'
+            displayTime: 'auto',
+            position: "bottom right"
+        )
 
 
 Template.location_edit.events
