@@ -65,7 +65,7 @@ body {
 .teal.button {
     background-color: #008080 !important;
 }
-.blue.button , .blue.segment{
+.blue.button , .blue.segment, .blue.inverted.menu{
     background-color: #0E6EB8 !important;
 }
 .violet.button {
