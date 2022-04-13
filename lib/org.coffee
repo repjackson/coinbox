@@ -49,7 +49,6 @@ if Meteor.isClient
 
     Template.org_view.onCreated ->
         @autorun => @subscribe 'related_groups',Router.current().params.doc_id, ->
-
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.org_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
@@ -81,14 +80,24 @@ if Meteor.isClient
         'click .view_org': ->
             Router.go "/org/#{@_id}"
 
+    Template.org_view.helpers
+        is_fan: -> Meteor.userId() and @fan_user_ids and Meteor.userId() in @fan_user_ids
+        fan_user_docs: ->
+            Meteor.users.find 
+                _id:$in:@fan_user_ids
     Template.org_view.events
-        'click .add_org_recipe': ->
-            new_id = 
-                Docs.insert 
-                    model:'recipe'
-                    org_ids:[@_id]
-            Router.go "/recipe/#{new_id}/edit"
-
+        'click .become_fan': ->
+            if Meteor.userId()
+                Docs.update Router.current().params.doc_id, 
+                    $addToSet:
+                        fan_user_ids:Meteor.userId()
+            else 
+                Router.go "/login"
+        'click .unfan': ->
+            Docs.update Router.current().params.doc_id, 
+                $pull:
+                    fan_user_ids:Meteor.userId()
+            
     # Template.favorite_icon_toggle.helpers
     #     icon_class: ->
     #         if @favorite_ids and Meteor.userId() in @favorite_ids

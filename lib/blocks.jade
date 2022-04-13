@@ -176,6 +176,12 @@ template(name='user_info')
             |#{username}
     // .ui.header #{this}
 
+template(name='user_pill')
+    a.ui.big.link.image.zoomer.label.fly_up(href="/user/#{username}")
+        img.ui.inline.image(src="{{c.url image_id width=300 height=300 gravity='face' crop='fill'}}")
+        |#{username}
+    // .ui.header #{this}
+
 
 template(name='session_boolean_toggle')
     .ui.compact.button.toggle_session_key(class=calculated_class)
