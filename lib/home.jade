@@ -6,25 +6,26 @@ template(name='home')
     
     
 template(name='landing_page')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'footer_logo' width=1000 height=1000 crop='crop'}}")
+    // img.ui.fluid.image.checkin_banner(src="{{c.url 'footer_logo' width=1000 height=1000 crop='crop'}}")
+    .bg
     .ui.stackable.padded.centered.grid
         .seven.wide.column
             .ui.basic.segment
-                .ui.yellow.massive.header(style="color: #feb100;") Change your Coins to Cash!
+                .ui.yellow_header.header Change your Coins to Cash!
                 .ui.header Do you need cash? Do you have coins just sitting around? 
                 .ui.header Here’s an easy way to turn your coins into cash!
                 .ui.header Coin Box for Cash is a safe, reliable and secure coin counting service.
 
                 a.ui.rounded.blue.button.fly_right(href="/about")
                     |Learn More
-                a.ui.rounded.yellow.button.fly_right(href="/login")
+                a.ui.test_button.fly_right(href="/login")
                     |Login or Register
             video(width="100%" controls autoplay)
                 source(src="https://res.cloudinary.com/facet/video/upload/v1649476932/CB4C-Animation-Video-1_kch3jg.mp4" type="video/mp4")
     
                 
         .seven.wide.column
-            .ui.rounded.blue.segment
+            .ui.test.segment
                 .ui.inverted.form
                             .two.fields
                                 .field
@@ -104,13 +105,16 @@ template(name='how_it_works')
     .ui.massive.center.aligned.blue.header Find out what works, and do more of that
     .ui.stackable.grid 
         .three.column.row
-            .column
+            .center.aligned.column
+                img(src="https://asimbalochtech.com/tundaasega/wp-content/uploads/2022/03/Step1HomePage-Copy.png")
                 .ui.header Step 1
                 |Log In or Register and request your free coin mailer!
-            .column
+            .center.aligned.column
+                img(src="https://asimbalochtech.com/tundaasega/wp-content/uploads/2022/03/Step2HomePage.png")
                 .ui.header Step 2
                 |Place and seal your coins in the return mailer and send it to us free of charge!
-            .column
+            .center.aligned.column
+                img(src="https://asimbalochtech.com/tundaasega/wp-content/uploads/2022/03/Step3HomePage.png")
                 .ui.header Step 3
                 |We will pay you the value of your coins
     .ui.center.aligned.basic.segment 
@@ -155,3 +159,5 @@ template(name='user_dashboard')
         .ui.header 
             +i name='dashboard'
             |user dashboard
+            
+            

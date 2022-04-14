@@ -70,7 +70,7 @@ template(name='nav')
                         // i.sign.in.large.icon
                         // +i name='internal'
                         span.mobile.hidden Login
-    if true 
+    if currentUser
         .ui.attached.borderless.menu.hscroll
             a.icon.item.zoomer.fly_right(href="/posts" class="{{isActiveRoute 'posts'}}" title='posts')
                 // i.large.users.icon
