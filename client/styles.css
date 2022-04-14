@@ -41,11 +41,11 @@ body {
 }
 
 .bg {
-    background-attachment: fixed !important;
-    position: absolute !important;
-    max-height: 100% !important;
-    padding-top: 2rem!important;
-    padding-bottom: 2rem!important;
+    /*background-attachment: fixed !important;*/
+    /*position: absolute !important;*/
+    /*max-height: 100% !important;*/
+    /*padding-top: 2rem!important;*/
+    /*padding-bottom: 2rem!important;*/
     background: url(https://asimbalochtech.com/tundaasega/wp-content/uploads/2022/03/Main-Bnner-1440.png) no-repeat 0px 17px / 100%!important;
 }
 

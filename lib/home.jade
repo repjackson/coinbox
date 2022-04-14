@@ -7,97 +7,98 @@ template(name='home')
     
 template(name='landing_page')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'footer_logo' width=1000 height=1000 crop='crop'}}")
-    // .bg
-    .ui.stackable.padded.centered.grid.bg
-        .seven.wide.column
-            .ui.basic.segment
-                .ui.yellow_header.header Change your Coins to Cash!
-                .ui.header Do you need cash? Do you have coins just sitting around? 
-                .ui.header Here’s an easy way to turn your coins into cash!
-                .ui.header Coin Box for Cash is a safe, reliable and secure coin counting service.
-
-                a.ui.rounded.blue.button.fly_right(href="/about")
-                    |Learn More
-                a.ui.test_button.fly_right(href="/login")
-                    |Login or Register
-            video(width="100%" controls autoplay)
-                source(src="https://res.cloudinary.com/facet/video/upload/v1649476932/CB4C-Animation-Video-1_kch3jg.mp4" type="video/mp4")
+    .bg
+        .ui.stackable.centered.grid
+            .seven.wide.column
+                .ui.basic.segment
+                    .ui.yellow_header.header Change your Coins to Cash!
+                    .ui.header Do you need cash? Do you have coins just sitting around? 
+                    .ui.header Here’s an easy way to turn your coins into cash!
+                    .ui.header.home_font
+                        span(style="color:#004081;") Coin Box for Cash is a safe, 
+                        span(style="color:#0097c7;") reliable and secure 
+                        span(style="color:#004081;") coin counting service.
     
+                    a.ui.rounded.blue.button.fly_right(href="/about")
+                        |Learn More
+                    a.ui.test_button.fly_right(href="/login")
+                        |Login or Register
+                video.rounded.drop_shadow(width="100%" controls autoplay)
+                    source(src="https://res.cloudinary.com/facet/video/upload/v1649476932/CB4C-Animation-Video-1_kch3jg.mp4" type="video/mp4")
+        
+                    
+            .seven.wide.column
+                +add_user_segment
+            .sixteen.wide.column
+                +how_it_works
+                +why_choose_us
+                +testimonials_widget
+            
+            
+template(name='add_user_segment')
+    .ui.test.segment
+        .ui.inverted.form
+            .two.fields
+                .field
+                    label First Name
+                    .ui.icon.input 
+                        i.user.icon
+                        input.first_name(type='text')
+                .field
+                    label Last Name
+                    .ui.icon.input 
+                        i.user.icon
+                        input.last_name(type='text')
                 
-        .seven.wide.column
-            .ui.test.segment
-                .ui.inverted.form
-                            .two.fields
-                                .field
-                                    label First Name
-                                    .ui.icon.input 
-                                        i.user.icon
-                                        input.first_name(type='text')
-                                .field
-                                    label Last Name
-                                    .ui.icon.input 
-                                        i.user.icon
-                                        input.last_name(type='text')
-                                
-                            .field
-                                label Email
-                                    span.ui.red.text *
-                                .ui.icon.input 
-                                    i.message.icon
-                                    input(type='text')
-                            .field 
-                                label Phone Number
-                                .ui.icon.input 
-                                    i.phone.icon
-                                    input(type='text' placeholder='Phone Number')
-                            .two.fields
-                                .field 
-                                    label Street Address
-                                    .ui.icon.input 
-                                        i.marker.icon
-                                        input(type='text')
-                                .field 
-                                    label Suite/Apt #
-                                    .ui.icon.input 
-                                        i.marker.icon
-                                        input(type='number')
-                            .field 
-                                label 
-                                    i.user.grey.icon
-                                    |Username
-                                .ui.icon.input 
-                                    i.user.icon
-                                    input.username(type='text')
-                            .field 
-                                label 
-                                    i.lock.grey.icon
-                                    |Password
-                                .ui.icon.input 
-                                    i.lock.icon
-                                    input.password(type='password')
-                .ui.small.header 
-                    i.money.icon
-                    |Payment Information
-                .ui.small.header Preferred Payment Received Method (Select One)
-                .ui.button
-                    +i name='apple-pay'
-                    |apple pay
-                .ui.button
-                    +i name='paypal'
-                    |paypal
-                .ui.button
-                    +i name='venmo'
-                    |venmo
-                .ui.button
-                    +i name='cash-app'
-                    |cash app
-                .ui.center.aligned.basic.segment
-                    .ui.massive.yellow.rounded.center.aligned.button.sign_up
-                        |Get Cash Now
-        .sixteen.wide.column
-            +how_it_works
-            +why_choose_us
-            +testimonials_widget
+            .field
+                label Email
+                    span.ui.red.text *
+                .ui.icon.input 
+                    i.message.icon
+                    input(type='text')
+            .field 
+                label Phone Number
+                .ui.icon.input 
+                    i.phone.icon
+                    input(type='text' placeholder='Phone Number')
+            .two.fields
+                .field 
+                    label Street Address
+                    .ui.icon.input 
+                        i.marker.icon
+                        input(type='text')
+                .field 
+                    label Suite/Apt #
+                    .ui.icon.input 
+                        i.marker.icon
+                        input(type='number')
+            .field 
+                label 
+                    i.user.grey.icon
+                    |Username
+                .ui.icon.input 
+                    i.user.icon
+                    input.username(type='text')
+            .field 
+                label 
+                    i.lock.grey.icon
+                    |Password
+                .ui.icon.input 
+                    i.lock.icon
+                    input.password(type='password')
+            .ui.small.inverted.header 
+                i.money.icon
+                |Payment Information
+            .ui.small.inverted.header Preferred Payment Received Method (Select One)
+            +home_payment_button icon='apple-pay' label='Apple Pay'
+            +home_payment_button icon='paypal' label='Paypal'
+            +home_payment_button icon='venmo' label='Venmo'
+            +home_payment_button icon='cash-app' label='Cash App'
+            .ui.center.aligned.basic.segment
+                .ui.massive.yellow.rounded.center.aligned.button.sign_up
+                    |Get Cash Now
+
+            
             
 template(name='how_it_works')
     .ui.dividing.center.aligned.header 
