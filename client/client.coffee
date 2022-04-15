@@ -125,6 +125,19 @@ Template.nav.onRendered ->
     #         })
     #         .sidebar('attach events', '.toggle_walletbar')
     # , 2000
+    
+Template.nav.events
+    'click .toggle_rightbar': ->
+        $('.ui.rightbar')
+            .sidebar({
+                context: $('.bottom.segment')
+                transition:'push'
+                mobileTransition:'push'
+                exclusive:true
+                duration:200
+                scrollLock:true
+            })
+            .sidebar('attach events', '.toggle_rightbar')
 
 
 

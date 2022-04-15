@@ -79,25 +79,40 @@ template(name='add_user_segment')
                 .ui.icon.input 
                     i.user.icon
                     input.username(type='text')
-            .field 
-                label 
-                    i.lock.grey.icon
-                    |Password
-                .ui.icon.input 
-                    i.lock.icon
-                    input.password(type='password')
+            // .field 
+            //     label 
+            //         i.lock.grey.icon
+            //         |Password
+            //     .ui.icon.input 
+            //         i.lock.icon
+            //         input.password(type='password')
             .ui.small.inverted.header 
                 i.money.icon
                 |Payment Information
             .ui.small.inverted.header Preferred Payment Received Method (Select One)
-            +home_payment_button icon='apple-pay' label='Apple Pay'
-            +home_payment_button icon='paypal' label='Paypal'
-            +home_payment_button icon='venmo' label='Venmo'
-            +home_payment_button icon='cash-app' label='Cash App'
+            .ui.divided.grid 
+                .two.column.row
+                    .column
+                        .ui.small.yellow.header 
+                            |Mobile Payment Services
+                        +home_payment_button icon='apple-pay' label='Apple Pay'
+                        +home_payment_button icon='paypal' label='Paypal'
+                        +home_payment_button icon='venmo' label='Venmo'
+                        +home_payment_button icon='cash-app' label='Cash App'
+                    .column
+                        .ui.small.yellow.header 
+                            |Mailed Payment Services
+                        +home_payment_button label='Company Check'
+                        
             .ui.center.aligned.basic.segment
                 .ui.massive.yellow.rounded.center.aligned.button.sign_up
                     |Get Cash Now
 
+
+template(name='home_payment_button')
+    .ui.basic.button.select_payment(class=paybutton_class)
+        +i name=icon
+        |#{label}
             
             
 template(name='how_it_works')
