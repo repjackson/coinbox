@@ -146,16 +146,39 @@ template(name='why_choose_us')
     .ui.padded.stackable.grid 
         .two.column.row
             .column
-                .ui.header 
-                    |Easy
-                |No heavy lifting! No hauling jars, bags or bulky containers of coins ever again.
-                .ui.header Private
-                |No loud, noisy machines involved. No standing in long lines or need to carry money outside the comfort of your home.
+                .ui.grid
+                    .four.wide.column
+                        .image
+                            img.ui.image(src="{{c.url '/coinbox/easy'}}")
+                    .twelve.wide.column
+                        .ui.header 
+                            |Easy
+                        |No heavy lifting! No hauling jars, bags or bulky containers of coins ever again.
+                .ui.grid
+                    .four.wide.column
+                        // .image
+                        img.ui.image(src="{{c.url '/coinbox/private'}}")
+                    .twelve.wide.column
+                        .ui.header 
+                            |Private
+                        |No loud, noisy machines involved. No standing in long lines or need to carry money outside the comfort of your home.
             .column
-                .ui.header Convenient
-                |24 hour, 7 day a week service and customer support. Order and schedule your shipment any time!
-                .ui.header Secure
-                |Our secure sealed mailer includes a unique tracking and transaction system. Coin Box provides a safe, accurate and protected transport for your coins. Plus all transactions are insured for up to $500 with our CoinBox4Cash Guarantee!
+                .ui.grid
+                    .four.wide.column
+                        // .image
+                        img.ui.image(src="{{c.url '/coinbox/convenient'}}")
+                    .twelve.wide.column
+                        .ui.header
+                            |Convenient
+                        |24 hour, 7 day a week service and customer support. Order and schedule your shipment any time!
+                .ui.grid
+                    .four.wide.column
+                        // .image
+                        img.ui.image(src="{{c.url '/coinbox/secure'}}")
+                    .twelve.wide.column
+                        .ui.header
+                            |Secure
+                        |Our secure sealed mailer includes a unique tracking and transaction system. Coin Box provides a safe, accurate and protected transport for your coins. Plus all transactions are insured for up to $500 with our CoinBox4Cash Guarantee!
 
 
 
