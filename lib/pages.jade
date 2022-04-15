@@ -1,5 +1,42 @@
 template(name='get_started')
-    +page key='get_started'
+    // +page key='get_started'
+    .ui.center.aligned.basic.segment
+        .ui.breadcrumb
+            a.section(href="/") Home
+            .divider 
+                i.chevron.right.icon
+            .active.section 
+                |Get Started
+        .ui.massive.center.aligned.header 
+            |Get Started with CoinBox
+        .ui.small.header 
+            |Begin creating your secure account with CoinBox by following the four simple steps below, start by entering the information requested below!
+    .ui.center.aligned.basic.segment
+        .ui.steps
+            .active.step
+                .content 
+                    .title Step 1
+                    .description 
+                        |Sign Up with CoinBox
+            .step
+                .content 
+                    .title Step 2
+                    .description 
+                        |Confirm Email Account
+            .step
+                .content 
+                    .title Step 3
+                    .description 
+                        |Create Password
+            .step
+                .content 
+                    .title Step 4
+                    .description 
+                        |Request Mailer
+            
+    
+    
+    
     
 template(name='terms')
     +page key='about'

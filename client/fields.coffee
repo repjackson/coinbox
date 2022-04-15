@@ -162,7 +162,17 @@ Template.link_edit.events
         if doc
             Docs.update parent._id,
                 $set:"#{@key}":val
-
+        else 
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
+        $('body').toast(
+            showIcon: 'checkmark'
+            message: 'link saved'
+            # showProgress: 'bottom'
+            class: 'success'
+            displayTime: 'auto',
+            position: "bottom center"
+        )
 
 Template.icon_edit.events
     'blur .icon_val': (e,t)->

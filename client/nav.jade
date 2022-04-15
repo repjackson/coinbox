@@ -84,14 +84,14 @@ template(name='nav')
                 // i.large.fire.icon
                 +i name='exchange'
                 span.mobile.hidden transfers
-            a.icon.item.zoomer.fly_right(href="/orders" class="{{isActiveRoute 'orders'}}" title='orders')
+            a.icon.item.zoomer.fly_right(href="/requests" class="{{isActiveRoute 'requests'}}" title='requests')
                 // i.large.fire.icon
                 +i name='order-history'
-                span.mobile.hidden orders
-            a.icon.item.zoomer.fly_right(href="/tasks" class="{{isActiveRoute 'tasks'}}" title='tasks')
-                // i.large.fire.icon
-                +i name='tasks'
-                span.mobile.hidden tasks
+                span.mobile.hidden requests
+            // a.icon.item.zoomer.fly_right(href="/tasks" class="{{isActiveRoute 'tasks'}}" title='tasks')
+            //     // i.large.fire.icon
+            //     +i name='tasks'
+            //     span.mobile.hidden tasks
             a.icon.item.zoomer.fly_right(href="/products" class="{{isActiveRoute 'products'}}" title='products')
                 // i.large.fire.icon
                 +i name='shop'
@@ -193,9 +193,9 @@ template(name='rightbar')
                 +i name='money' cl='ui avatar image'
                 // i.coins.icon
                 |credit
-            a.item.zoomer.toggle_rightbar(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
+            a.item.zoomer.toggle_rightbar(href="/user/#{username}/requests" class="{{isActiveRoute 'user_requests'}}")
                 +i name='check' cl='ui avatar image'
-                |orders
+                |requests
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/subscriptions" class="{{isActiveRoute 'user_subscriptions'}}")
                 +i name='clock' cl='ui avatar image'
                 |subscriptions
@@ -243,22 +243,22 @@ template(name='leftbar')
         a.item.zoomer.toggle_leftbar(href='/events' class="{{isActivePath '/events'}}" title='events')
             +i name='calendar'
             |My Account
-        a.item.zoomer.toggle_leftbar(href='/settings' class="{{isActivePath '/settings'}}" title='orders')
+        a.item.zoomer.toggle_leftbar(href='/settings' class="{{isActivePath '/settings'}}" title='requests')
             +i name='settings'
             // i.large.money.icon
             | Settings
-        a.item.zoomer.toggle_leftbar(href='/faqs' class="{{isActivePath '/faqs'}}" title='orders')
+        a.item.zoomer.toggle_leftbar(href='/faqs' class="{{isActivePath '/faqs'}}" title='requests')
             +i name='faq'
             | FAQ
-        a.item.zoomer.toggle_leftbar(href='/faqs' class="{{isActivePath '/faqs'}}" title='orders')
-            +i name='invoice'
-            // i.large.money.icon
-            | CoinBoxForCash
-        a.item.zoomer.toggle_leftbar(href='/charities' class="{{isActivePath '/charities'}}" title='orders')
+        // a.item.zoomer.toggle_leftbar(href='/faqs' class="{{isActivePath '/faqs'}}" title='requests')
+        //     +i name='invoice'
+        //     // i.large.money.icon
+        //     | CoinBoxForCash
+        a.item.zoomer.toggle_leftbar(href='/organizations' class="{{isActivePath '/organizations'}}" title='requests')
             +i name='globe'
             // i.large.money.icon
-            | Charities
-        a.item.zoomer.toggle_leftbar(href='/blog' class="{{isActivePath '/blog'}}" title='orders')
+            | Organizations
+        a.item.zoomer.toggle_leftbar(href='/blog' class="{{isActivePath '/blog'}}" title='requests')
             +i name='blog'
             // i.large.money.icon
             | Blog
@@ -280,7 +280,7 @@ template(name='leftbar')
             a.item.zoomer.set_user.toggle_leftbar.no_blink(href="/users" class="{{isActiveRoute '/users'}}")
                 +i name='groups'
                 | users
-            a.item.zoomer.toggle_leftbar.zoomer(href='/orders' class="{{isActivePath '/orders'}}" title='orders')
+            a.item.zoomer.toggle_leftbar.zoomer(href='/requests' class="{{isActivePath '/requests'}}" title='requests')
                 +i name='list'
-                | orders
+                | requests
                 

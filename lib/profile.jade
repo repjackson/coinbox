@@ -17,7 +17,7 @@ template(name='profile')
                             //- i.coins.icon
                             |#{points} pts
                     // if is_current_user
-                    a.ui.large.button(href="/user/#{username}/edit" title='profile settings')
+                    a.ui.large.button.fly_down.no_blink(href="/user/#{username}/edit" title='profile settings')
                         i.cog.icon
                         |account
                     if admin 
@@ -35,6 +35,10 @@ template(name='profile')
                     +send_points_button
                     // +request_button
                     i.refresh.link.icon.calc_user_points
+                    if link
+                        a.ui.header(href=link target='_window' title=link) 
+                            i.globe.icon
+                            |Profile Link
                 .column
                     .ui.header
                         +i name='globe'

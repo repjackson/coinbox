@@ -64,6 +64,9 @@ template(name='footer')
         .three.column.row
             .column
                 img.ui.image(src="{{c.url 'coinbox_logo'}}")
+                .ui.link.big.inverted.animated.list
+                    a.item(href="/get_started" class="{{isActiveRoute 'get_started'}}" ) Get Started
+                    a.item(href="/terms" class="{{isActiveRoute 'terms'}}" ) Terms & Conditions
             .column
                 .ui.dividing.inverted.header 
                     |Customer Care
@@ -77,7 +80,7 @@ template(name='footer')
                     a.item(href="/privacy" class="{{isActiveRoute 'privacy'}}" ) Privacy Policy
                     a.item(href="/terms" class="{{isActiveRoute 'terms'}}" ) Terms & Conditions
                     a.item(href="/faqs" class="{{isActiveRoute 'faqs'}}" ) FAQs
-                    a.item(href="https://trello.com/invite/b/0g5gAYUv/f138e7f3cdd7d8997d895818eca500b2/website" ) Trello Board
+                    a.item(href="https://trello.com/invite/b/0g5gAYUv/f138e7f3cdd7d8997d895818eca500b2/website" target='_window') Trello Board
             .column
                 .ui.dividing.inverted.header
                     |Company Information
