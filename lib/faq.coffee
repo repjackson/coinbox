@@ -1,45 +1,45 @@
 if Meteor.isClient
-    Template.testimonials_widget.onCreated ->
-        @autorun => @subscribe 'model_docs', 'testimonial', ->
+    Template.faqs_widget.onCreated ->
+        @autorun => @subscribe 'model_docs', 'faq', ->
     
     
     
-    Template.testimonials_widget.helpers
-        testimonial_docs: ->
+    Template.faqs_widget.helpers
+        faq_docs: ->
             Docs.find   
-                model:'testimonial_docs'
+                model:'faq_docs'
 
 
-    Router.route '/testimonials', (->
+    Router.route '/faqs', (->
         @layout 'layout'
-        @render 'testimonials'
-        ), name:'testimonials'
-    Router.route '/testimonial/:doc_id/edit', (->
+        @render 'faqs'
+        ), name:'faqs'
+    Router.route '/faq/:doc_id/edit', (->
         @layout 'layout'
-        @render 'testimonial_edit'
-        ), name:'testimonial_edit'
-    Router.route '/testimonial/:doc_id', (->
+        @render 'faq_edit'
+        ), name:'faq_edit'
+    Router.route '/faq/:doc_id', (->
         @layout 'layout'
-        @render 'testimonial_view'
-        ), name:'testimonial_view'
-    Router.route '/testimonial/:doc_id/view', (->
+        @render 'faq_view'
+        ), name:'faq_view'
+    Router.route '/faq/:doc_id/view', (->
         @layout 'layout'
-        @render 'testimonial_view'
-        ), name:'testimonial_view_long'
+        @render 'faq_view'
+        ), name:'faq_view_long'
     
     
-    # Template.testimonials.onCreated ->
-    #     @autorun => Meteor.subscribe 'model_docs', 'testimonial', ->
-    Template.testimonials.onCreated ->
+    # Template.faqs.onCreated ->
+    #     @autorun => Meteor.subscribe 'model_docs', 'faq', ->
+    Template.faqs.onCreated ->
         Session.setDefault 'view_mode', 'list'
         Session.setDefault 'sort_key', 'member_count'
         Session.setDefault 'sort_label', 'available'
         Session.setDefault 'limit', 20
         Session.setDefault 'view_open', true
 
-    Template.testimonials.onCreated ->
-        # @autorun => @subscribe 'model_docs', 'testimonial', ->
-        @autorun => @subscribe 'testimonial_facets',
+    Template.faqs.onCreated ->
+        # @autorun => @subscribe 'model_docs', 'faq', ->
+        @autorun => @subscribe 'faq_facets',
             picked_tags.array()
             # Session.get('limit')
             # Session.get('sort_key')
@@ -48,7 +48,7 @@ if Meteor.isClient
             # Session.get('view_pickup')
             # Session.get('view_open')
 
-        @autorun => @subscribe 'testimonial_results',
+        @autorun => @subscribe 'faq_results',
             picked_tags.array()
             Session.get('group_title_search')
             Session.get('limit')
@@ -58,42 +58,42 @@ if Meteor.isClient
             Session.get('view_pickup')
             Session.get('view_open')
 
-    Template.testimonial_view.onCreated ->
+    Template.faq_view.onCreated ->
         @autorun => @subscribe 'related_groups',Router.current().params.doc_id, ->
 
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-    Template.testimonial_edit.onCreated ->
+    Template.faq_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-    Template.testimonial_card.onCreated ->
+    Template.faq_card.onCreated ->
         @autorun => Meteor.subscribe 'doc_comments', @data._id, ->
 
 
-    Template.testimonials.helpers
-        testimonial_docs: ->
+    Template.faqs.helpers
+        faq_docs: ->
             Docs.find {
-                model:'testimonial'
+                model:'faq'
             }, sort:_timestamp:-1
         tag_results: ->
             Results.find 
-                model:'testimonial_tag'
-        picked_testimonial_tags: -> picked_tags.array()
+                model:'faq_tag'
+        picked_faq_tags: -> picked_tags.array()
         
                 
-    Template.testimonials.events
-        'click .add_testimonial': ->
+    Template.faqs.events
+        'click .add_faq': ->
             new_id = 
                 Docs.insert 
-                    model:'testimonial'
-            Router.go "/testimonial/#{new_id}/edit"
-    Template.testimonial_card.events
-        'click .view_testimonial': ->
-            Router.go "/testimonial/#{@_id}"
+                    model:'faq'
+            Router.go "/faq/#{new_id}/edit"
+    Template.faq_card.events
+        'click .view_faq': ->
+            Router.go "/faq/#{@_id}"
 
     
-    Template.testimonial_edit.events
-        'click .delete_testimonial': ->
+    Template.faq_edit.events
+        'click .delete_faq': ->
             Swal.fire({
-                title: "delete testimonial?"
+                title: "delete faq?"
                 text: "cannot be undone"
                 icon: 'question'
                 confirmButtonText: 'delete'
@@ -107,16 +107,16 @@ if Meteor.isClient
                     Swal.fire(
                         position: 'top-end',
                         icon: 'success',
-                        title: 'testimonial removed',
+                        title: 'faq removed',
                         showConfirmButton: false,
                         timer: 1500
                     )
-                    Router.go "/testimonial"
+                    Router.go "/faq"
             )
 
         'click .publish': ->
             Swal.fire({
-                title: "publish testimonial?"
+                title: "publish faq?"
                 text: "point bounty will be held from your account"
                 icon: 'question'
                 confirmButtonText: 'publish'
@@ -126,11 +126,11 @@ if Meteor.isClient
                 reverseButtons: true
             }).then((result)=>
                 if result.value
-                    Meteor.call 'publish_testimonial', @_id, =>
+                    Meteor.call 'publish_faq', @_id, =>
                         Swal.fire(
                             position: 'bottom-end',
                             icon: 'success',
-                            title: 'testimonial published',
+                            title: 'faq published',
                             showConfirmButton: false,
                             timer: 1000
                         )
@@ -138,7 +138,7 @@ if Meteor.isClient
 
         'click .unpublish': ->
             Swal.fire({
-                title: "unpublish testimonial?"
+                title: "unpublish faq?"
                 text: "point bounty will be returned to your account"
                 icon: 'question'
                 confirmButtonText: 'unpublish'
@@ -148,18 +148,18 @@ if Meteor.isClient
                 reverseButtons: true
             }).then((result)=>
                 if result.value
-                    Meteor.call 'unpublish_testimonial', @_id, =>
+                    Meteor.call 'unpublish_faq', @_id, =>
                         Swal.fire(
                             position: 'bottom-end',
                             icon: 'success',
-                            title: 'testimonial unpublished',
+                            title: 'faq unpublished',
                             showConfirmButton: false,
                             timer: 1000
                         )
             )
             
 if Meteor.isServer
-    Meteor.publish 'testimonial_results', (
+    Meteor.publish 'faq_results', (
         )->
         # console.log picked_ingredients
         # if doc_limit
@@ -171,7 +171,7 @@ if Meteor.isServer
         # if doc_sort_direction
         #     sort_direction = parseInt(doc_sort_direction)
         self = @
-        match = {model:'testimonial'}
+        match = {model:'faq'}
         # if picked_ingredients.length > 0
         #     match.ingredients = $all: picked_ingredients
         #     # sort = 'price_per_serving'
@@ -187,9 +187,9 @@ if Meteor.isServer
         #     match.vegan = true
         # if view_gf
         #     match.gluten_free = true
-        # if testimonial_query and testimonial_query.length > 1
-        #     console.log 'searching testimonial_query', testimonial_query
-        #     match.title = {$regex:"#{testimonial_query}", $options: 'i'}
+        # if faq_query and faq_query.length > 1
+        #     console.log 'searching faq_query', faq_query
+        #     match.title = {$regex:"#{faq_query}", $options: 'i'}
         #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
 
         # match.tags = $all: picked_ingredients
@@ -201,7 +201,7 @@ if Meteor.isServer
         #         match["#{key}"] = $all: key_array
             # console.log 'current facet filter array', current_facet_filter_array
 
-        # console.log 'testimonial match', match
+        # console.log 'faq match', match
         # console.log 'sort key', sort_key
         # console.log 'sort direction', sort_direction
         unless Meteor.userId()
@@ -212,10 +212,10 @@ if Meteor.isServer
             limit: 42
             
             
-    Meteor.publish 'testimonial_count', (
+    Meteor.publish 'faq_count', (
         picked_ingredients
         picked_sections
-        testimonial_query
+        faq_query
         view_vegan
         view_gf
         )->
@@ -223,7 +223,7 @@ if Meteor.isServer
     
         # console.log picked_ingredients
         self = @
-        match = {model:'testimonial'}
+        match = {model:'faq'}
         if picked_ingredients.length > 0
             match.ingredients = $all: picked_ingredients
             # sort = 'price_per_serving'
@@ -238,15 +238,15 @@ if Meteor.isServer
             match.vegan = true
         if view_gf
             match.gluten_free = true
-        if testimonial_query and testimonial_query.length > 1
-            console.log 'searching testimonial_query', testimonial_query
-            match.title = {$regex:"#{testimonial_query}", $options: 'i'}
-        Counts.publish this, 'testimonial_counter', Docs.find(match)
+        if faq_query and faq_query.length > 1
+            console.log 'searching faq_query', faq_query
+            match.title = {$regex:"#{faq_query}", $options: 'i'}
+        Counts.publish this, 'faq_counter', Docs.find(match)
         return undefined
 
-    Meteor.publish 'testimonial_facets', (
+    Meteor.publish 'faq_facets', (
         picked_tags
-        testimonial_query
+        faq_query
         doc_limit
         doc_sort_key
         doc_sort_direction
@@ -256,11 +256,11 @@ if Meteor.isServer
 
         self = @
         match = {}
-        match.model = 'testimonial'
-            # match.$regex:"#{testimonial_query}", $options: 'i'}
-        # if testimonial_query and testimonial_query.length > 1
-        #     console.log 'searching testimonial_query', testimonial_query
-        #     match.title = {$regex:"#{testimonial_query}", $options: 'i'}
+        match.model = 'faq'
+            # match.$regex:"#{faq_query}", $options: 'i'}
+        # if faq_query and faq_query.length > 1
+        #     console.log 'searching faq_query', faq_query
+        #     match.title = {$regex:"#{faq_query}", $options: 'i'}
         #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
         if picked_tags.length > 0
             match.tags = $all: picked_tags
@@ -271,7 +271,7 @@ if Meteor.isServer
             { $unwind: "$tags" }
             { $group: _id: "$tags", count: $sum: 1 }
             { $match: _id: $nin: picked_tags }
-            # { $match: _id: {$regex:"#{testimonial_query}", $options: 'i'} }
+            # { $match: _id: {$regex:"#{faq_query}", $options: 'i'} }
             { $sort: count: -1, _id: 1 }
             { $limit: 20 }
             { $project: _id: 0, name: '$_id', count: 1 }
@@ -285,7 +285,7 @@ if Meteor.isServer
             self.added 'results', Random.id(),
                 name: tag.name
                 count: tag.count
-                model:'testimonial_tag'
+                model:'faq_tag'
                 # category:key
                 # index: i
 
@@ -297,9 +297,9 @@ if Meteor.isServer
 
 
 if Meteor.isClient
-    Template.testimonial_card.onCreated ->
+    Template.faq_card.onCreated ->
         # @autorun => Meteor.subscribe 'model_docs', 'food'
-    Template.testimonial_card.events
+    Template.faq_card.events
         'click .quickbuy': ->
             console.log @
             Session.set('quickbuying_id', @_id)
@@ -323,8 +323,8 @@ if Meteor.isClient
         # 'click .view_card': ->
         #     $('.container_')
 
-    Template.testimonial_card.helpers
-        testimonial_card_class: ->
+    Template.faq_card.helpers
+        faq_card_class: ->
             # if Session.get('quickbuying_id')
             #     if Session.equals('quickbuying_id', @_id)
             #         'raised'

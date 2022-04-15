@@ -56,11 +56,11 @@ template(name='nav')
                 .icon.item.zoomer
                     i.yin.yang.large.loading.icon
             unless currentUser
-                a.item.zoomer(href='/get_started' class="{{isActiveRoute 'get-started'}}" )
+                a.large.blue.item.zoomer(href='/get_started' class="{{isActiveRoute 'get-started'}}" )
                     |Get Started
-                a.item.zoomer(href="/faqs" class="{{isActiveRoute 'faqs'}}" )
+                a.large.blue.item.zoomer(href="/faqs" class="{{isActiveRoute 'faqs'}}" )
                     |FAQs
-                a.item.zoomer(href="/about" class="{{isActiveRoute 'about'}}" )
+                a.large.blue.item.zoomer(href="/about" class="{{isActiveRoute 'about'}}" )
                     |About
                 // a.item.zoomer(href="/register" title='register')
                 //     +i name='plus'

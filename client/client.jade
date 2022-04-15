@@ -50,30 +50,29 @@ template(name='layout')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
-    .ui.bottom.attached.pushable.segment.scrollin
+    .ui.bottom.attached.pushable.segment.scrolling
         +topbar
         +leftbar
         +rightbar
         .global_container
             +yield
-    +footer
+        +footer
     
     
 template(name='footer')
     .ui.fluid.blue.inverted.segment.grid
         .three.column.row
             .column
-                img.ui.fluid.image.checkin_banner(src="{{c.url 'coinbox_footer_logo'}}")
-                
-                .ui.inverted.header links
+                img.ui.image(src="{{c.url 'coinbox_logo'}}")
             .column
                 .ui.dividing.inverted.header 
                     |Customer Care
-                
                 .ui.link.big.inverted.list
                     a.item.zoomer(href="/account" class="{{isActiveRoute 'transfers'}}" ) My Account
                     a.item.zoomer(href="/privacy" class="{{isActiveRoute 'privacy'}}" ) Privacy Policy
                     a.item.zoomer(href="/terms" class="{{isActiveRoute 'terms'}}" ) Terms & Conditions
+                    a.item.zoomer(href="/faqs" class="{{isActiveRoute 'faqs'}}" ) FAQs
+                    
             .column
                 .ui.dividing.inverted.header
                     |Company Information
