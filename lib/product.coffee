@@ -455,7 +455,7 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'target_by_transfer_id', (transfer_id)->
         transfer = Docs.findOne transfer_id
-        Meteor.users.findOne transfer.target_id
+        Meteor.users.findOne transfer.target_user_id
     Meteor.methods
         add_to_cart: (product_id)->
             # existing_cart_item_with_product = 

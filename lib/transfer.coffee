@@ -343,9 +343,9 @@ if Meteor.isClient
             Results.find(model:'tag')
         target: ->
             transfer = Docs.findOne Router.current().params.doc_id
-            if transfer and transfer.target_id
+            if transfer and transfer.target_user_id
                 Meteor.users.findOne
-                    _id: transfer.target_id
+                    _id: transfer.target_user_id
         members: ->
             transfer = Docs.findOne Router.current().params.doc_id
             Meteor.users.find({
@@ -357,7 +357,7 @@ if Meteor.isClient
                 })
         # subtotal: ->
         #     transfer = Docs.findOne Router.current().params.doc_id
-        #     transfer.amount*transfer.target_ids.length
+        #     transfer.amount*transfer.target_user_ids.length
         
         point_max: ->
             if Meteor.user().username is 'one'
@@ -367,16 +367,16 @@ if Meteor.isClient
         
         can_submit: ->
             transfer = Docs.findOne Router.current().params.doc_id
-            transfer.amount and transfer.target_id
+            transfer.amount and transfer.target_user_id
     Template.transfer_edit.events
         'click .add_target': ->
             Docs.update Router.current().params.doc_id,
                 $set:
-                    target_id:@_id
+                    target_user_id:@_id
         'click .remove_target': ->
             Docs.update Router.current().params.doc_id,
                 $unset:
-                    target_id:1
+                    target_user_id:1
         'keyup .new_tag': _.throttle((e,t)->
             query = $('.new_tag').val()
             if query.length > 0
@@ -484,11 +484,11 @@ if Meteor.isServer
     Meteor.publish 'target_from_transfer_id', (transfer_id)->
         transfer = Docs.findOne transfer_id
         if transfer
-            Meteor.users.findOne transfer.target_id
+            Meteor.users.findOne transfer.target_user_id
     Meteor.methods
         send_transfer: (transfer_id)->
             transfer = Docs.findOne transfer_id
-            target = Meteor.users.findOne transfer.target_id
+            target = Meteor.users.findOne transfer.target_user_id
             transferer = Meteor.users.findOne transfer._author_id
 
             console.log 'sending transfer', transfer

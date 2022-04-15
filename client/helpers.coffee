@@ -22,7 +22,7 @@ Template.registerHelper 'subs_ready', () ->
 
 
 Template.registerHelper 'target', () ->
-    Meteor.users.findOne @target_id
+    Meteor.users.findOne @target_user_id
     
     
 Template.registerHelper 'rental', () ->

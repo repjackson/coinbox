@@ -137,8 +137,8 @@ template(name='transfer_edit')
                         .ui.header target
                         with target
                             i.large.remove.link.icon.remove_target
-                            a.pointer(href="/user/#{name}")
-                                img.ui.tiny.inline.image(src="{{c.url profile_image_id height=400 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                            a.ui.button(href="/user/#{name}")
+                                img.ui.tiny.inline.image(src="{{c.url image_id height=400 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                                 .ui.inline.header #{name}
                                 .ui.small.grey.inline.header #{points}
                         unless target
@@ -228,7 +228,7 @@ template(name='user_transfers')
         +i name='clock'
         |transfers in
     .ui.items
-        each tranfer_in_docs
+        each transfer_in_docs
             +transfer_item
 
 template(name='transfer_item')
@@ -238,7 +238,7 @@ template(name='transfer_item')
         //     a.image.zoomer.fly_right(href="/transfer/#{_id}")
         .middle.aligned.content
             a.ui.header.zoomer.fly_right(href="/transfer/#{_id}")
-                |#{title}
+                |(#{amount}) #{title}
             .smallscroll
                 |!{description}
             +ismall name='tags' cl='ui inline image'

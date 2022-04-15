@@ -66,10 +66,10 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'users', (limit)->
-        if limit
-            Meteor.users.find({},limit:limit)
-        else
-            Meteor.users.find()
+        # if limit
+        #     Meteor.users.find({},limit:limit)
+        # else
+        Meteor.users.find()
     Meteor.publish 'user_results', (
         picked_tags
         doc_limit
@@ -209,7 +209,7 @@ if Meteor.isServer
             if direction is 'debit'
                 match._author_id = user_id
             if direction is 'credit'
-                match.target_id = user_id
+                match.target_user_id = user_id
     
             console.log 'found debits', Docs.find(match).count()
             # if omega.selected_tags.length > 0

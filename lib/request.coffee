@@ -269,7 +269,7 @@ if Meteor.isServer
                 sender_username: from_username
                 sender_id: sender._id
                 target_username: to_username
-                target_id: target._id
+                target_user_id: target._id
                 amount: amount
                 request_id: request_id
                 rental_id: res.rental_id
@@ -280,7 +280,7 @@ if Meteor.isServer
                 sender_username: from_username
                 target_username: to_username
                 amount: amount
-                target_id: target._id
+                target_user_id: target._id
                 text:"#{from_username} paid #{to_username} #{amount} for #{reason}."
                 sender_id: sender._id
             return
