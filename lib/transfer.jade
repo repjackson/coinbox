@@ -81,33 +81,6 @@ template(name='transfer_card')
                     
                     
                     
-template(name='transfer_item')
-    a.item.zoomer(href="/transfer/#{_id}")
-        if image_id
-            img.ui.tiny.image(src="{{c.url image_id width=300 height=300}}")
-        //     a.image.zoomer.fly_right(href="/transfer/#{_id}")
-        .middle.aligned.content
-            a.ui.header.zoomer.fly_right(href="/transfer/#{_id}")
-                |#{title}
-            |#{member_ids.length} members
-            // .smallscroll
-            //     |!{description}
-            //+ismall name='tags' cl='ui inline image'
-        .middle.aligned.content
-            each seven_tags
-                .ui.label #{this}
-            if location 
-                i.red.marker.icon 
-                |#{location}
-            // a.zoomer(href="/transfer/#{_id}")
-            //     i.chevron.right.large.circular.icon
-            // if is_admin
-            //     .ui.small.header slug: #{slug}
-            // if can_edit
-            //     a.ui.circular.icon.button(href="/transfer/#{_id}/edit")
-            //         i.pencil.blue.icon
-            +print_this
-                    
 
 template(name='transfer_view')
     with current_doc
@@ -171,7 +144,7 @@ template(name='transfer_edit')
                         unless target
                             .ui.divider
                             // i.large.user.plus.icon
-                            +single_user_edit key='target_id' label='search member' icon='plus' direct=true
+                            +single_user_edit key='target_user_id' label='search member' icon='plus' direct=true
                             // .ui.icon.input
                             //     i.search.icon
                             //     input.search_username(type='text' placeholder='username')
@@ -219,6 +192,8 @@ template(name='transfer_edit')
                     //         // if image
                     //         //     img.ui.mini.rounded.inline.image(src="{{c.url image height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                     //         |#{title}
+                    if in_dev
+                        +print_this
                 .five.wide.center.aligned.column
                     .ui.big.header #{amount}pts
                     .ui.big.input
@@ -242,4 +217,44 @@ template(name='transfer_edit')
                                 
                                 
                                 
-        
+template(name='user_transfers')
+    .ui.header 
+        +i name='order-history'
+        |transfers out
+    .ui.items
+        each transfer_out_docs
+            +transfer_item
+    .ui.header 
+        +i name='clock'
+        |transfers in
+    .ui.items
+        each tranfer_in_docs
+            +transfer_item
+
+template(name='transfer_item')
+    a.item.zoomer(href="/transfer/#{_id}")
+        if image_id
+            img.ui.tiny.image(src="{{c.url image_id width=300 height=300}}")
+        //     a.image.zoomer.fly_right(href="/transfer/#{_id}")
+        .middle.aligned.content
+            a.ui.header.zoomer.fly_right(href="/transfer/#{_id}")
+                |#{title}
+            .smallscroll
+                |!{description}
+            +ismall name='tags' cl='ui inline image'
+        .middle.aligned.content
+            each seven_tags
+                .ui.label #{this}
+            if location 
+                i.red.marker.icon 
+                |#{location}
+            +author_info
+            |#{when}
+            a.zoomer(href="/transfer/#{_id}")
+                i.chevron.right.large.circular.icon
+            // if is_admin
+            //     .ui.small.header slug: #{slug}
+            // if can_edit
+            //     a.ui.circular.icon.button(href="/transfer/#{_id}/edit")
+            //         i.pencil.blue.icon
+                    

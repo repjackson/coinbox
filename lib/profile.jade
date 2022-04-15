@@ -114,20 +114,6 @@ template(name='user_rentals')
                         strong #{daily_rate}p/day
                             
 
-template(name='user_transfers')
-    .ui.header 
-        +i name='order-history'
-        |transfers out
-    .ui.items
-        each transfer_out_docs
-            +transfer_item
-    .ui.header 
-        +i name='clock'
-        |transfers in
-    .ui.items
-        each tranfer_in_docs
-            +transfer_item
-
 
 
 

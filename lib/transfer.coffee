@@ -500,3 +500,26 @@ if Meteor.isServer
                     submitted:true
                     submitted_timestamp:Date.now()
             return
+            
+            
+            
+if Meteor.isClient 
+    Template.user_transfers.onCreated ->
+        @autorun => @subscribe 'model_docs','transfer',->
+            
+            
+    Template.user_transfers.helpers
+        transfer_out_docs: ->
+            current_user = 
+                Meteor.users.findOne 
+                    username:Router.current().params.username
+            Docs.find 
+                model:'transfer'
+                _author_id:current_user._id
+        transfer_in_docs: ->
+            current_user = 
+                Meteor.users.findOne 
+                    username:Router.current().params.username
+            Docs.find 
+                model:'transfer'
+                target_user_id:current_user._id

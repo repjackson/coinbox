@@ -265,7 +265,7 @@ if Meteor.isServer
                 $inc: credit: amount
 
             Docs.insert
-                model:'payment'
+                model:'transfer'
                 sender_username: from_username
                 sender_id: sender._id
                 target_username: to_username
