@@ -1,14 +1,14 @@
 template(name='faqs')
     .ui.padded.centered.grid
         .sixteen.wide.center.aligned.column
-            a.ui.inline.header(href='/')
+            a.ui.inline.header.zoomer(href='/')
                 |Home 
             |>
-            a.ui.inline.header(href='/faqs')
-                |faqs
+            a.ui.inline.header.zoomer(href='/faqs')
+                |FAQs
             div
             .ui.inline.header Got questions?
-            .ui.massive.inline.header We can help!
+            .ui.massive.header We can help
             div
             .ui.action.input
                 input(type='text' placeholder='Ask a question...')
