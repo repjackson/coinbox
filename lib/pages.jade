@@ -1,4 +1,4 @@
-template(name='get_started')
+template(name='get_started_layout')
     // +page key='get_started'
     .ui.center.aligned.basic.segment
         .ui.breadcrumb
@@ -13,30 +13,61 @@ template(name='get_started')
             |Begin creating your secure account with CoinBox by following the four simple steps below, start by entering the information requested below!
     .ui.center.aligned.basic.segment
         .ui.steps
-            .active.step
+            a.step(href="/get_started/1")
                 .content 
                     .title Step 1
                     .description 
                         |Sign Up with CoinBox
-            .step
+            a.step(href="/get_started/2")
                 .content 
                     .title Step 2
                     .description 
                         |Confirm Email Account
-            .step
+            a.step(href="/get_started/3")
                 .content 
                     .title Step 3
                     .description 
                         |Create Password
-            .step
+            a.step(href="/get_started/4")
                 .content 
                     .title Step 4
                     .description 
                         |Request Mailer
+    +yield
             
     
     
+template(name='get_started1')    
+    .ui.center.aligned.basic.segment 
+        .ui.massive.header 
+            |Register & Request your coin mailer!
     
+template(name='get_started2')    
+    .ui.center.aligned.basic.segment 
+        .ui.massive.header 
+            |To confirm your email, click the link we've sent you via email to continue creating your account!
+    
+template(name='get_started3')    
+    .ui.center.aligned.basic.segment 
+        .ui.massive.header 
+            |Create New Password
+        .ui.input
+            .ui.small.header Enter Password
+            input(type='password' placeholder='Password')
+        .ui.input
+            .ui.small.header Confirm Password
+            input(type='password' placeholder='Password')
+
+template(name='get_started4')    
+    .ui.center.aligned.basic.segment 
+        .ui.massive.header 
+            |Your coin mailer is being sent to
+        .ui.blue.rounded.button
+            |Track Mailer
+        .ui.blue.rounded.button
+            |My Account
+        .ui.big.blue.button 
+            |How to Package your Coins
     
 template(name='terms')
     +page key='about'

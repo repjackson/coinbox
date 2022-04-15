@@ -11,10 +11,22 @@ if Meteor.isClient
         @layout 'layout'
         @render 'terms'
         ), name:'terms'
-    Router.route '/get_started', (->
-        @layout 'layout'
-        @render 'get_started'
-        ), name:'get_started'
+    Router.route '/get_started/1', (->
+        @layout 'get_started_layout'
+        @render 'get_started1'
+        ), name:'get_started1'
+    Router.route '/get_started/2', (->
+        @layout 'get_started_layout'
+        @render 'get_started2'
+        ), name:'get_started2'
+    Router.route '/get_started/3', (->
+        @layout 'get_started_layout'
+        @render 'get_started3'
+        ), name:'get_started3'
+    Router.route '/get_started/4', (->
+        @layout 'get_started_layout'
+        @render 'get_started4'
+        ), name:'get_started4'
         
     Template.faqs.onCreated ->
     Template.page.onCreated ->

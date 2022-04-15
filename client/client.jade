@@ -63,7 +63,7 @@ template(name='footer')
     .ui.fluid.blue.inverted.segment.grid
         .three.column.row
             .column
-                img.ui.image(src="{{c.url 'coinbox_logo'}}")
+                img.ui.image.shadowed(src="{{c.url 'coinbox_logo'}}")
                 .ui.link.big.inverted.animated.list
                     a.item(href="/get_started" class="{{isActiveRoute 'get_started'}}" ) Get Started
                     a.item(href="/terms" class="{{isActiveRoute 'terms'}}" ) Terms & Conditions
