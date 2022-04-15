@@ -17,14 +17,13 @@ template(name='faqs')
             if currentUser
                 .ui.icon.button.add_faq
                     i.plus.large.icon
-        .twelve.wide.column
-            .scrolling
-                // if subs_ready
-                .ui.fluid.styled.big.accordion
+        .sixteen.wide.column
+            if subs_ready
+                .ui.fluid.styled.large.accordion
                     each faq_docs 
                         +faq_item
-                // else 
-                //     i.massive.yin.yang.loading.icon
+            else 
+                i.massive.refresh.loading.icon
 
 
 template(name='faq_item')

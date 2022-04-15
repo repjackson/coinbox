@@ -11,6 +11,10 @@ if Meteor.isClient
         @layout 'layout'
         @render 'terms'
         ), name:'terms'
+    Router.route '/get_started/', (->
+        @layout 'get_started_layout'
+        @render 'get_started1'
+        ), name:'get_started'
     Router.route '/get_started/1', (->
         @layout 'get_started_layout'
         @render 'get_started1'

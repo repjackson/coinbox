@@ -19,10 +19,11 @@ template(name='nav')
         //             input.global_search(type='text' autocomplete="off" value=current_searchs)
         .right.menu
             if currentUser
-                a.icon.item.zoomer(href="/admin" class="{{isActivePath '/admin'}}")
-                    // i.large.admin.icon
-                    +i name='shield'
-                    |admin
+                if currentUser.admin
+                    a.icon.item.zoomer(href="/admin" class="{{isActivePath '/admin'}}")
+                        // i.large.admin.icon
+                        +i name='shield'
+                        |admin
                 a.icon.item.zoomer(href="/inbox" class="{{isActivePath '/inbox'}}")
                     // i.large.inbox.icon
                     +i name='inbox'
@@ -56,11 +57,11 @@ template(name='nav')
                 .icon.item.zoomer
                     i.yin.yang.large.loading.icon
             unless currentUser
-                a.large.blue.item.zoomer(href='/get_started' class="{{isActiveRoute 'get-started'}}" )
+                a.large.blue.item.zoomer.mobile.hidden(href='/get_started/1' class="{{isActiveRoute 'get-started'}}" )
                     |Get Started
-                a.large.blue.item.zoomer(href="/faqs" class="{{isActiveRoute 'faqs'}}" )
+                a.large.blue.item.zoomer.mobile.hidden(href="/faqs" class="{{isActiveRoute 'faqs'}}" )
                     |FAQs
-                a.large.blue.item.zoomer(href="/about" class="{{isActiveRoute 'about'}}" )
+                a.large.blue.item.zoomer.mobile.hidden(href="/about" class="{{isActiveRoute 'about'}}" )
                     |About
                 // a.item.zoomer(href="/register" title='register')
                 //     +i name='plus'
@@ -69,7 +70,7 @@ template(name='nav')
                     .ui.rounded.yellow.button
                         // i.sign.in.large.icon
                         // +i name='internal'
-                        span.mobile.hidden Login
+                        | Login
     if currentUser
         .ui.attached.borderless.menu.hscroll
             a.icon.item.zoomer.fly_right(href="/posts" class="{{isActiveRoute 'posts'}}" title='posts')
@@ -100,14 +101,14 @@ template(name='nav')
                 // i.large.fire.icon
                 +i name='service'
                 span.mobile.hidden services
-            a.icon.item.zoomer.fly_right(href="/rentals" class="{{isActiveRoute 'rentals'}}" title='rentals')
-                // i.large.fire.icon
-                +i name='clock'
-                span.mobile.hidden rentals
-            a.icon.item.zoomer.fly_right(href="/events" class="{{isActiveRoute 'events'}}" title='events')
-                // i.large.fire.icon
-                +i name='calendar'
-                span.mobile.hidden events
+            // a.icon.item.zoomer.fly_right(href="/rentals" class="{{isActiveRoute 'rentals'}}" title='rentals')
+            //     // i.large.fire.icon
+            //     +i name='clock'
+            //     span.mobile.hidden rentals
+            // a.icon.item.zoomer.fly_right(href="/events" class="{{isActiveRoute 'events'}}" title='events')
+            //     // i.large.fire.icon
+            //     +i name='calendar'
+            //     span.mobile.hidden events
             a.icon.item.zoomer.fly_right(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" title='testimonials')
                 // i.large.fire.icon
                 +i name='megaphone'
