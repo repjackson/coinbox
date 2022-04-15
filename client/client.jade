@@ -68,7 +68,12 @@ template(name='footer')
                 .ui.dividing.inverted.header 
                     |Customer Care
                 .ui.link.big.inverted.list
-                    a.item.zoomer(href="/account" class="{{isActiveRoute 'transfers'}}" ) My Account
+                    if currentUser
+                        a.item.zoomer(href="/user/#{currentUser.username}/" class="{{isActiveRoute 'transfers'}}" ) 
+                            |My Account
+                    else    
+                        a.item.zoomer(href="/login" class="{{isActiveRoute 'transfers'}}" ) 
+                            |My Account
                     a.item.zoomer(href="/privacy" class="{{isActiveRoute 'privacy'}}" ) Privacy Policy
                     a.item.zoomer(href="/terms" class="{{isActiveRoute 'terms'}}" ) Terms & Conditions
                     a.item.zoomer(href="/faqs" class="{{isActiveRoute 'faqs'}}" ) FAQs

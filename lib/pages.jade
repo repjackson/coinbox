@@ -3,6 +3,7 @@ template(name='get_started')
     
 template(name='about')
     +page key='about'
+    .ui.center.aligned.blue.massive.header CoinBoxforCash.com is a web-based consumer service company providing coin deposit counting services to consumer and commercial clients.
 
 template(name='contact')
     .ui.header contact us
@@ -15,8 +16,9 @@ template(name='page')
         with page_doc 
             |!{content}
             if currentUser 
-                a.ui.button(href="/post/#{_id}/edit")
+                a.ui.icon.button(href="/post/#{_id}/edit")
                     i.large.pencil.icon
+                    |edit (admin)
         else 
             .ui.button.create_doc
                 i.shield.icon

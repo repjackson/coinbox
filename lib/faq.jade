@@ -1,23 +1,19 @@
 template(name='faqs')
-    .ui.padded.grid
+    .ui.padded.centered.grid
         .sixteen.wide.center.aligned.column
-            .ui.header 
-                |Home > faqs
-            .ui.header Got questions?
-            .ui.massive.header We can help!
+            a.ui.inline.header(href='/')
+                |Home 
+            |>
+            a.ui.inline.header(href='/faqs')
+                |faqs
+            div
+            .ui.inline.header Got questions?
+            .ui.massive.inline.header We can help!
+            div
             .ui.action.input
                 input(type='text' placeholder='Ask a question...')
                 .ui.yellow.button
                     |Search
-            if currentUser 
-                .ui.button.add_faq
-                    i.plus.icon
-                    
-
-    .ui.stackable.padded.centered.grid 
-        .sixteen.wide.center.aligned.column
-            .ui.massive.header 
-                |faqs
             if currentUser
                 .ui.icon.button.add_faq
                     i.plus.large.icon
@@ -36,10 +32,8 @@ template(name='faq_card')
         img.ui.fluid.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
         .content
             a.ui.header(href="/faq/#{_id}") #{title}
-            .ui.small.grey.inline.header #{when}
             | !{content}
             // +comments_view_small
-            +author_info
 
 template(name='faq_view')
     with current_doc
@@ -102,10 +96,7 @@ template(name='faq_edit')
                     a.ui.icon.green.big.button(href="/faq/#{_id}/view" title='save')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
-                    
-                    +boolean_edit key='has_content' label='has content' icon='content' direct=true
-                    if has_content
-                        +html_edit key='content' label='content' direct=true
+                    +html_edit key='content' label='content' direct=true
                 .column.scrolling
                     i.large.link.red.remove.icon.delete_faq
                     if is_dev
@@ -114,9 +105,7 @@ template(name='faq_edit')
                         .ui.header 
                             small author
                             |#{_author.username}
-                    +boolean_edit key='has_image' label='has image' icon='content' direct=true
-                    if has_image
-                        +image_edit key='image_id' label='image' direct=true
+                    +image_edit key='image_id' label='image' direct=true
                     div 
                     +array_edit key='tags' label='tags' direct=true icon='tags'
                     +boolean_edit key='published' icon='visible' direct=true
