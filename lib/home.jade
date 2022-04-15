@@ -96,12 +96,12 @@ template(name='add_user_segment')
                             |Mobile Payment Services
                         +home_payment_button icon='apple-pay' label='Apple Pay'
                         +home_payment_button icon='paypal' label='Paypal'
-                        +home_payment_button icon='venmo' label='Venmo'
+                        +home_payment_button label='Venmo'
                         +home_payment_button icon='cash-app' label='Cash App'
                     .column
                         .ui.small.yellow.header 
                             |Mailed Payment Services
-                        +home_payment_button label='Company Check'
+                        +home_payment_button icon='check-book' label='Company Check'
                         
             .ui.center.aligned.basic.segment
                 .ui.massive.yellow.rounded.center.aligned.button.sign_up
@@ -110,7 +110,10 @@ template(name='add_user_segment')
 
 template(name='home_payment_button')
     .ui.basic.compact.button.select_payment(class=paybutton_class)
-        +i name=icon
+        if icon
+            +i name=icon
+        else 
+            img.ui.avatar.image(src="https://cdn1.venmo.com/marketing/images/branding/venmo-icon.svg")
         |#{label}
             
             

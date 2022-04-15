@@ -23,11 +23,10 @@ template(name='nav')
                     a.icon.item.zoomer(href="/admin" class="{{isActivePath '/admin'}}")
                         // i.large.admin.icon
                         +i name='shield'
-                        |admin
-                a.icon.item.zoomer(href="/inbox" class="{{isActivePath '/inbox'}}")
+                a.icon.item.zoomer.mobile.hidden(href="/inbox" class="{{isActivePath '/inbox'}}")
                     // i.large.inbox.icon
                     +i name='inbox'
-                a.icon.item.zoomer(href="/chat" class="{{isActivePath '/chat'}}")
+                a.icon.item.zoomer.mobile.hidden(href="/chat" class="{{isActivePath '/chat'}}")
                     // i.large.inbox.icon
                     +i name='chat'
                 // a.item.zoomer.toggle_topbar.mobile.hidden(title='alerts')
@@ -200,9 +199,14 @@ template(name='rightbar')
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/subscriptions" class="{{isActiveRoute 'user_subscriptions'}}")
                 +i name='clock' cl='ui avatar image'
                 |subscriptions
-            // a.item.zoomer.toggle_rightbar(href="/user/#{username}/pantry" class="{{isActiveRoute 'user_pantry'}}")
-            //     +i name='cupboard' cl='ui avatar image'
-            //     |pantry
+            a.item.zoomer(href="/inbox" class="{{isActivePath '/inbox'}}")
+                // i.large.inbox.icon
+                +i name='inbox'
+                |inbox
+            a.item.zoomer(href="/chat" class="{{isActivePath '/chat'}}")
+                // i.large.inbox.icon
+                +i name='chat'
+                |chat
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
                 +i name='friends' cl='ui avatar image'
                 |friends
