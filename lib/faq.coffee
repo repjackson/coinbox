@@ -37,6 +37,11 @@ if Meteor.isClient
         Session.setDefault 'limit', 20
         Session.setDefault 'view_open', true
 
+    Template.faqs.onRendered ->
+        Meteor.setTimeout ->
+            $('.accordion').accordion()
+        , 1000
+        
     Template.faqs.onCreated ->
         # @autorun => @subscribe 'model_docs', 'faq', ->
         @autorun => @subscribe 'faq_facets',
@@ -64,8 +69,8 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.faq_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-    Template.faq_card.onCreated ->
-        @autorun => Meteor.subscribe 'doc_comments', @data._id, ->
+    Template.faq_item.onCreated ->
+        # @autorun => Meteor.subscribe 'doc_comments', @data._id, ->
 
 
     Template.faqs.helpers
@@ -85,7 +90,7 @@ if Meteor.isClient
                 Docs.insert 
                     model:'faq'
             Router.go "/faq/#{new_id}/edit"
-    Template.faq_card.events
+    Template.faq_item.events
         'click .view_faq': ->
             Router.go "/faq/#{@_id}"
 
@@ -297,9 +302,9 @@ if Meteor.isServer
 
 
 if Meteor.isClient
-    Template.faq_card.onCreated ->
+    Template.faq_item.onCreated ->
         # @autorun => Meteor.subscribe 'model_docs', 'food'
-    Template.faq_card.events
+    Template.faq_item.events
         'click .quickbuy': ->
             console.log @
             Session.set('quickbuying_id', @_id)
@@ -323,8 +328,8 @@ if Meteor.isClient
         # 'click .view_card': ->
         #     $('.container_')
 
-    Template.faq_card.helpers
-        faq_card_class: ->
+    Template.faq_item.helpers
+        faq_item_class: ->
             # if Session.get('quickbuying_id')
             #     if Session.equals('quickbuying_id', @_id)
             #         'raised'

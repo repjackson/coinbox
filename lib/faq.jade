@@ -20,20 +20,22 @@ template(name='faqs')
         .twelve.wide.column
             .scrolling
                 // if subs_ready
-                .ui.centered.stackable.cards
+                .ui.fluid.styled.accordion
                     each faq_docs 
-                        +faq_card
+                        +faq_item
                 // else 
                 //     i.massive.yin.yang.loading.icon
 
 
-template(name='faq_card')
-    .ui.link.card.view_faq.pointer.fly_right
-        img.ui.fluid.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-        .content
-            a.ui.header(href="/faq/#{_id}") #{title}
-            | !{content}
-            // +comments_view_small
+template(name='faq_item')
+    // .ui.link.card.view_faq.pointer.fly_right
+    .title
+        // a.ui.header(href="/faq/#{_id}") #{title}
+        |#{title}
+        i.dropdown.icon
+    .content
+        | !{content}
+        // +comments_view_small
 
 template(name='faq_view')
     with current_doc
