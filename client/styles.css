@@ -34,10 +34,15 @@ body {
     letter-spacing: 0em;
     border-radius: 4em;
     padding: 0.9em 2.1em;
-    background: linear-gradient(135deg,#FFAB00 ,#FDC200);
+    background: linear-gradient(135deg,#FFAB00,#FDC200);
     border-color: transparent;
     color: #ffffff!important;
     box-shadow: 0 0em 0em rgb(0 0 0 / 20%);
+}
+
+.sign_up{
+    font-size: 1rem;
+    
 }
 
 .bg {

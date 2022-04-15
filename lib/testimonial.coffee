@@ -7,7 +7,7 @@ if Meteor.isClient
     Template.testimonials_widget.helpers
         testimonial_docs: ->
             Docs.find   
-                model:'testimonial_docs'
+                model:'testimonial'
 
 
     Router.route '/testimonials', (->
