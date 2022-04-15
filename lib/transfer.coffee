@@ -323,7 +323,7 @@ if Meteor.isClient
         
     Template.transfer_edit.onCreated ->
         @autorun => Meteor.subscribe 'all_users', ->
-        @autorun => Meteor.subscribe 'recipient_from_transfer_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'target_from_transfer_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'author_from_doc_id, ->', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => @subscribe 'tag_results',
@@ -341,11 +341,11 @@ if Meteor.isClient
         #     Terms.find()
         suggestions: ->
             Results.find(model:'tag')
-        recipient: ->
+        target: ->
             transfer = Docs.findOne Router.current().params.doc_id
-            if transfer and transfer.recipient_id
+            if transfer and transfer.target_id
                 Meteor.users.findOne
-                    _id: transfer.recipient_id
+                    _id: transfer.target_id
         members: ->
             transfer = Docs.findOne Router.current().params.doc_id
             Meteor.users.find({
@@ -357,7 +357,7 @@ if Meteor.isClient
                 })
         # subtotal: ->
         #     transfer = Docs.findOne Router.current().params.doc_id
-        #     transfer.amount*transfer.recipient_ids.length
+        #     transfer.amount*transfer.target_ids.length
         
         point_max: ->
             if Meteor.user().username is 'one'
@@ -367,16 +367,16 @@ if Meteor.isClient
         
         can_submit: ->
             transfer = Docs.findOne Router.current().params.doc_id
-            transfer.amount and transfer.recipient_id
+            transfer.amount and transfer.target_id
     Template.transfer_edit.events
-        'click .add_recipient': ->
+        'click .add_target': ->
             Docs.update Router.current().params.doc_id,
                 $set:
-                    recipient_id:@_id
-        'click .remove_recipient': ->
+                    target_id:@_id
+        'click .remove_target': ->
             Docs.update Router.current().params.doc_id,
                 $unset:
-                    recipient_id:1
+                    target_id:1
         'keyup .new_tag': _.throttle((e,t)->
             query = $('.new_tag').val()
             if query.length > 0
@@ -481,18 +481,18 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'recipient_from_transfer_id', (transfer_id)->
+    Meteor.publish 'target_from_transfer_id', (transfer_id)->
         transfer = Docs.findOne transfer_id
         if transfer
-            Meteor.users.findOne transfer.recipient_id
+            Meteor.users.findOne transfer.target_id
     Meteor.methods
         send_transfer: (transfer_id)->
             transfer = Docs.findOne transfer_id
-            recipient = Meteor.users.findOne transfer.recipient_id
+            target = Meteor.users.findOne transfer.target_id
             transferer = Meteor.users.findOne transfer._author_id
 
             console.log 'sending transfer', transfer
-            Meteor.call 'recalc_one_stats', recipient._id, ->
+            Meteor.call 'recalc_one_stats', target._id, ->
             Meteor.call 'recalc_one_stats', transfer._author_id, ->
     
             Docs.update transfer_id,

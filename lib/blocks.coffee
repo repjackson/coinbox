@@ -44,6 +44,15 @@ if Meteor.isClient
 
 
 
+    Template.send_points_button.events
+        'click .send_karma': ->
+            console.log @
+            new_id = 
+                Docs.insert 
+                    model:'transfer'
+                    target_user_id:@_id
+                    target_username:@username
+            Router.go "/transfer/#{new_id}/edit"
 
 
 

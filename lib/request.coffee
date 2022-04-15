@@ -249,11 +249,11 @@ if Meteor.isServer
             console.log 'sending payment from', from_username, 'to', to_username, 'for', amount, reason, request_id
             res = request_id
             sender = Docs.findOne username:from_username
-            recipient = Docs.findOne username:to_username
+            target = Docs.findOne username:to_username
 
 
             console.log 'sender', sender._id
-            console.log 'recipient', recipient._id
+            console.log 'target', target._id
             console.log typeof amount
             #
             amount  = parseFloat amount
@@ -261,15 +261,15 @@ if Meteor.isServer
             Docs.update sender._id,
                 $inc: credit: -amount
 
-            Docs.update recipient._id,
+            Docs.update target._id,
                 $inc: credit: amount
 
             Docs.insert
                 model:'payment'
                 sender_username: from_username
                 sender_id: sender._id
-                recipient_username: to_username
-                recipient_id: recipient._id
+                target_username: to_username
+                target_id: target._id
                 amount: amount
                 request_id: request_id
                 rental_id: res.rental_id
@@ -278,9 +278,9 @@ if Meteor.isServer
                 model:'log_event'
                 log_type: 'payment'
                 sender_username: from_username
-                recipient_username: to_username
+                target_username: to_username
                 amount: amount
-                recipient_id: recipient._id
+                target_id: target._id
                 text:"#{from_username} paid #{to_username} #{amount} for #{reason}."
                 sender_id: sender._id
             return
