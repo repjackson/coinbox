@@ -37,8 +37,8 @@ template(name='users')
                 .ui.compact.button.pick_user_tag(class=cloud_tag_class) 
                     strong #{this.name}
         .twelve.wide.column
-            +session_icon_button key='view_mode' value='grid' icon='grid' 
-            +session_icon_button key='view_mode' value='list' icon='list'
+            // +session_icon_button key='view_mode' value='grid' icon='grid' 
+            // +session_icon_button key='view_mode' value='list' icon='list'
             +session_set key='sort_users_direction' value='-1' icon='chevron down'
             +session_set key='sort_users_direction' value='1' icon='chevron up'
             +session_set key='sort_users_key' value='points' icon='coins'

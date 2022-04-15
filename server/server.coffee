@@ -27,7 +27,7 @@ Meteor.users.allow
         # else
         #     doc._author_id is userId
     # update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
-    remove: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
+    remove: (userId, doc) -> Meteor.user() and Meteor.user().admin
 
 Meteor.publish 'count', ->
   Counts.publish this, 'product_counter', Docs.find({model:'product'})
