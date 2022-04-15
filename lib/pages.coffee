@@ -7,6 +7,10 @@ if Meteor.isClient
         @layout 'layout'
         @render 'contact'
         ), name:'contact'
+    Router.route '/terms', (->
+        @layout 'layout'
+        @render 'terms'
+        ), name:'terms'
     Router.route '/get_started', (->
         @layout 'layout'
         @render 'get_started'

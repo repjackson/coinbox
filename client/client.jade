@@ -54,7 +54,7 @@ template(name='layout')
         +topbar
         +leftbar
         +rightbar
-        .global_container
+        .global_container.bg
             +yield
         +footer
     
@@ -67,26 +67,26 @@ template(name='footer')
             .column
                 .ui.dividing.inverted.header 
                     |Customer Care
-                .ui.link.big.inverted.list
+                .ui.link.big.inverted.animated.list
                     if currentUser
-                        a.item.zoomer(href="/user/#{currentUser.username}/" class="{{isActiveRoute 'transfers'}}" ) 
+                        a.item(href="/user/#{currentUser.username}/" class="{{isActiveRoute 'transfers'}}" ) 
                             |My Account
                     else    
-                        a.item.zoomer(href="/login" class="{{isActiveRoute 'transfers'}}" ) 
+                        a.item(href="/login" class="{{isActiveRoute 'transfers'}}" ) 
                             |My Account
-                    a.item.zoomer(href="/privacy" class="{{isActiveRoute 'privacy'}}" ) Privacy Policy
-                    a.item.zoomer(href="/terms" class="{{isActiveRoute 'terms'}}" ) Terms & Conditions
-                    a.item.zoomer(href="/faqs" class="{{isActiveRoute 'faqs'}}" ) FAQs
-                    a.item.zoomer(href="https://trello.com/invite/b/0g5gAYUv/f138e7f3cdd7d8997d895818eca500b2/website" ) Trello Board
+                    a.item(href="/privacy" class="{{isActiveRoute 'privacy'}}" ) Privacy Policy
+                    a.item(href="/terms" class="{{isActiveRoute 'terms'}}" ) Terms & Conditions
+                    a.item(href="/faqs" class="{{isActiveRoute 'faqs'}}" ) FAQs
+                    a.item(href="https://trello.com/invite/b/0g5gAYUv/f138e7f3cdd7d8997d895818eca500b2/website" ) Trello Board
             .column
                 .ui.dividing.inverted.header
                     |Company Information
-                .ui.link.big.inverted.list
-                    a.item.zoomer(href="/contact" class="{{isActiveRoute 'contact'}}" ) Contact Us
-                    a.item.zoomer(href="/about" class="{{isActiveRoute 'about'}}" ) About Us
-                    a.item.zoomer(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" ) Testimonials
-                    a.item.zoomer(href="/corporate_services" class="{{isActiveRoute 'corporate_services'}}" ) Corporate Services
-                    a.item.zoomer(href="/organizations" class="{{isActiveRoute 'organizations'}}" ) Organizations
+                .ui.link.big.inverted.animated.list
+                    a.item(href="/contact" class="{{isActiveRoute 'contact'}}" ) Contact Us
+                    a.item(href="/about" class="{{isActiveRoute 'about'}}" ) About Us
+                    a.item(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" ) Testimonials
+                    a.item(href="/corporate_services" class="{{isActiveRoute 'corporate_services'}}" ) Corporate Services
+                    a.item(href="/organizations" class="{{isActiveRoute 'organizations'}}" ) Organizations
 
 template(name='verification_confirmation')
     .ui.text.container
