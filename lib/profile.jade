@@ -55,6 +55,9 @@ template(name='profile')
                             i.globe.icon
                             |Profile Link
                 .column
+                    if bio
+                        .ui.small.header 
+                            |!{bio}
                     .ui.header
                         +i name='globe'
                         |#{lbs_carbon_offset} #lbs carbon offset 
@@ -206,6 +209,7 @@ template(name='user_edit')
                     +text_edit key='first_name' label='first name'
                     +text_edit key='last_name' label='last name'
                     +text_edit key='display_name' label='display name'
+                    +html_edit key='bio' label='bio'
                     .ui.dividing.header 
                         +i name='money'
                         |preferred payment received method
