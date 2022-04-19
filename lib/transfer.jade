@@ -100,11 +100,11 @@ template(name='transfer_view')
         .ui.stackable.padded.grid
             .centered.row 
                 .five.wide.column
-                    a.ui.button(href="/transfers")
+                    a.ui.button.zoomer(href="/transfers")
                         i.chevron.left.icon
                         +i name='exchange'
                         |transfers
-                    a(href="/user/#{_author.username}") 
+                    a.zoomer(href="/user/#{_author.username}") 
                         img.ui.circular.centered.pointer.zoom.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoom
                             |#{_author.name}
@@ -131,7 +131,7 @@ template(name='transfer_view')
                     +comments
                     //- +array_view key='location_tags' label='location_tags' direct=true
                 .five.wide.column
-                    a.fly_right(href="/user/#{target.username}")
+                    a.fly_right.zoomer(href="/user/#{target.username}")
                         img.ui.circular.centered.fluid.pointer.zoom.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoom
                             |#{target.name}
