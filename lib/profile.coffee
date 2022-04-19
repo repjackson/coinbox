@@ -1,29 +1,53 @@
 if Meteor.isClient
     Router.route '/user/:username', (->
-        @layout 'layout'
-        @render 'profile'
-        ), name:'profile'
+        @layout 'profile_layout'
+        @render 'profile_dashboard'
+        ), name:'profile_dashboard'
+    Router.route '/user/:username/social', (->
+        @layout 'profile_layout'
+        @render 'user_social'
+        ), name:'user_social'
+    Router.route '/user/:username/balance', (->
+        @layout 'profile_layout'
+        @render 'user_balance'
+        ), name:'user_balance'
+    Router.route '/user/:username/membership', (->
+        @layout 'profile_layout'
+        @render 'user_membership'
+        ), name:'user_membership'
+    Router.route '/user/:username/messages', (->
+        @layout 'profile_layout'
+        @render 'user_messages'
+        ), name:'user_messages'
+    Router.route '/user/:username/posts', (->
+        @layout 'profile_layout'
+        @render 'user_posts'
+        ), name:'user_posts'
+    Router.route '/user/:username/events', (->
+        @layout 'profile_layout'
+        @render 'user_events'
+        ), name:'user_events'
 
 
 
-    Template.profile.onCreated ->
+    Template.profile_layout.onCreated ->
         Meteor.call 'calc_user_points', Router.current().params.username, ->
 
 
         
 if Meteor.isClient
-    Template.profile.onCreated ->
+    Template.profile_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
         @autorun -> Meteor.subscribe 'user_deposits', Router.current().params.username, ->
         @autorun -> Meteor.subscribe 'user_rentals', Router.current().params.username, ->
         @autorun -> Meteor.subscribe 'user_orders', Router.current().params.username, ->
 
-    Template.profile.onRendered ->
+    Template.profile_layout.onRendered ->
         Meteor.setTimeout ->
             $('.button').popup()
         , 2000
 
-    Template.profile.events
+    Template.profile_layout.events
         'click .recalc_wage_stats': (e,t)->
             Meteor.call 'recalc_wage_stats', Router.current().params.username, ->
 
@@ -35,7 +59,7 @@ if Meteor.isClient
     #     user_section_template: ->
     #         "user_#{Router.current().params.group}"
 
-    Template.profile.helpers
+    Template.profile_layout.helpers
         user_rental_docs: ->
             Docs.find
                 model:'rental'
@@ -107,7 +131,7 @@ if Meteor.isServer
     
             
 if Meteor.isClient
-    Template.profile.onCreated ->
+    Template.profile_layout.onCreated ->
         # @autorun => Meteor.subscribe 'joint_transactions', Router.current().params.username
         # @autorun => Meteor.subscribe 'model_docs', 'deposit'
         # @autorun => Meteor.subscribe 'model_docs', 'order'
@@ -149,7 +173,7 @@ if Meteor.isClient
     	# )
 
 
-    Template.profile.events
+    Template.profile_layout.events
         'click .add_points': ->
             amount = parseInt $('.deposit_amount').val()
             # amount_times_100 = parseInt amount*100
@@ -185,7 +209,7 @@ if Meteor.isClient
 
 
 
-    Template.profile.helpers
+    Template.profile_layout.helpers
         owner_earnings: ->
             Docs.find
                 model:'order'
@@ -221,7 +245,7 @@ if Meteor.isClient
 
 
 
-    Template.profile.onCreated ->
+    Template.profile_layout.onCreated ->
         @autorun => Meteor.subscribe 'user_orders', Router.current().params.username
         # @autorun => Meteor.subscribe 'model_docs', 'rental'
         # @autorun => Meteor.subscribe 'joint_transactions', Router.current().params.username
@@ -230,7 +254,7 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'model_docs', 'withdrawal'
 
 
-    Template.profile.helpers
+    Template.profile_layout.helpers
         owner_earnings: ->
             Docs.find
                 model:'order'

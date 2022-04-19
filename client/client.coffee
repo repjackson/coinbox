@@ -5,9 +5,9 @@
 
 
 Tracker.autorun ->
-    # current = Router.current()
-    # Tracker.afterFlush ->
-    #     $(window).scrollTop 0
+    current = Router.current()
+    Tracker.afterFlush ->
+        $(window).scrollTop 0
 Template.layout.onCreated ->
     'click .refresh_gps': ->
         navigator.geolocation.getCurrentPosition (position) =>

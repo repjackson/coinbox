@@ -82,13 +82,24 @@ template(name='footer')
                     a.item(href="https://trello.com/invite/b/0g5gAYUv/f138e7f3cdd7d8997d895818eca500b2/website" target='_window') Trello Board
             .column
                 .ui.dividing.inverted.header
+                    i.info.icon
                     |Company Information
                 .ui.link.big.inverted.animated.list
-                    a.item(href="/contact" class="{{isActiveRoute 'contact'}}" ) Contact Us
-                    a.item(href="/about" class="{{isActiveRoute 'about'}}" ) About Us
-                    a.item(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" ) Testimonials
-                    a.item(href="/corporate_services" class="{{isActiveRoute 'corporate_services'}}" ) Corporate Services
-                    a.item(href="/organizations" class="{{isActiveRoute 'organizations'}}" ) Organizations
+                    a.item(href="/contact" class="{{isActiveRoute 'contact'}}" ) 
+                        i.phone.icon
+                        |Contact Us
+                    a.item(href="/about" class="{{isActiveRoute 'about'}}" ) 
+                        i.info.icon
+                        |About Us
+                    a.item(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" ) 
+                        i.chat.icon
+                        |Testimonials
+                    a.item(href="/corporate_services" class="{{isActiveRoute 'corporate_services'}}" ) 
+                        i.briefcase.icon
+                        |Corporate Services
+                    a.item(href="/organizations" class="{{isActiveRoute 'organizations'}}" ) 
+                        i.users.icon
+                        |Organizations
     if in_dev 
         .ui.header dev 
         .ui.link.list
