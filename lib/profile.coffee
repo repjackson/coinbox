@@ -7,14 +7,14 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_social'
         ), name:'user_social'
-    Router.route '/user/:username/balance', (->
+    Router.route '/user/:username/credit', (->
         @layout 'profile_layout'
-        @render 'user_balance'
-        ), name:'user_balance'
-    Router.route '/user/:username/membership', (->
+        @render 'user_credit'
+        ), name:'user_credit'
+    Router.route '/user/:username/shop', (->
         @layout 'profile_layout'
-        @render 'user_membership'
-        ), name:'user_membership'
+        @render 'user_shop'
+        ), name:'user_shop'
     Router.route '/user/:username/messages', (->
         @layout 'profile_layout'
         @render 'user_messages'
@@ -46,15 +46,30 @@ if Meteor.isClient
         Meteor.setTimeout ->
             $('.button').popup()
         , 2000
+        console.log @current_user
 
     Template.profile_layout.events
-        'click .recalc_wage_stats': (e,t)->
-            Meteor.call 'recalc_wage_stats', Router.current().params.username, ->
+        'click .recalc_coin_stats': (e,t)->
+            Meteor.call 'recalc_coin_stats', Router.current().params.username, ->
 
         'click .create_profile': ->
             Docs.insert 
                 model:'user'
                 username:Router.current().params.username
+    
+    
+    
+    Template.request_button.events
+        'click .request': ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            new_id = 
+                Docs.insert 
+                    model:'transfer_request'
+                    target_user_id: current_user._id
+                    target_username:current_user.username
+            Router.go "/request/#{new_id}/edit"
+                    
+                
     # Template.user_section.helpers
     #     user_section_template: ->
     #         "user_#{Router.current().params.group}"

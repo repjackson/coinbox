@@ -92,8 +92,6 @@ template(name='transfer_card')
             +print_this
                     
                     
-                    
-                    
 
 template(name='transfer_view')
     with current_doc
@@ -237,13 +235,13 @@ template(name='transfer_edit')
 template(name='user_transfers')
     .ui.header 
         +i name='order-history'
-        |transfers out
+        |#{transfer_out_docs.count} transfers out
     .ui.horizontal.cards
         each transfer_out_docs
             +transfer_out_item
     .ui.header 
         +i name='clock'
-        |transfers in
+        |#{transfer_in_docs.count} transfers in
     .ui.cards
         each transfer_in_docs
             +transfer_in_item
