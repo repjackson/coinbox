@@ -8,7 +8,7 @@ template(name='home')
 template(name='landing_page')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'footer_logo' width=1000 height=1000 crop='crop'}}")
     .ui.stackable.centered.grid
-        .seven.wide.column
+        .six.wide.column
             .ui.basic.segment
                 .ui.yellow_header.header Change your Coins to Cash!
                 .ui.header Do you need cash? Do you have coins just sitting around? 
@@ -26,7 +26,8 @@ template(name='landing_page')
                 source(src="https://res.cloudinary.com/facet/video/upload/v1649476932/CB4C-Animation-Video-1_kch3jg.mp4" type="video/mp4")
     
                 
-        .seven.wide.column
+        .six.wide.column
+            .ui.hidden.divider
             +add_user_segment
         .sixteen.wide.column
             +how_it_works
