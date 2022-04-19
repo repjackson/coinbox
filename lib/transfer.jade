@@ -67,12 +67,25 @@ template(name='transfer_card')
             a.image.zoomer.fly_right(href="/transfer/#{_id}")
                 img.ui.image(src="{{c.url image_id width=600 height=600}}")
         .content
+            .header 
+                a(href="/user/#{_author.username}") 
+                    img.ui.avatar.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                    .ui.inline.header.pointer.zoomer
+                        |#{_author.name}
+                i.chevron.right.icon
+                .ui.yellow.label #{amount}
+                i.chevron.right.icon
+                a.fly_right(href="/user/#{target.username}")
+                    img.ui.avatar.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                    .ui.inline.header.pointer.zoomer
+                        |#{target.name}
+    
             each tags
                 .ui.label #{this}
             .smallscroll
                 |!{description}
             //+ismall name='tags' cl='ui inline image'
-            a.ui.icon.button.zoomer(href="/transfer/#{_id}")
+            a.ui.icon.button.zoomer.fly_right(href="/transfer/#{_id}")
                 i.chevron.right.icon
             // if is_admin
             //     .ui.small.header slug: #{slug}
@@ -87,6 +100,10 @@ template(name='transfer_view')
         .ui.stackable.padded.grid
             .centered.row 
                 .five.wide.column
+                    a.ui.button(href="/transfers")
+                        i.chevron.left.icon
+                        +i name='exchange'
+                        |transfers
                     a(href="/user/#{_author.username}") 
                         img.ui.circular.centered.pointer.zoom.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoom
