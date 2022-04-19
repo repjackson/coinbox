@@ -64,8 +64,8 @@ Meteor.publish 'model_docs', (
     )->
     Docs.find {
         model: model
-        app:'goldrun'
-    }, limit:limit
+        # app:'goldrun'
+    }, limit:100
 
 Meteor.publish 'document_by_slug', (slug)->
     Docs.find

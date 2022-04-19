@@ -238,34 +238,33 @@ template(name='user_transfers')
     .ui.header 
         +i name='order-history'
         |transfers out
-    .ui.divided.small.items
+    .ui.horizontal.cards
         each transfer_out_docs
             +transfer_out_item
     .ui.header 
         +i name='clock'
         |transfers in
-    .ui.items
+    .ui.cards
         each transfer_in_docs
-            +transfer_item
+            +transfer_in_item
 
-template(name='transfer_item')
-    a.item.zoomer(href="/transfer/#{_id}")
+template(name='transfer_in_item')
+    a.card.zoomer(href="/transfer/#{_id}")
         if image_id
             img.ui.tiny.image(src="{{c.url image_id width=300 height=300}}")
         //     a.image.zoomer.fly_right(href="/transfer/#{_id}")
-        .middle.aligned.content
+        .content
             a.ui.header.zoomer.fly_right(href="/transfer/#{_id}")
-                |(#{amount}) #{title}
+                |(#{amount})
+            +author_info
             .smallscroll
                 |!{description}
-            +ismall name='tags' cl='ui inline image'
-        .middle.aligned.content
+        .content
             each seven_tags
                 .ui.label #{this}
             if location 
                 i.red.marker.icon 
                 |#{location}
-            +author_info
             |#{when}
             a.zoomer(href="/transfer/#{_id}")
                 i.chevron.right.large.circular.icon
@@ -276,19 +275,19 @@ template(name='transfer_item')
             //         i.pencil.blue.icon
                     
 template(name='transfer_out_item')
-    a.item.zoomer(href="/transfer/#{_id}")
+    a.horizontal.card.zoomer(href="/transfer/#{_id}")
         if image_id
             img.ui.tiny.image(src="{{c.url image_id width=300 height=300}}")
         //     a.image.zoomer.fly_right(href="/transfer/#{_id}")
-        .middle.aligned.content
+        .content
+            img.ui.tiny.image(src="{{c.url target.image_id width=300 height=300}}")
             a.ui.header.zoomer.fly_right(href="/transfer/#{_id}")
-                |(#{amount}) #{title}
-            .smallscroll
-                |!{description}
-        .middle.aligned.content
-            .ui.header
+                |(#{amount})
                 i.chevron.right.icon
                 |#{target_username}
+            .smallscrol
+                |!{description}
+        .content
             each seven_tags
                 .ui.label #{this}
             if location 
