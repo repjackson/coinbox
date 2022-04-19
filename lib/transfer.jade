@@ -238,7 +238,7 @@ template(name='user_transfers')
     .ui.header 
         +i name='order-history'
         |transfers out
-    .ui.items
+    .ui.divided.small.items
         each transfer_out_docs
             +transfer_out_item
     .ui.header 
@@ -266,6 +266,34 @@ template(name='transfer_item')
                 i.red.marker.icon 
                 |#{location}
             +author_info
+            |#{when}
+            a.zoomer(href="/transfer/#{_id}")
+                i.chevron.right.large.circular.icon
+            // if is_admin
+            //     .ui.small.header slug: #{slug}
+            // if can_edit
+            //     a.ui.circular.icon.button(href="/transfer/#{_id}/edit")
+            //         i.pencil.blue.icon
+                    
+template(name='transfer_out_item')
+    a.item.zoomer(href="/transfer/#{_id}")
+        if image_id
+            img.ui.tiny.image(src="{{c.url image_id width=300 height=300}}")
+        //     a.image.zoomer.fly_right(href="/transfer/#{_id}")
+        .middle.aligned.content
+            a.ui.header.zoomer.fly_right(href="/transfer/#{_id}")
+                |(#{amount}) #{title}
+            .smallscroll
+                |!{description}
+        .middle.aligned.content
+            .ui.header
+                i.chevron.right.icon
+                |#{target_username}
+            each seven_tags
+                .ui.label #{this}
+            if location 
+                i.red.marker.icon 
+                |#{location}
             |#{when}
             a.zoomer(href="/transfer/#{_id}")
                 i.chevron.right.large.circular.icon
