@@ -49,7 +49,7 @@ if Meteor.isClient
 
 
     Template.send_points_button.events
-        'click .send_karma': ->
+        'click .send_coin': ->
             console.log @
             new_id = 
                 Docs.insert 

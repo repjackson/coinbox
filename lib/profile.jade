@@ -47,12 +47,6 @@ template(name='profile_layout')
                         // else if is_admin
                         //     a.ui.icon.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                         //         +i name='settings' cl='ui avatar image'
-                        +profile_menu_item key='balance' icon='money'
-                        +profile_menu_item key='social' icon='friends'
-                        +profile_menu_item key='posts' icon='blog'
-                        +profile_menu_item key='products' icon='shop'
-                        +profile_menu_item key='rentals' icon='clock'
-                        +profile_menu_item key='services' icon='wrench'
                         
                         if is_current_user
                             +logout_button
@@ -67,7 +61,14 @@ template(name='profile_layout')
                                 i.globe.icon
                                 |Profile Link
                     .twelve.wide.column
-                        +yield
+                        +profile_menu_item key='balance' icon='money'
+                        +profile_menu_item key='social' icon='friends'
+                        +profile_menu_item key='posts' icon='blog'
+                        +profile_menu_item key='products' icon='shop'
+                        +profile_menu_item key='rentals' icon='clock'
+                        +profile_menu_item key='services' icon='wrench'
+                        .scrolling
+                            +yield
                             
                             
 template(name='profile_dashboard')                            

@@ -513,9 +513,10 @@ if Meteor.isClient
             current_user = 
                 Meteor.users.findOne 
                     username:Router.current().params.username
-            Docs.find 
+            Docs.find  {
                 model:'transfer'
                 _author_id:current_user._id
+            }, sort:_timestamp:-1
         transfer_in_docs: ->
             current_user = 
                 Meteor.users.findOne 
