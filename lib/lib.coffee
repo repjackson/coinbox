@@ -113,7 +113,7 @@ Docs.before.insert (userId, doc)->
     if Meteor.user()
         doc._author_id = Meteor.userId()
         doc._author_username = Meteor.user().username
-    doc.app = 'goldrun'
+    doc.app = 'coinbox'
     # doc.points = 0
     # doc.downvoters = []
     # doc.upvoters = []

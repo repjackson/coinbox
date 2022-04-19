@@ -66,7 +66,10 @@ template(name='set_view_mode_post')
 
 template(name='post_card')
     .ui.link.card.view_post.pointer.fly_right
-        img.ui.fluid.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+        if youtube_id 
+            +youtube_view key='youtube_id'
+        else if image_id
+            img.ui.fluid.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
         .content
             a.ui.header.zoomer(href="/post/#{_id}") #{title}
             if private 
@@ -118,7 +121,7 @@ template(name='post_view')
                     +voting_full
                     +array_view key='location_tags' label='location_tags' direct=true
                     +visibility_settings
-                    +group_widget
+                    // +group_widget
                 .ten.wide.column.scrolling
                     .ui.header #{title}
                     img.ui.rounded.image(src="{{c.url image_id }}" class=currentUser.invert_class)
@@ -130,6 +133,8 @@ template(name='post_view')
                     div 
                     .spacer
                     .spacer
+                    if youtube_id 
+                        +youtube_view key='youtube_id'
                     +comments
                 .two.wide.column
                     +tips
@@ -205,4 +210,5 @@ template(name='post_edit')
                     +boolean_edit key='private' label='private' 
                     if private 
                         +multi_user_edit key='access_user_ids' label='user picker' direct=true
-                    +group_picker
+                    // +group_picker
+                    +youtube_edit key='youtube_id'

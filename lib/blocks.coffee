@@ -1,4 +1,8 @@
 if Meteor.isClient
+    Template.print_this.events  
+        'click .print': ->
+            console.log @
+    
     Template.comments.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
@@ -20,7 +24,7 @@ if Meteor.isClient
                 parent_id:parent._id
                 model:'comment'
     Template.print_this.events
-        'click .print_this': -> console.log @
+        'click .print': -> console.log @
     Template.comments.events
         'keyup .add_comment': (e,t)->
             if e.which is 13

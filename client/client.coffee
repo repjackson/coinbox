@@ -203,3 +203,8 @@ Router.route '/', (->
     @layout 'layout'
     @render 'home'
     ), name:'home'
+
+
+Template.footer.helpers
+    dev_docs: ->
+        Docs.find {}

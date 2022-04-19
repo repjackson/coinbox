@@ -89,6 +89,14 @@ template(name='footer')
                     a.item(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" ) Testimonials
                     a.item(href="/corporate_services" class="{{isActiveRoute 'corporate_services'}}" ) Corporate Services
                     a.item(href="/organizations" class="{{isActiveRoute 'organizations'}}" ) Organizations
+    if in_dev 
+        .ui.header dev 
+        .ui.link.list
+            each dev_docs
+                .item #{title} #{model}
+                    +print_this
+
+
 
 template(name='verification_confirmation')
     .ui.text.container
