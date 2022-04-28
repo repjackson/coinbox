@@ -11,6 +11,10 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_credit'
         ), name:'user_credit'
+    Router.route '/user/:username/rentals', (->
+        @layout 'profile_layout'
+        @render 'user_rentals'
+        ), name:'user_rentals'
     Router.route '/user/:username/shop', (->
         @layout 'profile_layout'
         @render 'user_shop'
@@ -49,8 +53,8 @@ if Meteor.isClient
         console.log @current_user
 
     Template.profile_layout.events
-        'click .recalc_coin_stats': (e,t)->
-            Meteor.call 'recalc_coin_stats', Router.current().params.username, ->
+        'click .refresh_points': (e,t)->
+            Meteor.call 'calc_user_points', Router.current().params.username, ->
 
         'click .create_profile': ->
             Docs.insert 
@@ -126,6 +130,20 @@ if Meteor.isServer
             user = Docs.findOne username:username
             point_total = 10
             if user
+                transfers_in = 
+                    Docs.find 
+                        model:'transfer'
+                        target_user_id:user._id
+                transfers_out = 
+                    Docs.find
+                        model:'transfer'
+                        _author_id:user._id
+                for transfer_in in transfers_in.fetch()
+                    if transfer_in.amount 
+                        point_total += transfer_in.amount
+                for transfer_out in transfers_out.fetch()
+                    if transfer_out.amount 
+                        point_total += transfer_out.amount
                 deposits = 
                     Docs.find 
                         model:'deposit'

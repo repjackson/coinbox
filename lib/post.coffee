@@ -188,16 +188,16 @@ if Meteor.isClient
             
 if Meteor.isServer
     Meteor.publish 'post_results', (
+        picked_tags=[]
+        search_query
+        limit=20
+        sort_key='_timestamp'
+        sort_direction=-1
         )->
         # console.log picked_ingredients
         # if doc_limit
         #     limit = doc_limit
         # else
-        limit = 42
-        # if doc_sort_key
-        #     sort_key = doc_sort_key
-        # if doc_sort_direction
-        #     sort_direction = parseInt(doc_sort_direction)
         self = @
         match = {model:'post'}
         # if picked_ingredients.length > 0
@@ -208,16 +208,15 @@ if Meteor.isServer
             # sort = 'price_per_serving'
         # else
             # match.tags = $nin: ['wikipedia']
-        sort = '_timestamp'
         # match.published = true
             # match.source = $ne:'wikipedia'
         # if view_vegan
         #     match.vegan = true
         # if view_gf
         #     match.gluten_free = true
-        # if post_query and post_query.length > 1
+        if search_query and search_query.length > 1
+            match.title = {$regex:"#{search_query}", $options: 'i'}
         #     console.log 'searching post_query', post_query
-        #     match.title = {$regex:"#{post_query}", $options: 'i'}
         #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
 
         # match.tags = $all: picked_ingredients
@@ -235,9 +234,8 @@ if Meteor.isServer
         unless Meteor.userId()
             match.private = $ne:true
         Docs.find match,
-            # sort:"#{sort_key}":sort_direction
-            # sort:_timestamp:-1
-            limit: 42
+            sort:"#{sort_key}":sort_direction
+            limit: limit
             
             
     Meteor.publish 'post_count', (

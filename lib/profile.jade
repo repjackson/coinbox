@@ -40,6 +40,8 @@ template(name='profile_layout')
                         a.ui.large.button.fly_down.no_blink(href="/user/#{username}/edit" title='profile settings')
                             i.cog.icon
                             |account
+                        .ui.circular.compact.button.refresh_points(title='refresh point calculation')
+                            i.refresh.icon
                         if admin 
                             .ui.header 
                                 i.shield.icon
