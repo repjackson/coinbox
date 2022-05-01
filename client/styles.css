@@ -24,6 +24,8 @@ body {
 }
 
 
+
+
 .test_button {
     font-family: var(--font-body);
     font-size: 1rem;
@@ -63,6 +65,14 @@ body {
     box-shadow:0 0em 0em rgba(0,0,0,0.2)
 }
 
+.footer_bg {
+    /*background-attachment: fixed !important;*/
+    /*position: absolute !important;*/
+    /*max-height: 100% !important;*/
+    padding-top: 2rem!important;
+    padding-bottom: 2rem!important;
+    background: url(/footer-bg.png) no-repeat 0px 17px / 100%!important;
+}
 .bg {
     /*background-attachment: fixed !important;*/
     /*position: absolute !important;*/

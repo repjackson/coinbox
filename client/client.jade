@@ -60,10 +60,10 @@ template(name='layout')
     
     
 template(name='footer')
-    .ui.fluid.blue.inverted.segment.stackable.grid
+    .ui.stackable.padded.grid.footer_bg
         .three.column.row
             .column
-                img.ui.image.shadowed(src="{{c.url 'coinbox_logo'}}")
+                img.ui.image(src="{{c.url 'coinbox/footer_logo'}}")
                 .ui.link.big.inverted.animated.list
                     a.item(href="/get_started/" class="{{isActiveRoute 'get_started'}}" ) Get Started
             .column
