@@ -11,10 +11,6 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_credit'
         ), name:'user_credit'
-    Router.route '/user/:username/rentals', (->
-        @layout 'profile_layout'
-        @render 'user_rentals'
-        ), name:'user_rentals'
     Router.route '/user/:username/shop', (->
         @layout 'profile_layout'
         @render 'user_shop'
@@ -43,7 +39,6 @@ if Meteor.isClient
     Template.profile_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
         @autorun -> Meteor.subscribe 'user_deposits', Router.current().params.username, ->
-        @autorun -> Meteor.subscribe 'user_rentals', Router.current().params.username, ->
         @autorun -> Meteor.subscribe 'user_orders', Router.current().params.username, ->
 
     Template.profile_layout.onRendered ->

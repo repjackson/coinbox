@@ -61,7 +61,7 @@ template(name='transfer_card')
                     .ui.inline.header.pointer.zoomer
                         |#{_author.name}
                 i.chevron.right.icon
-                .ui.yellow.label #{amount}
+                .ui.large.label #{amount}
                 i.chevron.right.icon
                 a.fly_right(href="/user/#{target.username}")
                     img.ui.avatar.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
@@ -80,7 +80,7 @@ template(name='transfer_card')
             +print_this
                     
 template(name='transfer_item')
-    .ui.item.zoomer
+    .ui.item
         if image_id
             a.image.zoomer.fly_right(href="/transfer/#{_id}")
                 img.ui.image(src="{{c.url image_id width=600 height=600}}")
@@ -91,7 +91,7 @@ template(name='transfer_item')
                     .ui.inline.header.pointer.zoomer
                         |#{_author.name}
                 i.chevron.right.icon
-                .ui.yellow.label #{amount}
+                .ui.large.label #{amount}
                 i.chevron.right.icon
                 a.fly_right(href="/user/#{target.username}")
                     img.ui.avatar.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
@@ -124,6 +124,7 @@ template(name='transfer_view')
                         img.ui.circular.centered.pointer.zoom.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoom
                             |#{_author.name}
+                            small (#{_author.points}pts)
                 .five.wide.column
                     .ui.huge.center.aligned.header
                         |#{amount}pts
@@ -151,6 +152,7 @@ template(name='transfer_view')
                         img.ui.circular.centered.fluid.pointer.zoom.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoom
                             |#{target.name}
+                            small (#{target.points}pts)
                             
 
 template(name='transfer_edit')
