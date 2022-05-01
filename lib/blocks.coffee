@@ -206,9 +206,13 @@ if Meteor.isClient
     
     
     Template.session_set.events
-        'click .set_session_value': -> Session.set(@key, @value)
+        'click .set_session_value': -> 
+            console.log @key, @value
+            Session.set(@key, @value)
 
-
+    Template.session_set.helpers
+        calculated_class: ->
+            if Session.equals(@key, @value) then 'active large' else 'compact basic'
     Template.sort_direction_toggle.events 
         'click .toggle': ->
             if Session.equals 'sort_direction', -1
