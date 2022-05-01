@@ -73,12 +73,12 @@ body {
     padding-bottom: 2rem!important;
     background: url(/footer-bg.png) no-repeat 0px 17px / 100%!important;
 }
-.bg {
+.home_bg {
     /*background-attachment: fixed !important;*/
     /*position: absolute !important;*/
     /*max-height: 100% !important;*/
-    /*padding-top: 2rem!important;*/
-    /*padding-bottom: 2rem!important;*/
+    margin-top: -1.5rem !important;
+    padding-top: 1.5rem !important;
     background: url(https://asimbalochtech.com/tundaasega/wp-content/uploads/2022/03/Main-Bnner-1440.png) no-repeat 0px 17px / 100%!important;
 }
 
@@ -115,7 +115,8 @@ body {
 }
 .nav_shadow { 
   /*height: 500px !important;*/
-  box-shadow: 0 10px 10px 10px rgb(0,0,0,.9) !important;
+  z-index: 1000 !important;
+  box-shadow: 0 10px 10px 10px rgb(0,0,0,.2) !important;
 }
  img, .label, input, .input, .green.button {
     /* filter: invert(1) !important; */

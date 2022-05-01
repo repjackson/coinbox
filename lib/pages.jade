@@ -1,41 +1,42 @@
 template(name='get_started_layout')
     // +page key='get_started'
     +nav
-    .ui.center.aligned.basic.segment
-        .ui.breadcrumb
-            a.section.fly_left(href="/") Home
-            .divider 
-                i.chevron.right.icon
-            .active.section 
-                |Get Started
-        .ui.massive.center.aligned.header 
-            |Get Started with CoinBox
-        .ui.small.header 
-            |Begin creating your secure account with CoinBox by following the four simple steps below, start by entering the information requested below!
-    .ui.center.aligned.basic.segment
-        .ui.steps
-            a.step(href="/get_started/1")
-                .content 
-                    .title Step 1
-                    .description 
-                        |Sign Up with CoinBox
-            a.step(href="/get_started/2")
-                .content 
-                    .title Step 2
-                    .description 
-                        |Confirm Email Account
-            a.step(href="/get_started/3")
-                .content 
-                    .title Step 3
-                    .description 
-                        |Create Password
-            a.step(href="/get_started/4")
-                .content 
-                    .title Step 4
-                    .description 
-                        |Request Mailer
-    +yield
-            
+    .global_container.home_bg    
+        .ui.center.aligned.basic.segment
+            .ui.breadcrumb
+                a.section.fly_left(href="/") Home
+                .divider 
+                    i.chevron.right.icon
+                .active.section 
+                    |Get Started
+            .ui.massive.center.aligned.header 
+                |Get Started with CoinBox
+            .ui.small.header 
+                |Begin creating your secure account with CoinBox by following the four simple steps below, start by entering the information requested below!
+        .ui.center.aligned.basic.segment
+            .ui.steps
+                a.step(href="/get_started/1")
+                    .content 
+                        .title Step 1
+                        .description 
+                            |Sign Up with CoinBox
+                a.step(href="/get_started/2")
+                    .content 
+                        .title Step 2
+                        .description 
+                            |Confirm Email Account
+                a.step(href="/get_started/3")
+                    .content 
+                        .title Step 3
+                        .description 
+                            |Create Password
+                a.step(href="/get_started/4")
+                    .content 
+                        .title Step 4
+                        .description 
+                            |Request Mailer
+        +yield
+                
     
     
 template(name='get_started1')    

@@ -127,7 +127,7 @@ if Meteor.isServer
             _author_username:username
     Meteor.methods
         calc_user_points: (username)->
-            user = Docs.findOne username:username
+            user = Meteor.users.findOne username:username
             point_total = 10
             if user
                 transfers_in = 
@@ -159,7 +159,7 @@ if Meteor.isServer
                     if order.total_amount
                         point_total += order.total_amount
                 console.log 'calc user points', username, point_total
-                Docs.update user._id,   
+                Meteor.users.update user._id,   
                     $set:points:point_total
     
             

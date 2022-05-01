@@ -1,8 +1,8 @@
 template(name='home')
-    // if currentUser
-    //     +user_dashboard
-    // else 
-    +landing_page
+    if currentUser
+        +user_dashboard
+    else 
+        +landing_page
     
     
 template(name='landing_page')
@@ -195,6 +195,7 @@ template(name='user_dashboard')
     .ui.sixteen.wide.column
         .ui.header 
             +i name='dashboard'
-            |user dashboard
-            
+            |dashboard
+        .ui.header 
+            |transfers
             
