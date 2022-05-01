@@ -68,7 +68,7 @@ if Meteor.isClient
             }, sort:_timestamp:-1
         tag_results: ->
             Results.find 
-                model:'post_tag'
+                model:'tag'
         picked_post_tags: -> picked_tags.array()
         
                 
@@ -216,7 +216,7 @@ if Meteor.isServer
         #     match.gluten_free = true
         if search_query and search_query.length > 1
             match.title = {$regex:"#{search_query}", $options: 'i'}
-        #     console.log 'searching post_query', post_query
+        #     console.log 'searching current_query', current_query
         #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
 
         # match.tags = $all: picked_ingredients
@@ -228,7 +228,7 @@ if Meteor.isServer
         #         match["#{key}"] = $all: key_array
             # console.log 'current facet filter array', current_facet_filter_array
 
-        # console.log 'post match', match
+        console.log 'post match', match
         # console.log 'sort key', sort_key
         # console.log 'sort direction', sort_direction
         unless Meteor.userId()
@@ -241,7 +241,7 @@ if Meteor.isServer
     Meteor.publish 'post_count', (
         picked_ingredients
         picked_sections
-        post_query
+        current_query
         view_vegan
         view_gf
         )->
@@ -264,15 +264,15 @@ if Meteor.isServer
             match.vegan = true
         if view_gf
             match.gluten_free = true
-        if post_query and post_query.length > 1
-            console.log 'searching post_query', post_query
-            match.title = {$regex:"#{post_query}", $options: 'i'}
+        if current_query and current_query.length > 1
+            console.log 'searching current_query', current_query
+            match.title = {$regex:"#{current_query}", $options: 'i'}
         Counts.publish this, 'post_counter', Docs.find(match)
         return undefined
 
     Meteor.publish 'post_facets', (
-        picked_tags
-        post_query
+        picked_tags=[]
+        current_query
         doc_limit
         doc_sort_key
         doc_sort_direction
@@ -283,21 +283,18 @@ if Meteor.isServer
         self = @
         match = {}
         match.model = 'post'
-            # match.$regex:"#{post_query}", $options: 'i'}
-        # if post_query and post_query.length > 1
-        #     console.log 'searching post_query', post_query
-        #     match.title = {$regex:"#{post_query}", $options: 'i'}
-        #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
+        # if current_query
+        #     match.title = {$regex:"#{current_query}", $options: 'i'}
         if picked_tags.length > 0
             match.tags = $all: picked_tags
-        # # console.log 'match for tags', match
+        # console.log 'match for tags', match
         tag_cloud = Docs.aggregate [
             { $match: match }
             { $project: "tags": 1 }
             { $unwind: "$tags" }
             { $group: _id: "$tags", count: $sum: 1 }
             { $match: _id: $nin: picked_tags }
-            # { $match: _id: {$regex:"#{post_query}", $options: 'i'} }
+            # { $match: _id: {$regex:"#{current_query}", $options: 'i'} }
             { $sort: count: -1, _id: 1 }
             { $limit: 20 }
             { $project: _id: 0, name: '$_id', count: 1 }
@@ -311,11 +308,9 @@ if Meteor.isServer
             self.added 'results', Random.id(),
                 name: tag.name
                 count: tag.count
-                model:'post_tag'
+                model:'tag'
                 # category:key
                 # index: i
-
-
         self.ready()
 
 

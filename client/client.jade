@@ -60,7 +60,7 @@ template(name='layout')
     
     
 template(name='footer')
-    .ui.stackable.padded.grid.footer_bg
+    .ui.stackable.padded.grid.footer_bg.mobile.hidden
         .three.column.row
             .column
                 img.ui.image(src="{{c.url 'coinbox/footer_logo'}}")
@@ -101,11 +101,12 @@ template(name='footer')
                         i.users.icon
                         |Organizations
     if in_dev 
-        .ui.header dev 
-        .ui.link.list
-            each dev_docs
-                .item #{title} #{model}
-                    +print_this
+        .ui.inverted.fluid.segment
+            .ui.header dev 
+            .ui.inverted.link.list
+                each dev_docs
+                    .item #{title} #{model}
+                        +print_this
 
 
 

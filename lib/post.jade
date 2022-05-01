@@ -5,8 +5,9 @@ template(name='posts')
                 +i name='blog'
                 |blog
             if currentUser
-                .ui.icon.button.add_post
-                    i.plus.large.icon
+                .ui.icon.circular.button.add_post
+                    // i.plus.large.icon
+                    +i name='plus'
             .ui.compact.button.toggle_yours
                 if viewing_yours
                     i.undo.green.icon
@@ -102,21 +103,17 @@ template(name='post_view')
                         i.chevron.left.icon
                         +i name='post'
                         |posts
-                    .ui.inline.grey.header {{from_now start_datetime}}
-                    
                     if can_edit
                         a.ui.circular.icon.button.fly_down(href="/post/#{_id}/edit" title='edit')
                             +i name='pencil'
-                    .ui.segment
-                        .ui.header 
-                            small author
-                        a.ui.header(href="/user/#{_author.username}") 
-                            img.ui.avatar.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                            |#{_author.username}
-                    .ui.list
-                        .item #{views} views
-                    each viewers
-                        .ui.label #{username
+                    +author_info
+                    // .ui.segment
+                    //     .ui.header 
+                    //         small author
+                    //     a.ui.header(href="/user/#{_author.username}") 
+                    //         img.ui.avatar.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                    //         |#{_author.username}
+                    +viewing_info
                     +array_view key='tags' label='tags' direct=true
                     +voting_full
                     +array_view key='location_tags' label='location_tags' direct=true
@@ -144,6 +141,14 @@ template(name='post_view')
                     //- .ui.fluid.green.button.submit
                     //-     i.checkmark.icon
                     //-     |submit
+
+
+template(name='viewing_info')
+    .ui.list
+        .item #{views} views
+    each viewers
+        .ui.label #{username
+
 
 template(name='tips')
     .ui.header 
@@ -182,6 +187,7 @@ template(name='post_edit')
                     +text_edit key='title' label='title' direct=true
                     
                     +html_edit key='content' label='content' direct=true
+                    +call_watson key='content'
                 .column.scrolling
                     i.large.link.red.remove.icon.delete_post
                     if is_dev

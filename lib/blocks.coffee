@@ -109,6 +109,143 @@ if Meteor.isClient
 
 
 
+    Template.group_picker.onCreated ->
+        @autorun => @subscribe 'group_search_results', Session.get('group_search'), ->
+        @autorun => @subscribe 'model_docs', 'group', ->
+    Template.group_picker.helpers
+        group_results: ->
+            Docs.find 
+                model:'group'
+                title: {$regex:"#{Session.get('group_search')}",$options:'i'}
+                
+        group_search_value: ->
+            Session.get('group_search')
+        
+    Template.group_picker.events
+        'click .clear_search': (e,t)->
+            Session.set('group_search', null)
+            t.$('.group_search').val('')
+
+            
+        'click .remove_group': (e,t)->
+            if confirm "remove #{@title} group?"
+                Docs.update Router.current().params.doc_id,
+                    $unset:
+                        group_id:@_id
+                        group_title:@title
+        'click .pick_group': (e,t)->
+            Docs.update Router.current().params.doc_id,
+                $set:
+                    group_id:@_id
+                    group_title:@title
+            Session.set('group_search',null)
+            t.$('.group_search').val('')
+                    
+        'keyup .group_search': (e,t)->
+            # if e.which is '13'
+            val = t.$('.group_search').val()
+            console.log val
+            Session.set('group_search', val)
+
+        'click .create_group': ->
+            new_id = 
+                Docs.insert 
+                    model:'group'
+                    title:Session.get('group_search')
+            Router.go "/group/#{new_id}/edit"
+
+
+if Meteor.isServer 
+    Meteor.publish 'group_search_results', (group_title_queary)->
+        Docs.find 
+            model:'group'
+            title: {$regex:"#{group_title_queary}",$options:'i'}
+        
+if Meteor.isClient
+    Template.search_input.helpers
+        current_search: -> Session.get('current_search')
+    Template.search_input.events
+        'click .clear_search': (e,t)->
+            Session.set('current_search', null)
+            t.$('.current_search').val('')
+            $('body').toast({
+                title: "search cleared"
+                # message: 'Please see desk staff for key.'
+                class : 'info'
+                icon:'remove'
+                position:'bottom right'
+                # className:
+                #     toast: 'ui massive message'
+                # displayTime: 5000
+                transition:
+                  showMethod   : 'zoom',
+                  showDuration : 250,
+                  hideMethod   : 'fade',
+                  hideDuration : 250
+                })
+    
+    
+        'keyup .search': _.throttle((e,t)->
+            query = $('.query').val()
+            Session.set('current_search', query)
+            
+            console.log Session.get('current_search')
+            if e.which is 13
+                search = $('.query').val().trim().toLowerCase()
+                if search.length > 0
+                    picked_tags.push search
+                    console.log 'search', search
+                    # Meteor.call 'log_term', search, ->
+                    $('.search').val('')
+                    Session.set('current_search', null)
+                    # # $( "p" ).blur();
+                    # Meteor.setTimeout ->
+                    #     Session.set('dummy', !Session.get('dummy'))
+                    # , 10000
+        , 500)
+    
+        
+
+
+    Template.sort_direction_toggle.events 
+        'click .toggle': ->
+            if Session.equals 'sort_direction', -1
+                Session.set 'sort_direction', 1
+                $('body').toast({
+                    title: "sort direction set up"
+                    # message: 'Please see desk staff for key.'
+                    class : 'success'
+                    icon:'sort direction up'
+                    position:'bottom right'
+                    # className:
+                    #     toast: 'ui massive message'
+                    # displayTime: 5000
+                    transition:
+                      showMethod   : 'zoom',
+                      showDuration : 250,
+                      hideMethod   : 'fade',
+                      hideDuration : 250
+                    })
+            else
+                Session.set 'sort_direction', -1
+                $('body').toast({
+                    title: "sort direction set down"
+                    # message: 'Please see desk staff for key.'
+                    class : 'success'
+                    icon:'sort direction down'
+                    position:'bottom right'
+                    # className:
+                    #     toast: 'ui massive message'
+                    # displayTime: 5000
+                    transition:
+                      showMethod   : 'zoom',
+                      showDuration : 250,
+                      hideMethod   : 'fade',
+                      hideDuration : 250
+                    })
+    
+
+
 
 
     # Template.set_limit.events
