@@ -33,6 +33,7 @@ body {
     text-transform: none;
     letter-spacing: 0em;
     border-radius: 4em;
+    display:inline-block !important;
     padding: 0.9em 2.1em;
     background: linear-gradient(135deg,#FFAB00,#FDC200);
     border-color: transparent;
@@ -42,7 +43,24 @@ body {
 
 .sign_up{
     font-size: 1rem;
-    
+}
+
+.learn_more {
+    display: inline-block !important;
+    font-family:var(--font-body);
+    font-size:1rem;
+    line-height:1.2!important;
+    font-weight:400;
+    font-style:normal;
+    margin: 1rem !important;
+    text-transform:none;
+    letter-spacing:0em;
+    border-radius:4em;
+    padding:0.9em 2.1em;
+    background:linear-gradient(90deg,#00528F,#0097C7);
+    border-color:transparent;
+    color:#ffffff!important;
+    box-shadow:0 0em 0em rgba(0,0,0,0.2)
 }
 
 .bg {
@@ -76,7 +94,9 @@ body {
 
 .yellow_header {
     font-size: 60px !important;
+    font-weight: bolder !important;
     color: #fdc700 !important;
+    line-height: 100% !important;
 }
 
 .shadowed { 
@@ -415,6 +435,10 @@ body {
     /*background-color: darkgrey !important; */
     /*box-shadow: inset 5px 5px 10px #333 !important; */
     /*box-shadow: 2px 2px 2px 2px lightgrey !important; */
+}
+
+.home_font{
+    font-weight: 1000 !important;
 }
 
 .home_segment{

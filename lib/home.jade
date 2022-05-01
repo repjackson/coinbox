@@ -10,15 +10,18 @@ template(name='landing_page')
     .ui.stackable.centered.grid
         .six.wide.column
             .ui.basic.segment
-                .ui.yellow_header.header Change your Coins to Cash!
-                .ui.header Do you need cash? Do you have coins just sitting around? 
-                .ui.header Here’s an easy way to turn your coins into cash!
+                .ui.yellow_header.header Change Your Coins to Cash!
+                .spacer
+                .ui.inline.header Do you need cash? Do you have coins just sitting around? 
+                .spacer
+                .ui.inline.header Here’s an easy way to turn your coins into cash!
+                .spacer
                 .ui.header.home_font
                     span(style="color:#004081;") Coin Box for Cash is a safe, 
                     span(style="color:#0097c7;") reliable and secure 
                     span(style="color:#004081;") coin counting service.
 
-                a.ui.rounded.blue.button.fly_right.shadowed(href="/about")
+                a.ui.rounded.fly_right.shadowed.learn_more(href="/about")
                     |Learn More
                 a.ui.test_button.fly_right.shadowed(href="/login")
                     |Login or Register
