@@ -100,14 +100,14 @@ template(name='nav')
                 // i.large.fire.icon
                 +i name='service'
                 span.mobile.hidden services
-            // a.icon.item.zoomer.fly_right(href="/rentals" class="{{isActiveRoute 'rentals'}}" title='rentals')
-            //     // i.large.fire.icon
-            //     +i name='clock'
-            //     span.mobile.hidden rentals
-            // a.icon.item.zoomer.fly_right(href="/events" class="{{isActiveRoute 'events'}}" title='events')
-            //     // i.large.fire.icon
-            //     +i name='calendar'
-            //     span.mobile.hidden events
+            a.icon.item.zoomer.fly_right(href="/rentals" class="{{isActiveRoute 'rentals'}}" title='rentals')
+                // i.large.fire.icon
+                +i name='clock'
+                span.mobile.hidden rentals
+            a.icon.item.zoomer.fly_right(href="/events" class="{{isActiveRoute 'events'}}" title='events')
+                // i.large.fire.icon
+                +i name='calendar'
+                span.mobile.hidden events
             a.icon.item.zoomer.fly_right(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" title='testimonials')
                 // i.large.fire.icon
                 +i name='megaphone'

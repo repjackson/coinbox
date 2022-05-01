@@ -541,6 +541,15 @@ template(name='print_this')
         i.orange.code.icon
 
 
+template(name='search_input')
+    .ui.icon.input
+        if current_query
+            i.circular.remove.red.link.icon.clear_query
+        else 
+            i.search.icon
+        input.search_field(type='text' placeholder='search...' value=current_query)
+
+
 
 template(name='group_picker')
     .ui.header 
