@@ -269,6 +269,11 @@ template(name='follow')
             |follow
         +user_list_toggle key='follower_ids' icon='rss' add_label='Follow' remove_label='Unfollow' color='black'
 
+template(name='subscribe_button')
+    .ui.button
+        i.clock.icon
+        |subscribe
+
 
 template(name='toggle_edit')
     .ui.button.toggle_edit

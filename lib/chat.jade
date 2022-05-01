@@ -1,4 +1,4 @@
-template(name='view_chats')
+template(name='chat')
     //- img.ui.fluid.image.bg_overlay(src="{{c.url 'nightbg' width=1000 crop='fit'}}")    
     .ui.stackable.padded.grid
         .row
@@ -11,18 +11,37 @@ template(name='view_chats')
                 .unread_icon(data-tooltip='unread messages' data-position='bottom center')
                     i.secured-letter.icon
                 i.tag.icon
-                +cloud filter='chat'
+                +cloud model='chat'
                 //- +participant_filter type='chat'
-                +chat_list
-                //- .ui.header viewing: 
-                //-     if viewing_published
-                //-         #view_private_chats.ui.button 
-                //-             i.unhide.icon
-                //-             |Published
-                //-     if viewing_private
-                //-         #view_published_chats.ui.button 
-                //-             i.lock.icon
-                //-             |Private
+                div
+                .ui.inline.header channels
+                if currentUser
+                    .ui.icon.basic.button.create_channel(title='new channel')
+                        i.plus.icon
+            
+                .ui.segments
+                    each channel_docs
+                        +chat_channel
+                div
+                if currentUser
+                    .ui.inline.header 
+                        |direct messages
+                    .ui.icon.basic.button#create_private_chat(title='new dm')
+                        i.plus.icon
+                
+                    .ui.segments
+                        each private_chats
+                            +private_chat_item
+                if currentUser
+                    .ui.header viewing: 
+                        if viewing_published
+                            #view_private_chats.ui.button 
+                                i.unhide.icon
+                                |published
+                        if viewing_private
+                            #view_published_chats.ui.button 
+                                i.lock.icon
+                                |private
             .twelve.wide.column
                 with selected_chat
                     +view_chat
@@ -42,25 +61,8 @@ template(name='chat_messages_pane')
             i.chevron.right.icon
             input.add_message(type='text' placeholder='add message...')
                 
-template(name='chat_list')
-    div
-    .ui.inline.header channels
-    .ui.icon.basic.button#create_chat(title='new channel')
-        i.plus.icon
-
-    .ui.segments
-        each chat_list_items
-            +chat_list_item
-    .ui.inline.header direct messages
-    //- .ui.icon.basic.button#create_private_chat(title='new dm')
-    //-     i.plus.icon
-
-    .ui.segments
-        each private_chats
-            +private_chat_item
             
-            
-template(name='chat_list_item')
+template(name='chat_channel')
     .ui.smoothed.pointer.segment.chat_list_item(href='#' class=chat_list_item_class)
         .content
             .description
@@ -72,7 +74,10 @@ template(name='chat_list_item')
                 //-             |#{username}
                 //-             +user_status
             .description
-                .ui.inline.small.header #{title}
+                .ui.inline.small.header 
+                    if icon
+                        +i name=icon
+                    |#{title}
                 if private
                     i.lock.icon
                 each tags
@@ -188,18 +193,19 @@ template(name='view_chat')
                         |close chat
                 if can_edit
                     +array_edit key='tags' label='tags' direct=true
+                    +text_edit key='icon' label='icon' direct=true
                 else     
                     +array_view key='tags' label='tags' direct=true
                 //- if can_edit
                 //-     +multi_doc key='view_roles' label='view roles' ref_model='role' direct=true
                 //- else     
                 //-     +multi_doc_view key='view_roles' label='view roles' ref_model='role' direct=true
-                //- +subscribe_button
-                //- +bookmark_button
-                //- unless is_author
-                //-     +resonate_button
-                //-     +thanks_button
-                //- +resonates_list
+                +subscribe_button
+                +bookmark_button
+                // - unless is_author
+                // -     +resonate_button
+                // -     +thanks_button
+                // - +resonates_list
                 if can_edit
                     +boolean_edit key='private' label='private' direct=true
                 .ui.header started by 
