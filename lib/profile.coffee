@@ -143,7 +143,7 @@ if Meteor.isServer
                         point_total += transfer_in.amount
                 for transfer_out in transfers_out.fetch()
                     if transfer_out.amount 
-                        point_total += transfer_out.amount
+                        point_total -= transfer_out.amount
                 deposits = 
                     Docs.find 
                         model:'deposit'

@@ -128,12 +128,12 @@ if Meteor.isClient
 
 
 
-    # Template.set_sort_direction.events
-    #     'click .set_sort_direction': ->
-    #         if Session.get('sort_direction') is -1
-    #             Session.set('sort_direction', 1)
-    #         else
-    #             Session.set('sort_direction', -1)
+    Template.sort_direction_toggle.events
+        'click .set_sort_direction': ->
+            if Session.get('sort_direction') is -1
+                Session.set('sort_direction', 1)
+            else
+                Session.set('sort_direction', -1)
 
 
 
