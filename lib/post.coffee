@@ -89,13 +89,6 @@ if Meteor.isClient
         'click .view_post': ->
             Router.go "/post/#{@_id}"
 
-    Template.post_view.events
-        'click .add_post_recipe': ->
-            new_id = 
-                Docs.insert 
-                    model:'recipe'
-                    post_ids:[@_id]
-            Router.go "/recipe/#{new_id}/edit"
 
     # Template.favorite_icon_toggle.helpers
     #     icon_class: ->
@@ -143,7 +136,7 @@ if Meteor.isClient
                         showConfirmButton: false,
                         timer: 1500
                     )
-                    Router.go "/post"
+                    Router.go "/posts"
             )
 
         'click .publish': ->
@@ -222,8 +215,8 @@ if Meteor.isServer
             match.title = {$regex:"#{search_query}", $options: 'i'}
         #     console.log 'searching current_query', current_query
         #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
-
-        # match.tags = $all: picked_ingredients
+        if picked_tags.length > 0
+            match.tags = $all: picked_tags
         # if filter then match.model = filter
         # keys = _.keys(prematch)
         # for key in keys
@@ -232,7 +225,7 @@ if Meteor.isServer
         #         match["#{key}"] = $all: key_array
             # console.log 'current facet filter array', current_facet_filter_array
 
-        console.log 'post match', match
+        # console.log 'post /match', match
         # console.log 'sort key', sort_key
         # console.log 'sort direction', sort_direction
         unless Meteor.userId()
@@ -292,12 +285,14 @@ if Meteor.isServer
         if picked_tags.length > 0
             match.tags = $all: picked_tags
         # console.log 'match for tags', match
+        result_count = Docs.find(match).count()
         tag_cloud = Docs.aggregate [
             { $match: match }
             { $project: "tags": 1 }
             { $unwind: "$tags" }
             { $group: _id: "$tags", count: $sum: 1 }
             { $match: _id: $nin: picked_tags }
+            { $match: count: $lt: result_count }
             # { $match: _id: {$regex:"#{current_query}", $options: 'i'} }
             { $sort: count: -1, _id: 1 }
             { $limit: 20 }
