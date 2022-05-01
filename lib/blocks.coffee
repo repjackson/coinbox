@@ -204,7 +204,9 @@ if Meteor.isClient
                     # , 10000
         , 500)
     
-        
+    
+    Template.session_set.events
+        'click .set_session_value': -> Session.set(@key, @value)
 
 
     Template.sort_direction_toggle.events 

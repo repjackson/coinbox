@@ -22,12 +22,17 @@ template(name='posts')
             +session_set key='sort_key' value='_timestamp' label='added' icon='clock'
             +session_set key='sort_key' value='points' label='points' icon='hashtag'
             .scrolling
-                // if subs_ready
-                .ui.centered.stackable.cards
-                    each post_docs 
-                        +post_card
-                // else 
-                //     i.massive.yin.yang.loading.icon
+                if subs_ready
+                    if session_is 'view_mode' 'cards'
+                        .ui.centered.stackable.cards
+                            each post_docs 
+                                +post_card
+                    else 
+                        .ui.divided.animated.selection.list
+                            each post_docs 
+                                +post_item
+                else
+                    i.massive.yin.yang.loading.icon
 
 
 template(name='facet')
@@ -93,7 +98,8 @@ template(name='post_item')
         a.ui.header(href="/post/#{_id}/view") #{title}
         div
         .ui.small.grey.inline.header #{when}
-        | #{content}
+        .smallscroll
+            | !{content}
         each tags 
             .ui.basic.small.label #{this}
         
