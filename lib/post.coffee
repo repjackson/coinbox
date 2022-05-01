@@ -24,9 +24,9 @@ if Meteor.isClient
     # Template.posts.onCreated ->
     #     @autorun => Meteor.subscribe 'model_docs', 'post', ->
     Template.posts.onCreated ->
-        Session.setDefault 'view_mode', 'list'
-        Session.setDefault 'sort_key', 'member_count'
-        Session.setDefault 'sort_label', 'available'
+        Session.setDefault 'view_mode', 'cards'
+        Session.setDefault 'sort_key', 'points'
+        Session.setDefault 'sort_direction', -1
         Session.setDefault 'limit', 20
         Session.setDefault 'view_open', true
 
@@ -65,12 +65,16 @@ if Meteor.isClient
         post_docs: ->
             Docs.find {
                 model:'post'
-            }, sort:_timestamp:-1
+            }, sort:"#{Session.get('sort_key')}":Session.get('sort_direction')
+            
+    Template.facet.helpers
         tag_results: ->
             Results.find 
                 model:'tag'
-        picked_post_tags: -> picked_tags.array()
-        
+        picked_tags: -> picked_tags.array()
+    Template.facet.events 
+        'click .pick_tag': -> picked_tags.push @name
+        'click .unpick_tag': -> picked_tags.remove @valueOf()
                 
     Template.posts.events
         'click .add_post': ->
