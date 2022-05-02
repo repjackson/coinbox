@@ -40,8 +40,7 @@ Template.registerHelper 'skv_is', (key,value)->
 Template.registerHelper 'gs', () ->
     Docs.findOne
         model:'global_settings'
-Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
-Template.registerHelper 'is_loading', () -> Session.get 'loading'
+Template.registerHelper 'group_doc', () -> Docs.findOne @group_id
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 # Template.registerHelper 'is_author', ()-> @_author_id is Meteor.userId()
 # Template.registerHelper 'is_grandparent_author', () ->

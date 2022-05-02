@@ -137,11 +137,11 @@ template(name='org_edit')
                     .ui.inline.header 
                         +icolor name='news' cl='ui image inline pointer'
                         |edit org
-                    a.ui.icon.green.big.button(href="/org/#{_id}/view" title='save')
+                    a.ui.icon.green.big.button.fly_up(href="/org/#{_id}" title='save')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +html_edit key='content' label='content' direct=true
-                    +call_watson key='description'
+                    +call_watson key='content'
 
                 .column.scrolling
                     i.large.link.red.remove.icon.delete_org

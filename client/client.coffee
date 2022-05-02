@@ -175,13 +175,16 @@ Template.home.events
 Template.layout.events
     'click .fly_up': (e,t)->
         # console.log 'hi'
-        $(e.currentTarget).closest('.grid').transition('slide up', 500)
+        $(e.currentTarget).closest('.grid').transition('fly up', 500)
     'click .fly_left': (e,t)->
         # console.log 'hi'
         $(e.currentTarget).closest('.grid').transition('fly left', 500)
     'click .fly_right': (e,t)->
-        console.log 'hi'
+        # console.log 'hi'
         $(e.currentTarget).closest('.grid').transition('fly right', 500)
+    'click .fly_down': (e,t)->
+        # console.log 'hi'
+        $(e.currentTarget).closest('.grid').transition('fly down', 500)
     'click .card_fly_right': (e,t)->
         # console.log 'hi'
         $(e.currentTarget).closest('.card').transition('fly right', 500)
