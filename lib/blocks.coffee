@@ -1,4 +1,51 @@
 if Meteor.isClient
+    Template.fans.helpers
+        is_fan: -> Meteor.userId() and @fan_user_ids and Meteor.userId() in @fan_user_ids
+        fan_user_docs: ->
+            Meteor.users.find 
+                _id:$in:@fan_user_ids
+    Template.fans.events
+        'click .become_fan': ->
+            if Meteor.userId()
+                Docs.update Router.current().params.doc_id, 
+                    $addToSet:
+                        fan_user_ids:Meteor.userId()
+                Meteor.users.update Meteor.userId(),
+                    $inc:points:10
+            else 
+                Router.go "/login"
+        'click .unfan': ->
+            Docs.update Router.current().params.doc_id, 
+                $pull:
+                    fan_user_ids:Meteor.userId()
+                Meteor.users.update Meteor.userId(),
+                    $inc:points:-10
+            
+    
+    Template.favorite_icon_toggle.helpers
+        icon_class: ->
+            if @favorite_ids and Meteor.userId() in @favorite_ids
+                'red'
+            else
+                'outline'
+    Template.favorite_icon_toggle.events
+        'click .toggle_fav': ->
+            if @favorite_ids and Meteor.userId() in @favorite_ids
+                Docs.update @_id, 
+                    $pull:favorite_ids:Meteor.userId()
+            else
+                $('body').toast(
+                    showIcon: 'heart'
+                    message: "marked favorite"
+                    showProgress: 'bottom'
+                    class: 'success'
+                    # displayTime: 'auto',
+                    position: "bottom right"
+                )
+
+                Docs.update @_id, 
+                    $addToSet:favorite_ids:Meteor.userId()
+        
     Template.comments.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
@@ -600,3 +647,8 @@ if Meteor.isClient
                 Docs.update parent._id,
                     $set: "#{@key}": @value
 
+    Template.facet.onCreated ->
+        @autorun => @subscribe 'facet',
+            @model
+            picked_tags.array()
+            Session.get('current_query')

@@ -1,3 +1,19 @@
+template(name='fans')                    
+    .ui.header 
+        +i name='audience'
+        |fans
+    if is_fan 
+        .ui.button.unfan
+            i.minus.icon
+            |unfan
+    else 
+        .ui.button.become_fan
+            |be a fan
+    each fan_user_docs
+        +user_pill
+    
+
+
 template(name='session_key_value_edit')
     .ui.button.set_key_value(class=set_key_value_class)
         if key_value_is 'key' 'sort_key'

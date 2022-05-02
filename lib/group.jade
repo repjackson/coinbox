@@ -15,14 +15,7 @@ template(name='groups')
             // if selected_tag_plural
             //     .ui.icon.circular.black.compact.button.clear_picked_tags
             //         i.remove.icon
-            each picked_group_tags
-                button.ui.blue.compact.circular.small.button.unpick_tag(tabindex='0')
-                    //- i.remove.icon
-                    | #{this}
-            each group_tag_results
-                button.ui.circular.compact.small.button.pick_group_tag(tabindex="0" class=result_class title=count)
-                    |#{name}
-                    //- small #{count}
+            +facet model='group' key='tag'
         .twelve.wide.column
             span.sorting_row
                 +search_input key='title'
@@ -37,15 +30,15 @@ template(name='groups')
             if session_is 'view_mode' 'cards'
                 if one_result
                     .ui.stackable.one.cards.scrolling
-                        each group_docs
+                        each model_docs 'group'
                             +group_card
                 else
                     .ui.stackable.three.cards.scrolling
-                        each group_docs
+                        each model_docs 'group'
                             +group_card
             if session_is 'view_mode' 'list'
                 .ui.selection.divided.animated.list.scrolling
-                    each group_docs 
+                    each model_docs 'group' 
                         +group_item
         
 

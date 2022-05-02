@@ -221,8 +221,8 @@ template(name='product_reviews')
     .ui.circular.basic.icon.button.add_review
         i.plus.icon
     div
-    each product_recipes
-        a.ui.header(href="/recipe/#{_id}/view") #{title}
+    each product_review_docs
+        a.ui.header(href="/review/#{_id}") #{title}
         
 template(name='product_subscriptions')     
     div

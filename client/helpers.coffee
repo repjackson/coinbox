@@ -241,3 +241,7 @@ Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
 Template.registerHelper 'is_current_user', (key, value)->
     if Meteor.user()
         Meteor.user().username is Router.current().params.username
+
+Template.registerHelper 'model_docs', (model)->
+    Docs.find 
+        model:model

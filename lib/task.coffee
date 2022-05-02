@@ -74,12 +74,12 @@ if Meteor.isClient
             Router.go "/task/#{@_id}"
 
     Template.task_view.events
-        'click .add_task_recipe': ->
+        'click .add_subtask': ->
             new_id = 
                 Docs.insert 
-                    model:'recipe'
-                    task_ids:[@_id]
-            Router.go "/recipe/#{new_id}/edit"
+                    model:'task'
+                    parent_id:@_id
+            Router.go "/task/#{new_id}/edit"
 
     
     

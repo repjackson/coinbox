@@ -1,4 +1,4 @@
-template(name='orgs')
+template(name='organizations')
     .ui.stackable.padded.grid 
         .four.wide.column
             .ui.inline.header 
@@ -7,7 +7,7 @@ template(name='orgs')
             if currentUser
                 .ui.icon.button.add_org
                     i.plus.large.icon
-            +facet key='tag'
+            +facet key='tag' model='organization'
             +search_input key='title'
         .twelve.wide.column
             +session_set key='view_mode' value='grid' icon='th'
@@ -18,41 +18,14 @@ template(name='orgs')
             .scrolling
                 // if subs_ready
                 .ui.centered.stackable.fluid.cards
-                    each org_docs 
-                        +org_card
+                    each model_docs 'organization' 
+                        +organization_card
                 // else 
                 //     i.massive.yin.yang.loading.icon
 
 
-template(name='set_org_sort_key')
-    .item.set_sort
-        if color
-            .ui.label(class=color) #{label}
-        else 
-            if emoji
-                em(data-emoji=emoji)
-            else if icon
-                i.icon(class=icon)
-            |#{label}
-        
-        
-                
-                
-        
-        
 
-template(name='set_view_mode_org')
-    .item.set_view
-        i.icon(class=icon)
-        |#{title}
-
-
-// template(name='set_limit')
-    .ui.compact.small.basic.button.set_limit #{amount}
-
-
-
-template(name='org_card')
+template(name='organization_card')
     .ui.link.card.view_org.pointer.fly_right
         img.ui.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
         .content
@@ -66,7 +39,7 @@ template(name='org_card')
                 +group_info
             
         
-template(name='org_item')
+template(name='organization_item')
     .ui.fluid.segment.view_org.pointer
         a.ui.header(href="/org/#{_id}/view") #{title}
         div
@@ -76,7 +49,7 @@ template(name='org_item')
             .ui.basic.small.label #{this}
         
 
-template(name='org_view')
+template(name='organization_view')
     with current_doc
         .ui.stackable.padded.grid
             .row 
@@ -109,19 +82,7 @@ template(name='org_view')
                     .spacer
                     +comments
                 .three.wide.column
-                    .ui.header 
-                        +i name='audience'
-                        |fans
-                    if is_fan 
-                        .ui.button.unfan
-                            i.minus.icon
-                            |unfan
-                    else 
-                        .ui.button.become_fan
-                            |be a fan
-                    each fan_user_docs
-                        +user_pill
-                    
+                    +fans
                 // .four.wide.column
                 
                     //- .ui.fluid.green.button.submit
@@ -129,7 +90,7 @@ template(name='org_view')
                     //-     |submit
 
 
-template(name='org_edit')
+template(name='organization_edit')
     with current_doc
         .ui.stackable.padded.grid
             .three.column.row 

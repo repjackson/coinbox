@@ -81,39 +81,6 @@ if Meteor.isClient
         'click .view_service': ->
             Router.go "/service/#{@_id}"
 
-    Template.service_view.events
-        'click .add_service_recipe': ->
-            new_id = 
-                Docs.insert 
-                    model:'recipe'
-                    service_ids:[@_id]
-            Router.go "/recipe/#{new_id}/edit"
-
-    # Template.favorite_icon_toggle.helpers
-    #     icon_class: ->
-    #         if @favorite_ids and Meteor.userId() in @favorite_ids
-    #             'red'
-    #         else
-    #             'outline'
-    # Template.favorite_icon_toggle.events
-    #     'click .toggle_fav': ->
-    #         if @favorite_ids and Meteor.userId() in @favorite_ids
-    #             Docs.update @_id, 
-    #                 $pull:favorite_ids:Meteor.userId()
-    #         else
-    #             $('body').toast(
-    #                 showIcon: 'heart'
-    #                 message: "marked favorite"
-    #                 showProgress: 'bottom'
-    #                 class: 'success'
-    #                 # displayTime: 'auto',
-    #                 position: "bottom right"
-    #             )
-
-    #             Docs.update @_id, 
-    #                 $addToSet:favorite_ids:Meteor.userId()
-    
-    
     Template.service_edit.events
         'click .delete_service': ->
             Swal.fire({

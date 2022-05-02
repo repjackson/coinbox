@@ -195,8 +195,8 @@ Template.layout.events
         .transition('fade in', 200)
 
     'click .log_view': ->
-        console.log Template.currentData()
-        console.log @
+        # console.log Template.currentData()
+        # console.log @
         Docs.update @_id,
             $inc: views: 1
 

@@ -81,38 +81,6 @@ if Meteor.isClient
         'click .view_mailer': ->
             Router.go "/mailer/#{@_id}"
 
-    Template.mailer_view.events
-        'click .add_mailer_recipe': ->
-            new_id = 
-                Docs.insert 
-                    model:'recipe'
-                    mailer_ids:[@_id]
-            Router.go "/recipe/#{new_id}/edit"
-
-    # Template.favorite_icon_toggle.helpers
-    #     icon_class: ->
-    #         if @favorite_ids and Meteor.userId() in @favorite_ids
-    #             'red'
-    #         else
-    #             'outline'
-    # Template.favorite_icon_toggle.events
-    #     'click .toggle_fav': ->
-    #         if @favorite_ids and Meteor.userId() in @favorite_ids
-    #             Docs.update @_id, 
-    #                 $pull:favorite_ids:Meteor.userId()
-    #         else
-    #             $('body').toast(
-    #                 showIcon: 'heart'
-    #                 message: "marked favorite"
-    #                 showProgress: 'bottom'
-    #                 class: 'success'
-    #                 # displayTime: 'auto',
-    #                 position: "bottom right"
-    #             )
-
-    #             Docs.update @_id, 
-    #                 $addToSet:favorite_ids:Meteor.userId()
-    
     
     Template.mailer_edit.events
         'click .delete_mailer': ->
@@ -182,60 +150,8 @@ if Meteor.isClient
                         )
             )
             
-if Meteor.isServer
-    Meteor.publish 'mailer_results', (
-        )->
-        # console.log picked_ingredients
-        # if doc_limit
-        #     limit = doc_limit
-        # else
-        limit = 42
-        # if doc_sort_key
-        #     sort_key = doc_sort_key
-        # if doc_sort_direction
-        #     sort_direction = parseInt(doc_sort_direction)
-        self = @
-        match = {model:'mailer'}
-        # if picked_ingredients.length > 0
-        #     match.ingredients = $all: picked_ingredients
-        #     # sort = 'price_per_serving'
-        # if picked_sections.length > 0
-        #     match.menu_section = $all: picked_sections
-            # sort = 'price_per_serving'
-        # else
-            # match.tags = $nin: ['wikipedia']
-        sort = '_timestamp'
-        # match.published = true
-            # match.source = $ne:'wikipedia'
-        # if view_vegan
-        #     match.vegan = true
-        # if view_gf
-        #     match.gluten_free = true
-        # if mailer_query and mailer_query.length > 1
-        #     console.log 'searching mailer_query', mailer_query
-        #     match.title = {$regex:"#{mailer_query}", $options: 'i'}
-        #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
-
-        # match.tags = $all: picked_ingredients
-        # if filter then match.model = filter
-        # keys = _.keys(prematch)
-        # for key in keys
-        #     key_array = prematch["#{key}"]
-        #     if key_array and key_array.length > 0
-        #         match["#{key}"] = $all: key_array
-            # console.log 'current facet filter array', current_facet_filter_array
-
-        # console.log 'mailer match', match
-        # console.log 'sort key', sort_key
-        # console.log 'sort direction', sort_direction
-        unless Meteor.userId()
-            match.private = $ne:true
-        Docs.find match,
-            # sort:"#{sort_key}":sort_direction
-            # sort:_timestamp:-1
-            limit: 42
             
-            
+if Meteor.isServer            
     Meteor.publish 'mailer_count', (
         picked_ingredients
         picked_sections
