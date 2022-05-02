@@ -165,13 +165,10 @@ if Meteor.isClient
         @autorun => @subscribe 'results',
             'group'
             picked_tags.array()
-            Session.get('group_title_search')
-            Session.get('limit')
+            Session.get('current_query')
             Session.get('sort_key')
             Session.get('sort_direction')
-            Session.get('view_delivery')
-            Session.get('view_pickup')
-            Session.get('view_open')
+            Session.get('limit')
 
 
     Template.groups.events
@@ -180,62 +177,6 @@ if Meteor.isClient
                 Docs.insert
                     model:'group'
             Router.go("/group/#{new_id}/edit")
-        'keyup .search_group': _.throttle((e,t)->
-            query = $('.search_group').val()
-            Session.set('group_title_search', query)
-            
-            console.log Session.get('group_title_search')
-            if e.which is 13
-                search = $('.search_group').val().trim().toLowerCase()
-                if search.length > 0
-                    picked_tags.push search
-                    console.log 'search', search
-                    # Meteor.call 'log_term', search, ->
-                    $('.search_group').val('')
-                    Session.set('group_title_search', null)
-                    # # $( "p" ).blur();
-                    # Meteor.setTimeout ->
-                    #     Session.set('dummy', !Session.get('dummy'))
-                    # , 10000
-        , 500)
-
-
-        'click .toggle_delivery': -> Session.set('view_delivery', !Session.get('view_delivery'))
-        'click .toggle_pickup': -> Session.set('view_pickup', !Session.get('view_pickup'))
-        'click .toggle_open': -> Session.set('view_open', !Session.get('view_open'))
-
-        'click .tag_result': -> picked_tags.push @title
-        'click .unselect_tag': ->
-            picked_tags.remove @valueOf()
-            # console.log picked_tags.array()
-            # if picked_tags.array().length is 1
-                # Meteor.call 'call_wiki', search, ->
-
-            # if picked_tags.array().length > 0
-                # Meteor.call 'search_reddit', picked_tags.array(), ->
-
-        'click .clear_picked_tags': ->
-            Session.set('current_group_search',null)
-            picked_tags.clear()
-
-        'keyup #search': _.throttle((e,t)->
-            query = $('#search').val()
-            Session.set('current_group_search', query)
-            # console.log Session.get('current_group_search')
-            if e.which is 13
-                search = $('#search').val().trim().toLowerCase()
-                if search.length > 0
-                    picked_tags.push search
-                    console.log 'search', search
-                    # Meteor.call 'log_term', search, ->
-                    $('#search').val('')
-                    Session.set('current_group_search', null)
-                    # # $('#search').val('').blur()
-                    # # $( "p" ).blur();
-                    # Meteor.setTimeout ->
-                    #     Session.set('dummy', !Session.get('dummy'))
-                    # , 10000
-        , 1000)
 
         'click .calc_group_count': ->
             Meteor.call 'calc_group_count', ->
@@ -250,83 +191,6 @@ if Meteor.isClient
         #             picked_tags.pop()
         #             Meteor.call 'search_reddit', picked_tags.array(), ->
         # , 1000)
-
-        'click .reconnect': ->
-            Meteor.reconnect()
-
-
-        'click .set_sort_direction': ->
-            if Session.get('group_sort_direction') is -1
-                Session.set('group_sort_direction', 1)
-            else
-                Session.set('group_sort_direction', -1)
-
-
-    Template.groups.helpers
-        sorting_up: -> parseInt(Session.get('group_sort_direction')) is 1
-
-        # toggle_open_class: -> if Session.get('view_open') then 'blue' else ''
-        # connection: ->
-        #     console.log Meteor.status()
-        #     Meteor.status()
-        # connected: ->
-        #     Meteor.status().connected
-        group_tag_results: ->
-            # if Session.get('current_group_search') and Session.get('current_group_search').length > 1
-            #     Terms.find({}, sort:count:-1)
-            # else
-            group_count = Docs.find().count()
-            # console.log 'group count', group_count
-            # if group_count < 3
-            #     Results.find({count: $lt: group_count})
-            # else
-            Results.find()
-
-        current_group_search: -> Session.get('current_group_search')
-
-        result_class: ->
-            if Template.instance().subscriptionsReady()
-                ''
-            else
-                'disabled'
-
-        picked_tags: -> picked_tags.array()
-        picked_tags_plural: -> picked_tags.array().length > 1
-        searching: -> Session.get('searching')
-
-        one_post: ->
-            Docs.find().count() is 1
-        group_docs: ->
-            # if picked_tags.array().length > 0
-            Docs.find {
-                model:'group'
-            },
-                sort: "#{Session.get('group_sort_key')}":parseInt(Session.get('group_sort_direction'))
-                # limit:Session.get('group_limit')
-
-        home_subs_ready: ->
-            Template.instance().subscriptionsReady()
-        users: ->
-            # if picked_tags.array().length > 0
-            Meteor.users.find {
-            },
-                sort: count:-1
-                # limit:1
-
-
-        # timestamp_tags: ->
-        #     # if picked_tags.array().length > 0
-        #     Timestamp_tags.find {
-        #         # model:'reddit'
-        #     },
-        #         sort: count:-1
-        #         # limit:1
-
-        group_limit: ->
-            Session.get('group_limit')
-
-        current_group_sort_label: ->
-            Session.get('group_sort_label')
 
 
 if Meteor.isClient

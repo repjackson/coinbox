@@ -38,17 +38,16 @@ $.cloudinary.config
 # Router.notFound =
     # action: 'not_found'
 
+Template.layout.events
+    'click .reconnect': ->
+        Meteor.reconnect()
+
 Template.nav.events
-    'click .add_rental': ->
-        new_id = 
-            Docs.insert 
-                model:'rental'
-        Router.go "/rental/#{new_id}/edit"
-    # 'click .locate': ->
-    #     navigator.geolocation.getCurrentPosition (position) =>
-    #         console.log 'navigator position', position
-    #         Session.set('current_lat', position.coords.latitude)
-    #         Session.set('current_long', position.coords.longitude)
+    'click .locate': ->
+        navigator.geolocation.getCurrentPosition (position) =>
+            console.log 'navigator position', position
+            Session.set('current_lat', position.coords.latitude)
+            Session.set('current_long', position.coords.longitude)
 
 Template.nav.onRendered ->
     Meteor.setTimeout ->

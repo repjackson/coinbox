@@ -39,27 +39,16 @@ if Meteor.isClient
 
     Template.testimonials.onCreated ->
         # @autorun => @subscribe 'model_docs', 'testimonial', ->
-        @autorun => @subscribe 'testimonial_facets',
+        @autorun => @subscribe 'results',
+            'testimonial'
             picked_tags.array()
-            # Session.get('limit')
-            # Session.get('sort_key')
-            # Session.get('sort_direction')
-            # Session.get('view_delivery')
-            # Session.get('view_pickup')
-            # Session.get('view_open')
-
-        @autorun => @subscribe 'testimonial_results',
-            picked_tags.array()
-            Session.get('group_title_search')
-            Session.get('limit')
+            Session.get('current_query')
             Session.get('sort_key')
             Session.get('sort_direction')
-            Session.get('view_delivery')
-            Session.get('view_pickup')
-            Session.get('view_open')
+            Session.get('limit')
 
     Template.testimonial_view.onCreated ->
-        @autorun => @subscribe 'related_groups',Router.current().params.doc_id, ->
+        @autorun => @subscribe 'related_group',Router.current().params.doc_id, ->
 
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.testimonial_edit.onCreated ->
@@ -68,17 +57,6 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc_comments', @data._id, ->
 
 
-    Template.testimonials.helpers
-        testimonial_docs: ->
-            Docs.find {
-                model:'testimonial'
-            }, sort:_timestamp:-1
-        tag_results: ->
-            Results.find 
-                model:'testimonial_tag'
-        picked_testimonial_tags: -> picked_tags.array()
-        
-                
     Template.testimonials.events
         'click .add_testimonial': ->
             new_id = 

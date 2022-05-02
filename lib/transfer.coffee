@@ -23,62 +23,11 @@ if Meteor.isClient
                 Docs.insert
                     model:'transfer'
             Router.go("/transfer/#{new_id}/edit")
-        'keyup .search_transfer': _.throttle((e,t)->
-            query = $('.search_transfer').val()
-            Session.set('transfer_title_search', query)
-            
-            console.log Session.get('transfer_title_search')
-            if e.which is 13
-                search = $('.search_transfer').val().trim().toLowerCase()
-                if search.length > 0
-                    picked_tags.push search
-                    console.log 'search', search
-                    # Meteor.call 'log_term', search, ->
-                    $('.search_transfer').val('')
-                    Session.set('transfer_title_search', null)
-                    # # $( "p" ).blur();
-                    # Meteor.setTimeout ->
-                    #     Session.set('dummy', !Session.get('dummy'))
-                    # , 10000
-        , 500)
-
 
         'click .toggle_delivery': -> Session.set('view_delivery', !Session.get('view_delivery'))
         'click .toggle_pickup': -> Session.set('view_pickup', !Session.get('view_pickup'))
         'click .toggle_open': -> Session.set('view_open', !Session.get('view_open'))
 
-        'click .tag_result': -> picked_tags.push @title
-        'click .unselect_tag': ->
-            picked_tags.remove @valueOf()
-            # console.log picked_tags.array()
-            # if picked_tags.array().length is 1
-                # Meteor.call 'call_wiki', search, ->
-
-            # if picked_tags.array().length > 0
-                # Meteor.call 'search_reddit', picked_tags.array(), ->
-
-        'click .clear_picked_tags': ->
-            Session.set('current_transfer_search',null)
-            picked_tags.clear()
-
-        'keyup #search': _.throttle((e,t)->
-            query = $('#search').val()
-            Session.set('current_transfer_search', query)
-            # console.log Session.get('current_transfer_search')
-            if e.which is 13
-                search = $('#search').val().trim().toLowerCase()
-                if search.length > 0
-                    picked_tags.push search
-                    console.log 'search', search
-                    # Meteor.call 'log_term', search, ->
-                    $('#search').val('')
-                    Session.set('current_transfer_search', null)
-                    # # $('#search').val('').blur()
-                    # # $( "p" ).blur();
-                    # Meteor.setTimeout ->
-                    #     Session.set('dummy', !Session.get('dummy'))
-                    # , 10000
-        , 1000)
 
         'click .calc_transfer_count': ->
             Meteor.call 'calc_transfer_count', ->
@@ -94,15 +43,7 @@ if Meteor.isClient
         #             Meteor.call 'search_reddit', picked_tags.array(), ->
         # , 1000)
 
-        'click .reconnect': ->
-            Meteor.reconnect()
 
-
-        'click .set_sort_direction': ->
-            if Session.get('transfer_sort_direction') is -1
-                Session.set('transfer_sort_direction', 1)
-            else
-                Session.set('transfer_sort_direction', -1)
     Template.transfers.helpers
         sorting_up: -> parseInt(Session.get('transfer_sort_direction')) is 1
 

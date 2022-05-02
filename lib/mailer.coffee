@@ -29,7 +29,7 @@ if Meteor.isClient
     Template.mailers.onCreated ->
         @autorun => @subscribe 'mailer_results',
             picked_tags.array()
-            Session.get('group_title_search')
+            Session.get('current_query')
             Session.get('limit')
             Session.get('sort_key')
             Session.get('sort_direction')
@@ -38,7 +38,7 @@ if Meteor.isClient
             Session.get('view_open')
 
     Template.mailer_view.onCreated ->
-        @autorun => @subscribe 'related_groups',Router.current().params.doc_id, ->
+        @autorun => @subscribe 'related_group',Router.current().params.doc_id, ->
 
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.mailer_edit.onCreated ->

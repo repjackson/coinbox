@@ -34,16 +34,13 @@ if Meteor.isClient
         @autorun => @subscribe 'results',
             'post'
             picked_tags.array()
-            Session.get('group_title_search')
-            Session.get('limit')
+            Session.get('current_query')
             Session.get('sort_key')
             Session.get('sort_direction')
-            Session.get('view_delivery')
-            Session.get('view_pickup')
-            Session.get('view_open')
+            Session.get('limit')
 
     Template.post_view.onCreated ->
-        @autorun => @subscribe 'related_groups',Router.current().params.doc_id, ->
+        @autorun => @subscribe 'related_group',Router.current().params.doc_id, ->
 
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.post_edit.onCreated ->
@@ -51,13 +48,6 @@ if Meteor.isClient
     Template.post_card.onCreated ->
         @autorun => Meteor.subscribe 'doc_comments', @data._id, ->
 
-
-    Template.posts.helpers
-        post_docs: ->
-            Docs.find {
-                model:'post'
-            }, sort:"#{Session.get('sort_key')}":Session.get('sort_direction')
-            
                 
     Template.posts.events
         'click .add_post': ->

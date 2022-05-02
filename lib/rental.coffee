@@ -123,7 +123,7 @@ if Meteor.isClient
 
 
     Template.rental_view.onCreated ->
-        @autorun => @subscribe 'related_groups',Router.current().params.doc_id, ->
+        @autorun => @subscribe 'related_group',Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.rental_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->

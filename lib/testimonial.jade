@@ -10,7 +10,7 @@ template(name='testimonials')
             .scrolling
                 // if subs_ready
                 .ui.centered.stackable.cards
-                    each testimonial_docs 
+                    each model_docs 'testimonial' 
                         +testimonial_card
                 // else 
                 //     i.massive.yin.yang.loading.icon

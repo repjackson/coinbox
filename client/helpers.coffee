@@ -243,5 +243,5 @@ Template.registerHelper 'is_current_user', (key, value)->
         Meteor.user().username is Router.current().params.username
 
 Template.registerHelper 'model_docs', (model)->
-    Docs.find 
-        model:model
+    Docs.find { model:model
+    }, sort:"#{Session.get('sort_key')}":Session.get('sort_direction')

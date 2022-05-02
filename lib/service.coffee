@@ -11,10 +11,6 @@ if Meteor.isClient
         @layout 'layout'
         @render 'service_view'
         ), name:'service_view'
-    Router.route '/service/:doc_id/view', (->
-        @layout 'layout'
-        @render 'service_view'
-        ), name:'service_view_long'
     
     
     # Template.services.onCreated ->
@@ -26,21 +22,17 @@ if Meteor.isClient
         Session.setDefault 'limit', 20
         Session.setDefault 'view_open', true
 
-    Template.services.onCreated ->
         # @autorun => @subscribe 'model_docs', 'service', ->
         @autorun => @subscribe 'results',
             'service'
             picked_tags.array()
-            Session.get('group_title_search')
-            Session.get('limit')
+            Session.get('current_query')
             Session.get('sort_key')
             Session.get('sort_direction')
-            Session.get('view_delivery')
-            Session.get('view_pickup')
-            Session.get('view_open')
+            Session.get('limit')
 
     Template.service_view.onCreated ->
-        @autorun => @subscribe 'related_groups',Router.current().params.doc_id, ->
+        @autorun => @subscribe 'related_group',Router.current().params.doc_id, ->
 
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.service_edit.onCreated ->
@@ -49,17 +41,6 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc_comments', @data._id, ->
 
 
-    Template.services.helpers
-        service_docs: ->
-            Docs.find {
-                model:'service'
-            }, sort:_timestamp:-1
-        tag_results: ->
-            Results.find 
-                model:'service_tag'
-        picked_service_tags: -> picked_tags.array()
-        
-                
     Template.services.events
         'click .add_service': ->
             new_id = 
