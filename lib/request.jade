@@ -196,32 +196,19 @@ template(name='requests')
     .ui.stackable.padded.grid
         .four.wide.column
             .ui.inline.header 
-                +i name='request-history'
+                +i name='hand-holding-heart'
                 |#{counter}
                 |requests
             div
-            // .spacer
-            .ui.icon.input
-                i.search.icon
-                input.query(type='text' placeholder='search...')
-            // .ui.inline.small.header
-            //     i.marker.icon 
-            //     |location tags
-            // each picked_location_tags
-            //     button.ui.blue.compact.small.button.unpick_location_tag(tabindex='0')
-            //         //- i.remove.icon
-            //         | #{this}
-            // each location_tags
-            //     button.ui.compact.small.button.pick_location_tag(tabindex="0" class=result_class title=count) #{title}
-            //         //- small #{count}
             div
+            +facet model='request' key='tag'
             |sort by
-            // +set_sort_key key='views' label='views' icon='eye'
-            // // +set_sort_key key='datetime_available' label='available' icon='clock'
-            // +set_sort_key key='price' label='price' icon='money'
-            // +set_sort_key key='_timestamp' label='added' icon='clock'
-            // +set_sort_key key='comment_count' label='comment count' icon='chat'
-            // +set_sort_direction
+            +sort_direction_toggle
+            +set_sort_key key='views' label='views' icon='eye'
+            // +set_sort_key key='datetime_available' label='available' icon='clock'
+            +set_sort_key key='price' label='price' icon='money'
+            +set_sort_key key='_timestamp' label='added' icon='clock'
+            +set_sort_key key='comment_count' label='comment count' icon='chat'
             // |&nbsp;
             // |&nbsp;
             // +limit_menu
@@ -243,14 +230,9 @@ template(name='requests')
                         //- small #{count}
             .spacer 
             if subs_ready     
-                .ui.stackable.three.centered.cards.scrolling
-                    each request_docs
+                .ui.stackable.centered.cards.scrolling
+                    each model_docs 'request'
                         +request_card
-                    unless request_docs.count
-                        .ui.button.request_request
-                            |request
-                        each requests
-                            .ui.header #{when}
             else 
                 .ui.center.aligned.basic.segment
                     i.massive.yellow.notched.circle.loading.icon

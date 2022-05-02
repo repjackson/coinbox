@@ -7,17 +7,10 @@ template(name='products')
                 // if currentUser
             .ui.icon.button.add_product
                 i.plus.icon
-            each picked_tags
-                a.ui.blue.button.unpick_product_tag
-                    |#{this}
-            each tag_results
-                // if title
-                a.ui.compact.button.pick_product_tag
-                    |#{title} 
-                    // small.ui.grey.text #{count}
+            +facet key='tag' model='product'
         .sixteen.wide.column
             .ui.centered.stackable.four.cards
-                each product_docs 
+                each model_docs 'product' 
                     +product_card
                     
 

@@ -9,20 +9,7 @@ template(name='transfers')
             if currentUser
                 a.ui.icon.circular.button.add_transfer(title='add')
                     i.plus.green.large.icon
-            // .ui.left.icon.search.small.input
-            //     i.search.icon.refresh_tags
-            //     input#search_tag.prompt(type='text' autocomplete="off" placeholder='tags')
-            // if selected_tag_plural
-            //     .ui.icon.circular.black.compact.button.clear_picked_tags
-            //         i.remove.icon
-            each picked_transfer_tags
-                button.ui.blue.compact.circular.small.button.unpick_tag(tabindex='0')
-                    //- i.remove.icon
-                    | #{this}
-            each transfer_tag_results
-                button.ui.circular.compact.small.button.pick_transfer_tag(tabindex="0" class=result_class title=count)
-                    |#{name}
-                    //- small #{count}
+            +facet key='tag' model='transfer'
         .twelve.wide.column
             span.sorting_row
                 +search_input key='title'
@@ -37,15 +24,15 @@ template(name='transfers')
             if session_is 'view_mode' 'grid'
                 if one_result
                     .ui.stackable.one.cards.scrolling
-                        each transfer_docs
+                        each model_docs 'transfer'
                             +transfer_card
                 else
                     .ui.stackable.cards.scrolling
-                        each transfer_docs
+                        each model_docs 'transfer'
                             +transfer_card
             if session_is 'view_mode' 'list'
                 .ui.selection.divided.animated.list.scrolling
-                    each transfer_docs 
+                    each model_docs 'transfer' 
                         +transfer_item
 
 

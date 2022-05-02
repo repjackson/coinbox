@@ -54,24 +54,24 @@ if Meteor.isClient
                 Router.go "/source/#{product.source_id}"
             , 240
         
-        'click .goto_ingredient': (e,t)->
-            # $(e.currentTarget).closest('.pushable').transition('fade right', 240)
-            product = Docs.findOne Router.current().params.doc_id
-            console.log @
-            found_ingredient = 
-                Docs.findOne 
-                    model:'ingredient'
-                    title:@valueOf()
-            if found_ingredient
-                Router.go "/ingredient/#{found_ingredient._id}"
-            else 
-                new_id = 
-                    Docs.insert 
-                        model:'ingredient'
-                        title:@valueOf()
-                Router.go "/ingredient/#{new_id}/edit"
+        # 'click .goto_ingredient': (e,t)->
+        #     # $(e.currentTarget).closest('.pushable').transition('fade right', 240)
+        #     product = Docs.findOne Router.current().params.doc_id
+        #     console.log @
+        #     found_ingredient = 
+        #         Docs.findOne 
+        #             model:'ingredient'
+        #             title:@valueOf()
+        #     if found_ingredient
+        #         Router.go "/ingredient/#{found_ingredient._id}"
+        #     else 
+        #         new_id = 
+        #             Docs.insert 
+        #                 model:'ingredient'
+        #                 title:@valueOf()
+        #         Router.go "/ingredient/#{new_id}/edit"
                 
-            # found_ingredient = 
+        #     # found_ingredient = 
             #     Docs.findOne 
             #         model:'ingredient'
             #         title:@valueOf()
@@ -414,13 +414,6 @@ if Meteor.isClient
 
     Template.products.onCreated ->
         @autorun  => @subscribe 'model_docs', 'product', ->
-    Template.products.helpers
-        product_docs: ->
-            match = {model:'product'}
-            unless Meteor.userId()
-                match.private = $ne: true
-            Docs.find match
-                
     Template.products.events
         'click .add_product': ->
             new_id = 
