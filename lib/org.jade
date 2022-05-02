@@ -3,18 +3,12 @@ template(name='orgs')
         .four.wide.column
             .ui.inline.header 
                 +i name='organization'
-                |Organizations
+                |organizations
             if currentUser
                 .ui.icon.button.add_org
                     i.plus.large.icon
-            each picked_tags
-                a.ui.blue.button.unpick_org_tag
-                    |#{this}
-            each tag_results
-                // if title
-                a.ui.compact.button.pick_org_tag
-                    |#{name} 
-                    // small.ui.grey.text #{count}
+            +facet key='tag'
+            +search_input key='title'
         .twelve.wide.column
             +session_set key='view_mode' value='grid' icon='th'
             +session_set key='view_mode' value='list' icon='list'
@@ -146,8 +140,9 @@ template(name='org_edit')
                     a.ui.icon.green.big.button(href="/org/#{_id}/view" title='save')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
-                    
                     +html_edit key='content' label='content' direct=true
+                    +call_watson key='description'
+
                 .column.scrolling
                     i.large.link.red.remove.icon.delete_org
                     if is_dev

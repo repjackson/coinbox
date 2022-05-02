@@ -25,28 +25,16 @@ template(name='groups')
                     //- small #{count}
         .twelve.wide.column
             span.sorting_row
-                .ui.icon.input
-                    i.search.icon
-                    input.search_group(type='text' placeholder='search...' value=current_group_search)
-                |sort by
-                .ui.compact.small.menu
-                    .ui.simple.dropdown.item
-                        strong #{current_group_sort_label}
-                        i.dropdown.icon
-                        .menu
-                            +set_sort_key key='member_ids' label='$/serving' icon='money'
-                            +set_sort_key key='private' label='available' icon='clock'
-                            +set_sort_key key='_timestamp' label='added' icon='clock'
-                            +set_sort_key key='comment_count' label='comment count' icon='chat'
-                .ui.compact.icon.circular.button.set_sort_direction(title='toggle sort direction')
-                    if sorting_up
-                        i.sort.amount.down.icon
-                    else
-                        i.sort.amount.up.icon
+                +search_input key='title'
+                +set_sort_key key='member_ids' label='$/serving' icon='money'
+                +set_sort_key key='private' label='available' icon='clock'
+                +set_sort_key key='_timestamp' label='added' icon='clock'
+                +set_sort_key key='comment_count' label='comment count' icon='chat'
+                +sort_direction_toggle
                 |&nbsp;
-            +session_set key='view_mode' value='grid' icon='th'
+            +session_set key='view_mode' value='cards' icon='th'
             +session_set key='view_mode' value='list' icon='list'
-            if session_is 'view_mode' 'grid'
+            if session_is 'view_mode' 'cards'
                 if one_result
                     .ui.stackable.one.cards.scrolling
                         each group_docs
@@ -135,6 +123,7 @@ template(name='group_edit')
                 .column 
                     +text_edit key='title' direct=true
                     +html_edit key='description' label='content' icon='content' direct=true
+                    +call_watson key='description'
                 .column
                     // +single_user_edit key='leader_id' label='leader' icon='crown' direct=true
                     +multi_user_edit key='leader_ids' label='leaders' icon='crown' direct=true

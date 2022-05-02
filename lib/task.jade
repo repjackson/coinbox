@@ -13,15 +13,7 @@ template(name='tasks')
                 else
                     i.circle.outline.icon
                 |yours
-
-            each picked_tags
-                a.ui.blue.button.unpick_task_tag
-                    |#{this}
-            each tag_results
-                // if title
-                a.ui.compact.button.pick_task_tag
-                    |#{title} 
-                    // small.ui.grey.text #{count}
+            +facet key='tag'
         .twelve.wide.column
             .ui.centered.stackable.cards
                 each task_docs 
