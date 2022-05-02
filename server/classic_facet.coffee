@@ -1,25 +1,23 @@
-Meteor.publish 'facet', (
-    selected_theme_tags
-    selected_author_ids=[]
-    selected_location_tags
-    selected_building_tags
-    selected_unit_tags
-    picked_timestamp_tags
+Meteor.publish 'facets', (
     model
-    author_id
-    parent_id
-    tag_limit
-    doc_limit
-    # sort_object
-    view_private
+    picked_tags=[]
+    # selected_author_ids=[]
+    # selected_location_tags
+    # picked_timestamp_tags
+    # author_id
+    # parent_id
+    # tag_limit
+    # doc_limit
+    # # sort_object
+    # view_private
     )->
 
         self = @
         match = {}
 
         # match.tags = $all: selected_theme_tags
-        if model then match.model = model
-        if parent_id then match.parent_id = parent_id
+        match.model = model
+        # if parent_id then match.parent_id = parent_id
 
         # if view_private is true
         #     match.author_id = Meteor.userId()
@@ -27,17 +25,17 @@ Meteor.publish 'facet', (
         # if view_private is false
         #     match.published = $in: [0,1]
 
-        if selected_theme_tags.length > 0 then match.tags = $all: selected_theme_tags
+        # if selected_theme_tags.length > 0 then match.tags = $all: selected_theme_tags
 
-        if selected_author_ids.length > 0
-            match.author_id = $in: selected_author_ids
-            match.published = 1
-        if selected_location_tags.length > 0 then match.location_tags = $all: selected_location_tags
-        if selected_building_tags.length > 0 then match.building_tags = $all: selected_building_tags
-        if picked_timestamp_tags.length > 0 then match.timestamp_tags = $all: picked_timestamp_tags
+        # if selected_author_ids.length > 0
+        #     match.author_id = $in: selected_author_ids
+        #     match.published = 1
+        # if selected_location_tags.length > 0 then match.location_tags = $all: selected_location_tags
+        # if selected_building_tags.length > 0 then match.building_tags = $all: selected_building_tags
+        # if picked_timestamp_tags.length > 0 then match.timestamp_tags = $all: picked_timestamp_tags
 
-        if tag_limit then limit=tag_limit else limit=50
-        if author_id then match.author_id = author_id
+        # if tag_limit then limit=tag_limit else limit=50
+        # if author_id then match.author_id = author_id
 
         # if view_private is true then match.author_id = @userId
         # if view_resonates?
@@ -86,19 +84,20 @@ Meteor.publish 'facet', (
         #         count: ancestor_id.count
         #         index: i
 
-        theme_tag_cloud = Docs.aggregate [
+        tag_cloud = Docs.aggregate [
             { $match: match }
             { $project: tags: 1 }
             { $unwind: "$tags" }
             { $group: _id: '$tags', count: $sum: 1 }
-            { $match: _id: $nin: selected_theme_tags }
+            { $match: _id: $nin: picked_tags }
             { $sort: count: -1, _id: 1 }
-            { $limit: limit }
+            { $limit: 10 }
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
-        # console.log 'theme theme_tag_cloud, ', theme_tag_cloud
-        theme_tag_cloud.forEach (tag, i) ->
-            self.added 'tags', Random.id(),
+        # console.log 'theme tag_cloud, ', tag_cloud
+        tag_cloud.forEach (tag, i) ->
+            console.log tag
+            self.added 'results', Random.id(),
                 name: tag.name
                 count: tag.count
                 index: i
@@ -207,20 +206,20 @@ Meteor.publish 'facet', (
         #         count: author_id.count
 
         # doc_results = []
-        int_doc_limit = parseInt doc_limit
-        subHandle = Docs.find(match, {limit:20, sort: timestamp:-1}).observeChanges(
-            added: (id, fields) ->
-                # console.log 'added doc', id, fields
-                # doc_results.push id
-                self.added 'docs', id, fields
-            changed: (id, fields) ->
-                # console.log 'changed doc', id, fields
-                self.changed 'docs', id, fields
-            removed: (id) ->
-                # console.log 'removed doc', id, fields
-                # doc_results.pull id
-                self.removed 'docs', id
-        )
+        # int_doc_limit = parseInt doc_limit
+        # subHandle = Docs.find(match, {limit:20, sort: timestamp:-1}).observeChanges(
+        #     added: (id, fields) ->
+        #         # console.log 'added doc', id, fields
+        #         # doc_results.push id
+        #         self.added 'docs', id, fields
+        #     changed: (id, fields) ->
+        #         # console.log 'changed doc', id, fields
+        #         self.changed 'docs', id, fields
+        #     removed: (id) ->
+        #         # console.log 'removed doc', id, fields
+        #         # doc_results.pull id
+        #         self.removed 'docs', id
+        # )
 
         # for doc_result in doc_results
 
@@ -242,7 +241,7 @@ Meteor.publish 'facet', (
 
         self.ready()
 
-        self.onStop ()-> subHandle.stop()
+        # self.onStop ()-> subHandle.stop()
 
 # Meteor.publish 'ancestor_id_docs', (ancestor_ids)->
 #     console.log ancestor_ids

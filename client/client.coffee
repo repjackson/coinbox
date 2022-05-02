@@ -210,3 +210,5 @@ Router.route '/', (->
 Template.footer.helpers
     dev_docs: ->
         Docs.find {}
+    dev_results: ->
+        Results.find()

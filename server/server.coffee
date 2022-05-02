@@ -48,16 +48,8 @@ Meteor.publish 'results', (
     current_query=''
     sort_key='_timestamp'
     sort_direction=-1
+    limit=42
     )->
-    # console.log picked_ingredients
-    # if doc_limit
-    #     limit = doc_limit
-    # else
-    limit = 42
-    # if doc_sort_key
-    #     sort_key = doc_sort_key
-    # if doc_sort_direction
-    #     sort_direction = parseInt(doc_sort_direction)
     self = @
     match = {model:model}
     # if picked_ingredients.length > 0
@@ -96,7 +88,7 @@ Meteor.publish 'results', (
         
     Docs.find match,
         sort:"#{sort_key}":sort_direction
-        limit: 42
+        limit: limit
         # sort:_timestamp:-1
 
 

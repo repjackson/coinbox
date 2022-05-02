@@ -1,8 +1,15 @@
 if Meteor.isClient
+    Template.facet.onCreated ->
+        console.log @
+        @autorun => @subscribe 'facets',
+            @data.model
+            picked_tags.array()
+            Session.get('current_query')
+    
     Template.facet.helpers
         tag_results: ->
-            Results.find 
-                model:'tag'
+            Results.find {}
+                # model:'tag'
         picked_tags: -> picked_tags.array()
     Template.facet.events 
         'click .pick_tag': -> picked_tags.push @name
@@ -656,8 +663,3 @@ if Meteor.isClient
                 Docs.update parent._id,
                     $set: "#{@key}": @value
 
-    Template.facet.onCreated ->
-        @autorun => @subscribe 'facet',
-            @model
-            picked_tags.array()
-            Session.get('current_query')

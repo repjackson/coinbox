@@ -2,7 +2,7 @@ template(name='tasks')
     .ui.stackable.padded.grid 
         .four.wide.column
             .ui.inline.header 
-                +i name='blog'
+                +i name='tasks'
                 |tasks
             if currentUser
                 .ui.icon.button.add_task
@@ -13,40 +13,12 @@ template(name='tasks')
                 else
                     i.circle.outline.icon
                 |yours
-            +facet key='tag'
+            +facet key='tag' model='task'
         .twelve.wide.column
             .ui.centered.stackable.cards
-                each task_docs 
+                each model_docs 'task' 
                     +task_card
                     
-
-
-template(name='set_task_sort_key')
-    .item.set_sort
-        if color
-            .ui.label(class=color) #{label}
-        else 
-            if emoji
-                em(data-emoji=emoji)
-            else if icon
-                i.icon(class=icon)
-            |#{label}
-        
-        
-                
-                
-        
-        
-
-template(name='set_view_mode_task')
-    .item.set_view
-        i.icon(class=icon)
-        |#{title}
-
-
-// template(name='set_limit')
-    .ui.compact.small.basic.button.set_limit #{amount}
-
 
 
 template(name='task_card')

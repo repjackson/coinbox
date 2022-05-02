@@ -31,12 +31,9 @@ if Meteor.isClient
             'task'
             picked_tags.array()
             Session.get('current_query')
-            Session.get('limit')
             Session.get('sort_key')
             Session.get('sort_direction')
-            Session.get('view_delivery')
-            Session.get('view_pickup')
-            Session.get('view_open')
+            Session.get('limit')
 
     Template.task_view.onCreated ->
         @autorun => @subscribe 'related_group',Router.current().params.doc_id, ->

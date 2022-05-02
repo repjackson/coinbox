@@ -103,10 +103,16 @@ template(name='footer')
     if in_dev 
         .ui.inverted.fluid.segment
             .ui.header dev 
-            .ui.inverted.link.list
-                each dev_docs
-                    .item #{title} #{model}
-                        +print_this
+            .ui.grid 
+                .eight.wide.column
+                    .ui.inverted.link.list
+                        each dev_docs
+                            .item #{title} #{model}
+                                +print_this
+                .eight.wide.column
+                    .ui.inverted.link.list
+                        each dev_results
+                            .item #{title} #{model}
 
 
 
