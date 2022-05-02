@@ -2,3 +2,23 @@ template(name='admin')
     .ui.header 
         +i name='shield'
         |admin
+    if in_dev
+        .ui.header 
+            +i name='database'
+            |database manager
+        with query_doc
+            .ui.inline.header 
+                |Docs.find {
+            +text_edit key='query_key' label='query key' icon='key'
+            .ui.inline.header :
+            +text_edit key='key' label='key' icon='key'
+            .ui.inline.header },
+            +text_edit key='operator' label='$operator' icon='dollar'
+            .ui.inline.header :
+            +text_edit key='modifier_key' label='modifier key' icon='key'
+            .ui.inline.header :
+            +text_edit key='modifier_value' label='modifier_value' icon='hashtag'
+            .ui.inline.header }
+            
+        .ui.button.run_query
+            |run query
