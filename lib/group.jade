@@ -36,7 +36,7 @@ template(name='groups')
                     .ui.stackable.three.cards.scrolling
                         each model_docs 'group'
                             +group_card
-            if session_is 'view_mode' 'list'
+            else
                 .ui.selection.divided.animated.list.scrolling
                     each model_docs 'group' 
                         +group_item

@@ -45,6 +45,9 @@ Cloudinary.config
 Meteor.publish 'results', (
     model
     picked_tags=[]
+    current_query=''
+    sort_key='_timestamp'
+    sort_direction=-1
     )->
     # console.log picked_ingredients
     # if doc_limit
@@ -56,7 +59,7 @@ Meteor.publish 'results', (
     # if doc_sort_direction
     #     sort_direction = parseInt(doc_sort_direction)
     self = @
-    match = {model:'org'}
+    match = {model:model}
     # if picked_ingredients.length > 0
     #     match.ingredients = $all: picked_ingredients
     #     # sort = 'price_per_serving'
@@ -65,16 +68,15 @@ Meteor.publish 'results', (
         # sort = 'price_per_serving'
     # else
         # match.tags = $nin: ['wikipedia']
-    sort = '_timestamp'
     # match.published = true
         # match.source = $ne:'wikipedia'
     # if view_vegan
     #     match.vegan = true
     # if view_gf
     #     match.gluten_free = true
-    # if org_query and org_query.length > 1
+    if current_query.length > 1
     #     console.log 'searching org_query', org_query
-    #     match.title = {$regex:"#{org_query}", $options: 'i'}
+        match.title = {$regex:"#{current_query}", $options: 'i'}
     #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
 
     # match.tags = $all: picked_ingredients
@@ -86,15 +88,16 @@ Meteor.publish 'results', (
     #         match["#{key}"] = $all: key_array
         # console.log 'current facet filter array', current_facet_filter_array
 
-    # console.log 'org match', match
+    console.log 'results match', match
     # console.log 'sort key', sort_key
     # console.log 'sort direction', sort_direction
     unless Meteor.userId()
         match.private = $ne:true
+        
     Docs.find match,
-        # sort:"#{sort_key}":sort_direction
-        # sort:_timestamp:-1
+        sort:"#{sort_key}":sort_direction
         limit: 42
+        # sort:_timestamp:-1
 
 
 Meteor.publish 'model_from_child_id', (child_id)->
@@ -177,60 +180,6 @@ Meteor.publish 'page', (slug)->
             model:'page'
             slug:slug
 
-
-Meteor.publish 'results', (
-    query=''
-    picked_tags=[]
-    picked_location_tags=[]
-    limit=42
-    sort_key='_timestamp'
-    sort_direction=-1
-    view_delivery
-    view_pickup
-    view_open
-    )->
-    console.log picked_tags
-    self = @
-    match = {}
-    match.model = 'rental'
-    
-    match.app = 'goldrun'
-    # if view_open
-    #     match.open = $ne:false
-    # if view_delivery
-    #     match.delivery = $ne:false
-    # if view_pickup
-    #     match.pickup = $ne:false
-    # if Meteor.userId()
-    #     if Meteor.user().downvoted_ids
-    #         match._id = $nin:Meteor.user().downvoted_ids
-    if query
-        match.title = {$regex:"#{query}", $options: 'i'}
-    
-    if picked_tags.length > 0
-        match.tags = $all: picked_tags
-        # sort = 'price_per_serving'
-    # if view_images
-    #     match.is_image = $ne:false
-    # if view_videos
-    #     match.is_video = $ne:false
-
-    # match.tags = $all: picked_tags
-    # if filter then match.model = filter
-    # keys = _.keys(prematch)
-    # for key in keys
-    #     key_array = prematch["#{key}"]
-    #     if key_array and key_array.length > 0
-    #         match["#{key}"] = $all: key_array
-        # console.log 'current facet filter array', current_facet_filter_array
-
-    # console.log 'product match', match
-    # console.log 'sort key', sort_key
-    # console.log 'sort direction', sort_direction
-    Docs.find match,
-        sort:"#{sort_key}":sort_direction
-        # sort:_timestamp:-1
-        limit: limit
 
 
 Meteor.publish 'some_rentals', ->

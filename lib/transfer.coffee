@@ -9,24 +9,14 @@ if Meteor.isClient
         Session.setDefault 'sort_label', 'available'
         Session.setDefault 'limit', 20
         Session.setDefault 'view_open', true
-        @autorun => @subscribe 'transfer_facets',
-            picked_tags.array()
-            Session.get('limit')
-            Session.get('sort_key')
-            Session.get('sort_direction')
-            Session.get('view_delivery')
-            Session.get('view_pickup')
-            Session.get('view_open')
 
-        @autorun => @subscribe 'transfer_results',
+        @autorun => @subscribe 'results',
+            'transfer'
             picked_tags.array()
-            Session.get('transfer_title_search')
-            Session.get('limit')
+            Session.get('current_query')
             Session.get('sort_key')
             Session.get('sort_direction')
-            Session.get('view_delivery')
-            Session.get('view_pickup')
-            Session.get('view_open')
+            Session.get('limit')
     Template.transfers.events
         'click .add_transfer': ->
             new_id =
@@ -239,57 +229,6 @@ if Meteor.isServer
             # sort:"#{sort_key}":sort_direction
             sort:_timestamp:-1
             limit: limit
-    Meteor.publish 'transfer_facets', (
-        picked_tags=[]
-        picked_timestamp_tags
-        query
-        doc_limit
-        doc_sort_key
-        doc_sort_direction
-        view_delivery
-        view_pickup
-        view_open
-        )->
-        # console.log 'dummy', dummy
-        # console.log 'query', query
-        console.log 'selected tags', picked_tags
-
-        self = @
-        match = {}
-        match.model = 'transfer'
-        # if view_open
-        #     match.open = $ne:false
-
-        # if view_delivery
-        #     match.delivery = $ne:false
-        # if view_pickup
-        #     match.pickup = $ne:false
-        if picked_tags.length > 0 then match.tags = $all: picked_tags
-            # match.$regex:"#{current_transfer_search}", $options: 'i'}
-
-        tag_cloud = Docs.aggregate [
-            { $match: match }
-            { $project: "tags": 1 }
-            { $unwind: "$tags" }
-            { $group: _id: "$tags", count: $sum: 1 }
-            { $sort: count: -1, _id: 1 }
-            { $limit: 20 }
-            { $project: _id: 0, name: '$_id', count: 1 }
-        ], {
-            allowDiskUse: true
-        }
-
-        tag_cloud.forEach (tag, i) =>
-            # console.log 'transfer tag result ', tag
-            self.added 'results', Random.id(),
-                name: tag.name
-                count: tag.count
-                model:'transfer_tag'
-                # category:key
-                # index: i
-
-
-        self.ready()
 
 
 

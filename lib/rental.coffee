@@ -20,15 +20,8 @@ if Meteor.isClient
         Session.setDefault 'view_open', true
 
     Template.rentals.onCreated ->
-        @autorun => @subscribe 'rental_facets',
-            picked_tags.array()
-            Session.get('current_lat')
-            Session.get('current_long')
-            Session.get('rental_limit')
-            Session.get('rental_sort_key')
-            Session.get('rental_sort_direction')
-
-        @autorun => @subscribe 'rental_results',
+        @autorun => @subscribe 'results',
+            'rental'
             picked_tags.array()
             Session.get('lat')
             Session.get('long')
@@ -191,65 +184,6 @@ if Meteor.isServer
             sort:"#{sort_key}":sort_direction
             # sort:_timestamp:-1
             limit: limit
-
-    Meteor.publish 'rental_facets', (
-        picked_tags=[]
-        lat
-        long
-        picked_timestamp_tags
-        query
-        doc_limit
-        doc_sort_key
-        doc_sort_direction
-        )->
-        # console.log 'lat', lat
-        # console.log 'long', long
-        # console.log 'selected tags', picked_tags
-
-        self = @
-        match = {}
-        match.model = 'rental'
-        if Meteor.userId()
-            match._author_id = $ne:Meteor.userId()
-        if picked_tags.length > 0 then match.tags = $all: picked_tags
-            # match.$regex:"#{current_query}", $options: 'i'}
-        # if lat
-        #     match.location = 
-        #        { $near :
-        #           {
-        #             $geometry: { type: "Point",  coordinates: [ lat, long ] },
-        #             $minDistance: 1000,
-        #             $maxDistance: 5000
-        #           }
-        #        }
-        agg_doc_count = Docs.find(match).count()
-        # console.log match
-        tag_cloud = Docs.aggregate [
-            { $match: match }
-            { $project: "tags": 1 }
-            { $unwind: "$tags" }
-            { $group: _id: "$tags", count: $sum: 1 }
-            { $match: _id: $nin: picked_tags }
-            { $match: count: $lt: agg_doc_count }
-            { $sort: count: -1, _id: 1 }
-            { $limit: 20 }
-            { $project: _id: 0, title: '$_id', count: 1 }
-        ], {
-            allowDiskUse: true
-        }
-
-        tag_cloud.forEach (tag, i) =>
-            # console.log 'tag result ', tag
-            self.added 'results', Random.id(),
-                title: tag.title
-                count: tag.count
-                model:'tag'
-                # category:key
-                # index: i
-        self.ready()
-
-
-
 
 
 if Meteor.isClient

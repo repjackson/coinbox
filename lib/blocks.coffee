@@ -1,4 +1,13 @@
 if Meteor.isClient
+    Template.facet.helpers
+        tag_results: ->
+            Results.find 
+                model:'tag'
+        picked_tags: -> picked_tags.array()
+    Template.facet.events 
+        'click .pick_tag': -> picked_tags.push @name
+        'click .unpick_tag': -> picked_tags.remove @valueOf()
+    
     Template.fans.helpers
         is_fan: -> Meteor.userId() and @fan_user_ids and Meteor.userId() in @fan_user_ids
         fan_user_docs: ->

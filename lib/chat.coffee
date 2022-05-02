@@ -155,7 +155,6 @@ if Meteor.isServer
 
 
     Meteor.publish 'chat_channels', (picked_tags, picked_member_ids, view_published)->
-
         self = @
         match = {}
         if picked_tags.length > 0 then match.tags = $all: picked_tags
