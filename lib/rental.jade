@@ -174,9 +174,9 @@ template(name='rental_view')
                     //     small viewing
                     //     |#{title}
                     //     small rental
-                    a.ui.big.basic.button.fly_left(href="/" title='shop')
+                    a.ui.big.basic.button.fly_left(href="/rentals" title='rentals')
                         i.left.chevron.icon
-                        +i name='shop' cl='ui inline image'
+                        +i name='clock' cl='ui inline image'
                     .ui.big.inline.header #{title}
                     if can_edit
                         a.zoomer(href="/rental/#{_id}/edit")
