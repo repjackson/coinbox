@@ -1,4 +1,41 @@
 if Meteor.isClient
+    Template.toggle_sort_direction.events 
+        'click .toggle': ->
+            if Session.equals 'sort_direction', -1
+                Session.set 'sort_direction', 1
+                $('body').toast({
+                    title: "sort direction set up"
+                    # message: 'Please see desk staff for key.'
+                    class : 'success'
+                    icon:'sort direction up'
+                    position:'bottom right'
+                    # className:
+                    #     toast: 'ui massive message'
+                    # displayTime: 5000
+                    transition:
+                      showMethod   : 'zoom',
+                      showDuration : 250,
+                      hideMethod   : 'fade',
+                      hideDuration : 250
+                    })
+            else
+                Session.set 'sort_direction', -1
+                $('body').toast({
+                    title: "sort direction set down"
+                    # message: 'Please see desk staff for key.'
+                    class : 'success'
+                    icon:'sort direction down'
+                    position:'bottom right'
+                    # className:
+                    #     toast: 'ui massive message'
+                    # displayTime: 5000
+                    transition:
+                      showMethod   : 'zoom',
+                      showDuration : 250,
+                      hideMethod   : 'fade',
+                      hideDuration : 250
+                    })
+
     Template.facet.onCreated ->
         console.log @
         @autorun => @subscribe 'facets',

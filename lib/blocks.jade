@@ -1,3 +1,12 @@
+template(name='toggle_sort_direction')
+    if session_is 'sort_direction' -1
+        .ui.icon.compact.circular.button.toggle(title='toggle sort direction')
+            i.sort.direction.down.large.icon
+    if session_is 'sort_direction' 1
+        .ui.icon.compact.circular.button.toggle(title='toggle sort direction')
+            i.sort.direction.up.large.icon
+
+
 template(name='fans')                    
     .ui.header 
         +i name='audience'

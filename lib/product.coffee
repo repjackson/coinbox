@@ -54,24 +54,24 @@ if Meteor.isClient
                 Router.go "/source/#{product.source_id}"
             , 240
         
-        # 'click .goto_ingredient': (e,t)->
-        #     # $(e.currentTarget).closest('.pushable').transition('fade right', 240)
-        #     product = Docs.findOne Router.current().params.doc_id
-        #     console.log @
-        #     found_ingredient = 
-        #         Docs.findOne 
-        #             model:'ingredient'
-        #             title:@valueOf()
-        #     if found_ingredient
-        #         Router.go "/ingredient/#{found_ingredient._id}"
-        #     else 
-        #         new_id = 
-        #             Docs.insert 
-        #                 model:'ingredient'
-        #                 title:@valueOf()
-        #         Router.go "/ingredient/#{new_id}/edit"
+        'click .goto_ingredient': (e,t)->
+            # $(e.currentTarget).closest('.pushable').transition('fade right', 240)
+            product = Docs.findOne Router.current().params.doc_id
+            console.log @
+            found_ingredient = 
+                Docs.findOne 
+                    model:'ingredient'
+                    title:@valueOf()
+            if found_ingredient
+                Router.go "/ingredient/#{found_ingredient._id}"
+            else 
+                new_id = 
+                    Docs.insert 
+                        model:'ingredient'
+                        title:@valueOf()
+                Router.go "/ingredient/#{new_id}/edit"
                 
-        #     # found_ingredient = 
+            # found_ingredient = 
             #     Docs.findOne 
             #         model:'ingredient'
             #         title:@valueOf()
@@ -414,6 +414,14 @@ if Meteor.isClient
 
     Template.products.onCreated ->
         @autorun  => @subscribe 'model_docs', 'product', ->
+    Template.products.helpers
+        product_docs: ->
+            match = {model:'product'}
+            unless Meteor.userId()
+                match.private = $ne: true
+            Docs.find match, 
+                sort:_timestamp:-1
+                
     Template.products.events
         'click .add_product': ->
             new_id = 
@@ -448,7 +456,7 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'target_by_transfer_id', (transfer_id)->
         transfer = Docs.findOne transfer_id
-        Meteor.users.findOne transfer.target_user_id
+        Meteor.users.findOne transfer.target_id
     Meteor.methods
         add_to_cart: (product_id)->
             # existing_cart_item_with_product = 
@@ -577,3 +585,160 @@ if Meteor.isServer
             match.title = {$regex:"#{product_query}", $options: 'i'}
         Counts.publish this, 'product_counter', Docs.find(match)
         return undefined
+
+    Meteor.publish 'product_facets', (
+        picked_ingredients=[]
+        picked_sections=[]
+        product_query=null
+        view_vegan=false
+        view_gf=false
+        products_section=null
+        doc_limit=20
+        doc_sort_key
+        doc_sort_direction
+        view_delivery
+        view_pickup
+        view_open
+        )->
+        # console.log 'dummy', dummy
+        # console.log 'query', query
+        # console.log 'picked ingredients', picked_ingredients
+
+        self = @
+        match = {app:'nf'}
+        match.model = 'product'
+        if products_section 
+            match.products_section = products_section
+        if view_vegan
+            match.vegan = true
+        if view_gf
+            match.gluten_free = true
+        # if view_local
+        #     match.local = true
+        if picked_ingredients.length > 0 then match.ingredients = $all: picked_ingredients
+        if picked_sections.length > 0 then match.menu_section = $all: picked_sections
+            # match.$regex:"#{product_query}", $options: 'i'}
+        if product_query and product_query.length > 1
+            console.log 'searching product_query', product_query
+            match.title = {$regex:"#{product_query}", $options: 'i'}
+            # match.tags_string = {$regex:"#{query}", $options: 'i'}
+        #
+        #     Terms.find {
+        #         title: {$regex:"#{query}", $options: 'i'}
+        #     },
+        #         sort:
+        #             count: -1
+        #         limit: 42
+            # tag_cloud = Docs.aggregate [
+            #     { $match: match }
+            #     { $project: "tags": 1 }
+            #     { $unwind: "$tags" }
+            #     { $group: _id: "$tags", count: $sum: 1 }
+            #     { $match: _id: $nin: picked_ingredients }
+            #     { $match: _id: {$regex:"#{query}", $options: 'i'} }
+            #     { $sort: count: -1, _id: 1 }
+            #     { $limit: 42 }
+            #     { $project: _id: 0, name: '$_id', count: 1 }
+            #     ]
+
+        # else
+        # unless query and query.length > 2
+        # if picked_ingredients.length > 0 then match.tags = $all: picked_ingredients
+        # # match.tags = $all: picked_ingredients
+        # # console.log 'match for tags', match
+        section_cloud = Docs.aggregate [
+            { $match: match }
+            { $project: "menu_section": 1 }
+            { $group: _id: "$menu_section", count: $sum: 1 }
+            { $match: _id: $nin: picked_sections }
+            # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
+            { $sort: count: -1, _id: 1 }
+            { $limit: 20 }
+            { $project: _id: 0, name: '$_id', count: 1 }
+        ], {
+            allowDiskUse: true
+        }
+        
+        section_cloud.forEach (section, i) =>
+            # console.log 'queried section ', section
+            # console.log 'key', key
+            self.added 'results', Random.id(),
+                title: section.name
+                count: section.count
+                model:'section'
+                # category:key
+                # index: i
+
+
+        ingredient_cloud = Docs.aggregate [
+            { $match: match }
+            { $project: "ingredients": 1 }
+            { $unwind: "$ingredients" }
+            { $match: _id: $nin: picked_ingredients }
+            { $group: _id: "$ingredients", count: $sum: 1 }
+            { $sort: count: -1, _id: 1 }
+            { $limit: 20 }
+            { $project: _id: 0, title: '$_id', count: 1 }
+        ], {
+            allowDiskUse: true
+        }
+
+        ingredient_cloud.forEach (ingredient, i) =>
+            # console.log 'ingredient result ', ingredient
+            self.added 'results', Random.id(),
+                title: ingredient.title
+                count: ingredient.count
+                model:'ingredient'
+                # category:key
+                # index: i
+
+
+        self.ready()
+
+
+
+
+
+if Meteor.isClient
+    Template.product_card.onCreated ->
+        # @autorun => Meteor.subscribe 'model_docs', 'food'
+    Template.product_card.events
+        'click .quickbuy': ->
+            console.log @
+            Session.set('quickbuying_id', @_id)
+            # $('.ui.dimmable')
+            #     .dimmer('show')
+            # $('.special.cards .image').dimmer({
+            #   on: 'hover'
+            # });
+            # $('.card')
+            #   .dimmer('toggle')
+            $('.ui.modal')
+              .modal('show')
+
+        'click .goto_food': (e,t)->
+            # $(e.currentTarget).closest('.card').transition('zoom',420)
+            # $('.global_container').transition('scale', 500)
+            Router.go("/food/#{@_id}")
+            # Meteor.setTimeout =>
+            # , 100
+
+        # 'click .view_card': ->
+        #     $('.container_')
+
+    Template.product_card.helpers
+        product_card_class: ->
+            # if Session.get('quickbuying_id')
+            #     if Session.equals('quickbuying_id', @_id)
+            #         'raised'
+            #     else
+            #         'active medium dimmer'
+        is_quickbuying: ->
+            Session.equals('quickbuying_id', @_id)
+
+        food: ->
+            # console.log Meteor.user().roles
+            Docs.find {
+                model:'food'
+            }, sort:title:1
+        
