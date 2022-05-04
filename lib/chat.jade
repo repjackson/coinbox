@@ -52,6 +52,9 @@ template(name='chat')
 
 
 template(name='chat_messages_pane')
+    .ui.big.header 
+        +i name=icon
+        |#{title}
     .ui.smoothed.segment.description.chat_messages.scrolling
         .ui.comments
             each chat_messages
