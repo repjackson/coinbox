@@ -659,7 +659,20 @@ if Meteor.isClient
             if Docs.findOne parent._id
                 Docs.update parent._id,
                     $set: "#{@key}": @value
-            else 
-                Docs.update parent._id,
+            # else if
+            #     Docs.update parent._id,
+            #         $set: "#{@key}": @value
+            else
+                Meteor.users.update parent._id, 
                     $set: "#{@key}": @value
+            $('body').toast(
+                showIcon: 'checkmark'
+                message: "updated #{@key}:#{@value}"
+                showProgress: 'bottom'
+                class: 'success'
+                # displayTime: 'auto',
+                position: "bottom right"
+            )
+                
+                
 

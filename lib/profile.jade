@@ -224,9 +224,12 @@ template(name='user_edit')
                     .ui.hidden.divider
                     +image_edit key='image_id' icon='picture' title='profile image' 
                 .column
-                    +text_edit key='first_name' label='first name'
-                    +text_edit key='last_name' label='last name'
+                    +text_edit key='first_name' label='first name' icon='user'
+                    div
+                    +text_edit key='last_name' label='last name' icon='user'
+                    div
                     +text_edit key='display_name' label='display name'
+                    div
                     +html_edit key='bio' label='bio'
                     .ui.segment
                         .ui.header 
@@ -243,9 +246,12 @@ template(name='user_edit')
                             |venmo
                     .ui.segment 
                         .ui.header
-                            +i name='paintbrush'
+                            +i name='paint'
                             |appearance 
                         +text_edit key='icon_class' label='icon class'
+                        +key_value_edit key='icon_class' value='ios' label='outline'
+                        +key_value_edit key='icon_class' value='color' label='color'
+                        +key_value_edit key='icon_class' value='office' label='office'
                     if is_current_user
                         +password_edit
                         //- +phone_editor
