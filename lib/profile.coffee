@@ -321,7 +321,22 @@ if Meteor.isClient
 
 
 if Meteor.isClient
-    Router.route '/user/:username/edit', -> @render 'user_edit'
+    Router.route '/user/:username/edit', (->
+        @layout 'account_layout'
+        @render 'account_edit'
+        ), name:'account_profile'
+    Router.route '/user/:username/edit/appearance', (->
+        @layout 'account_layout'
+        @render 'account_appearance'
+        ), name:'account_appearance'
+    Router.route '/user/:username/edit/credit', (->
+        @layout 'account_layout'
+        @render 'account_credit'
+        ), name:'account_credit'
+    Router.route '/user/:username/edit/profile', (->
+        @layout 'account_layout'
+        @render 'account_profile'
+        ), name:'account_profile'
 
     Template.user_edit.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username

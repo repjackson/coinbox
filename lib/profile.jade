@@ -211,30 +211,36 @@ template(name='logout_button')
 
 
 template(name='user_edit')
-    with user_from_username_param          
-        //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
-        .ui.stackable.padded.grid
-            .three.column.row
-                .column
-                    .ui.center.aligned.large.inline.grey.header
-                    //- +i name='pencil'
-                    .ui.small.inline.header @#{username}
-                    a.ui.green.fluid.icon.button.fly_down(href="/user/#{username}/") 
-                        i.checkmark.large.icon
-                    .ui.hidden.divider
-                    +image_edit key='image_id' icon='picture' title='profile image' 
-                .column
-                    +text_edit key='first_name' label='first name' icon='user'
-                    div
-                    +text_edit key='last_name' label='last name' icon='user'
-                    div
-                    +text_edit key='display_name' label='display name'
-                    div
-                    +html_edit key='bio' label='bio'
-                    .ui.segment
-                        .ui.header 
-                            +i name='money'
-                            |preferred payment received method
+    +nav
+    .ui.bottom.attached.pushable.segment.scrolling
+        +topbar
+        +leftbar
+        +rightbar
+        img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
+        with user_from_username_param          
+            //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
+            .ui.stackable.padded.grid
+                .three.column.row
+                    .column
+                        .ui.center.aligned.large.inline.grey.header
+                        //- +i name='pencil'
+                        .ui.small.inline.header @#{username}
+                        a.ui.green.fluid.icon.button.fly_down(href="/user/#{username}/") 
+                            i.checkmark.large.icon
+                        .ui.hidden.divider
+                        +image_edit key='image_id' icon='picture' title='profile image' 
+                    .column
+                        +text_edit key='first_name' label='first name' icon='user'
+                        div
+                        +text_edit key='last_name' label='last name' icon='user'
+                        div
+                        +text_edit key='display_name' label='display name'
+                        div
+                        +html_edit key='bio' label='bio'
+                        .ui.segment
+                            .ui.header 
+                                +i name='money'
+                                |preferred payment received method
                         .ui.button
                             +i name='apple-pay'
                             |apple pay
@@ -248,7 +254,7 @@ template(name='user_edit')
                         .ui.header
                             +i name='paint'
                             |appearance 
-                        +text_edit key='icon_class' label='icon class'
+                        // +text_edit key='icon_class' label='icon class'
                         +key_value_edit key='icon_class' value='ios' label='outline'
                         +key_value_edit key='icon_class' value='color' label='color'
                         +key_value_edit key='icon_class' value='office' label='office'
