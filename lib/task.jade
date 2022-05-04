@@ -6,7 +6,7 @@ template(name='tasks')
                 |tasks
             if currentUser
                 .ui.icon.button.add_task
-                    i.plus.large.icon
+                    +i name='plus'
             .ui.compact.button.toggle_yours
                 if viewing_yours
                     i.undo.green.icon
@@ -27,7 +27,7 @@ template(name='task_card')
         .content
             a.ui.header(href="/task/#{_id}") #{title}
             if private 
-                i.large.lock.icon
+                +i name='lock'
             .ui.small.grey.header #{when}
             .smallscroll
                 | !{content}

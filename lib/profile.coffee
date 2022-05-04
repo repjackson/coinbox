@@ -7,10 +7,10 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_social'
         ), name:'user_social'
-    Router.route '/user/:username/credit', (->
+    Router.route '/user/:username/bank', (->
         @layout 'profile_layout'
-        @render 'user_credit'
-        ), name:'user_credit'
+        @render 'user_bank'
+        ), name:'user_bank'
     Router.route '/user/:username/shop', (->
         @layout 'profile_layout'
         @render 'user_shop'
@@ -329,10 +329,10 @@ if Meteor.isClient
         @layout 'account_layout'
         @render 'account_appearance'
         ), name:'account_appearance'
-    Router.route '/user/:username/edit/credit', (->
+    Router.route '/user/:username/edit/bank', (->
         @layout 'account_layout'
-        @render 'account_credit'
-        ), name:'account_credit'
+        @render 'account_bank'
+        ), name:'account_bank'
     Router.route '/user/:username/edit/profile', (->
         @layout 'account_layout'
         @render 'account_profile'

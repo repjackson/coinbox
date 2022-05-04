@@ -63,7 +63,7 @@ template(name='profile_layout')
                                 i.globe.icon
                                 |Profile Link
                     .twelve.wide.column
-                        +profile_menu_item key='credit' icon='money'
+                        +profile_menu_item key='bank' icon='money'
                         +profile_menu_item key='social' icon='friends'
                         +profile_menu_item key='posts' icon='blog'
                         +profile_menu_item key='shop' icon='shop'
@@ -118,12 +118,16 @@ template(name='request_button')
         |request
                 
                 
-template(name='user_credit')
+template(name='user_bank')
     .ui.header 
-        +i name='money'
-        |user credit 
+        +i name='bank'
+        |user bank 
     .ui.header 
+        +i name='exit'
         |deposits
+    .ui.header 
+        +i name='exit'
+        |withdrawals
     +user_transfers
     
                     
