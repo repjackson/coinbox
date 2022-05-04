@@ -323,8 +323,8 @@ if Meteor.isClient
 if Meteor.isClient
     Router.route '/user/:username/edit', (->
         @layout 'account_layout'
-        @render 'account_edit'
-        ), name:'account_profile'
+        @render 'account_profile'
+        ), name:'account'
     Router.route '/user/:username/edit/appearance', (->
         @layout 'account_layout'
         @render 'account_appearance'
@@ -338,10 +338,10 @@ if Meteor.isClient
         @render 'account_profile'
         ), name:'account_profile'
 
-    Template.user_edit.onCreated ->
+    Template.account_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
 
-    Template.user_edit.onRendered ->
+    Template.account_layout.onRendered ->
         Meteor.setTimeout ->
             $('.button').popup()
         , 2000
@@ -415,7 +415,7 @@ if Meteor.isClient
                                 toastr.success 'Your verification code does not match.'
 
 
-    Template.user_edit.events
+    Template.account_layout.events
         'click .remove_user': ->
             if confirm "confirm delete #{@username}?  cannot be undone."
                 Meteor.users.remove @_id

@@ -210,7 +210,7 @@ template(name='logout_button')
         
 
 
-template(name='user_edit')
+template(name='account_layout')
     +nav
     .ui.bottom.attached.pushable.segment.scrolling
         +topbar
@@ -220,8 +220,8 @@ template(name='user_edit')
         with user_from_username_param          
             //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
             .ui.stackable.padded.grid
-                .three.column.row
-                    .column
+                .row
+                    .four.wide.column
                         .ui.center.aligned.large.inline.grey.header
                         //- +i name='pencil'
                         .ui.small.inline.header @#{username}
@@ -229,65 +229,85 @@ template(name='user_edit')
                             i.checkmark.large.icon
                         .ui.hidden.divider
                         +image_edit key='image_id' icon='picture' title='profile image' 
-                    .column
-                        +text_edit key='first_name' label='first name' icon='user'
-                        div
-                        +text_edit key='last_name' label='last name' icon='user'
-                        div
-                        +text_edit key='display_name' label='display name'
-                        div
-                        +html_edit key='bio' label='bio'
-                        .ui.segment
-                            .ui.header 
-                                +i name='money'
-                                |preferred payment received method
-                        .ui.button
-                            +i name='apple-pay'
-                            |apple pay
-                        .ui.button
-                            +i name='paypal'
-                            |paypal
-                        .ui.button 
-                            +i name='venmo'
-                            |venmo
-                    .ui.segment 
-                        .ui.header
-                            +i name='paint'
-                            |appearance 
-                        // +text_edit key='icon_class' label='icon class'
-                        +key_value_edit key='icon_class' value='ios' label='outline'
-                        +key_value_edit key='icon_class' value='color' label='color'
-                        +key_value_edit key='icon_class' value='office' label='office'
-                    if is_current_user
-                        +password_edit
-                        //- +phone_editor
-                        +username_edit
-                    else if in_dev
-                        +password_edit
-                        //- +phone_editor
-                        +username_edit
-                    if currentUser.admin
-                        with user_from_username_param
-                            .ui.orange.button.remove_user 
-                                i.remove.icon
-                                |delete user
-                    +boolean_edit key='admin' label='admin' icon='shield' 
-                    +link_edit key='link' label='profile link' icon='globe'
-                .column
-                    .ui.header 
-                        i.envelope.outline.icon
-                        |emails
-                    +emails_edit
-                    +text_edit key='address' label='address' icon='marker' 
-                    +text_edit key='city' label='city' icon='marker' 
-                    +text_edit key='state' label='state' icon='marker' 
-                    +phone_edit key='phone' label='phone' icon='phone' 
-                    +text_edit key='company' label='company' icon='business'
-                    +text_edit key='linkedin_link' label='LinkedIn profile ' icon='linkedin'
-                    +text_edit key='twitter_link' label='twitter profile ' icon='twitter'
-                    +text_edit key='facebook_link' label='facebook profile ' icon='facebook'
+                    
+                        if is_current_user
+                            +password_edit
+                            //- +phone_editor
+                            +username_edit
+                        else if in_dev
+                            +password_edit
+                            //- +phone_editor
+                            +username_edit
+                        if currentUser.admin
+                            with user_from_username_param
+                                .ui.orange.button.remove_user 
+                                    i.remove.icon
+                                    |delete user
+                        +boolean_edit key='admin' label='admin' icon='shield' 
+                        +link_edit key='link' label='profile link' icon='globe'
+                    .twelve.wide.column
+                        +account_menu_item key='profile' icon='info'
+                        +account_menu_item key='appearance' icon='paint' 
+                        +account_menu_item key='credit' icon='money'
+                        +account_menu_item key='social' icon='friends'
+                        +account_menu_item key='posts' icon='blog'
+                        +account_menu_item key='shop' icon='shop'
+                        +account_menu_item key='rentals' icon='clock'
+                        +account_menu_item key='services' icon='wrench'
+                    
+                        +yield
+                    
+template(name='account_menu_item')
+    a.ui.compact.button(href="/user/#{current_user.username}/edit/#{key}")
+        +i name=icon cl='ui avatar image'
+        |#{key}
 
 
+template(name='account_profile')
+    .twelve.wide.column
+        +text_edit key='first_name' label='first name' icon='user'
+        div
+        +text_edit key='last_name' label='last name' icon='user'
+        div
+        +text_edit key='display_name' label='display name'
+        div
+        +html_edit key='bio' label='bio'
+        .ui.segment
+            .ui.header 
+                +i name='money'
+                |preferred payment received method
+        .ui.button
+            +i name='apple-pay'
+            |apple pay
+        .ui.button
+            +i name='paypal'
+            |paypal
+        .ui.button 
+            +i name='venmo'
+            |venmo
+    .ui.header 
+        i.envelope.outline.icon
+        |emails
+    +emails_edit
+    +text_edit key='address' label='address' icon='marker' 
+    +text_edit key='city' label='city' icon='marker' 
+    +text_edit key='state' label='state' icon='marker' 
+    +phone_edit key='phone' label='phone' icon='phone' 
+    +text_edit key='company' label='company' icon='business'
+    +text_edit key='linkedin_link' label='LinkedIn profile ' icon='linkedin'
+    +text_edit key='twitter_link' label='twitter profile ' icon='twitter'
+    +text_edit key='facebook_link' label='facebook profile ' icon='facebook'
+
+
+template(name='account_appearance')
+    .ui.segment 
+        .ui.header
+            +i name='paint'
+            |appearance 
+        // +text_edit key='icon_class' label='icon class'
+        +key_value_edit key='icon_class' value='ios' label='outline'
+        +key_value_edit key='icon_class' value='color' label='color'
+        +key_value_edit key='icon_class' value='office' label='office'
 
 template(name='user_single_doc_ref_editor')
     .ui.header #{label}
