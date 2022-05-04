@@ -35,7 +35,7 @@ template(name='task_card')
             +author_info
             if group_id     
                 +group_info
-            if assigned 
+            if is_assigned 
                 .ui.label assigned to: #{_assignee.username}
             
         

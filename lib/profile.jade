@@ -228,9 +228,10 @@ template(name='user_edit')
                     +text_edit key='last_name' label='last name'
                     +text_edit key='display_name' label='display name'
                     +html_edit key='bio' label='bio'
-                    .ui.dividing.header 
-                        +i name='money'
-                        |preferred payment received method
+                    .ui.segment
+                        .ui.header 
+                            +i name='money'
+                            |preferred payment received method
                         .ui.button
                             +i name='apple-pay'
                             |apple pay
@@ -240,6 +241,11 @@ template(name='user_edit')
                         .ui.button 
                             +i name='venmo'
                             |venmo
+                    .ui.segment 
+                        .ui.header
+                            +i name='paintbrush'
+                            |appearance 
+                        +text_edit key='icon_class' label='icon class'
                     if is_current_user
                         +password_edit
                         //- +phone_editor
