@@ -69,6 +69,10 @@ template(name='task_view')
                         a.ui.header(href="/user/#{_author.username}") 
                             img.ui.avatar.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                             |#{_author.username}
+                    if link 
+                        .ui.basic.large.button(href=link target='_window')
+                            |#{link}
+                        +link_view key='link'
                     .ui.list
                         .item #{views} views
                     each viewers
@@ -159,6 +163,7 @@ template(name='task_edit')
                     if is_dev 
                         +text_edit key='model' label='model' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +link_edit key='link' label='link'
                     unless published
                         a.ui.fluid.green.button.submit
                             i.checkmark.icon
