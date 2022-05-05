@@ -38,6 +38,7 @@ if Meteor.isClient
     Template.task_view.onCreated ->
         @autorun => @subscribe 'related_group',Router.current().params.doc_id, ->
         @autorun => @subscribe 'model_docs','log', ->
+        @autorun => @subscribe 'task_children',Router.current().params.doc_id, ->
 
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.task_edit.onCreated ->
@@ -63,17 +64,6 @@ if Meteor.isClient
         'click .view_task': ->
             Router.go "/task/#{@_id}"
 
-    Template.task_view.helpers
-        log_docs: ->
-            Docs.find 
-                model:'log'
-                # task_id:Router.current().params.doc_id
-    Template.task_card.helpers
-        log_docs: ->
-            Docs.find 
-                model:'log'
-                # task_id:Router.current().params.doc_id
-                    
     Template.task_view.events
         'click .add_subtask': ->
             new_id = 
@@ -90,8 +80,9 @@ if Meteor.isClient
             new_id = 
                 Docs.insert 
                     model:'log'
-                    body: "Marked complete at #{med_date Date.now()}"
+                    body: "Marked complete at #{moment(Date.now()).format('dddd, MMMM Do h:mm a')}"
                     task_id:Router.current().params.doc_id
+            console.log new_id
     Template.task_edit.events
         'click .delete_task': ->
             Swal.fire({

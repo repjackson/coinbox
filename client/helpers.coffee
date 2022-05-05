@@ -16,6 +16,10 @@ Template.registerHelper 'current_long', () ->
 # Template.registerHelper 'current_username', () ->
 #     Router.current().params.username
 
+Template.registerHelper 'log_docs', () ->
+    Docs.find 
+        model:'log'
+        # task_id:Router.current().params.doc_id
 
 Template.registerHelper 'subs_ready', () ->
     Template.instance().subscriptionsReady()
