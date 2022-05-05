@@ -119,7 +119,7 @@ template(name='task_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row 
-                .four.wide.column
+                .six.wide.column
                     .ui.inline.header 
                         +icolor name='news' cl='ui image inline pointer'
                         |edit task
@@ -133,7 +133,7 @@ template(name='task_edit')
                         +multi_user_edit key='access_user_ids' label='user picker' direct=true
                     +group_picker
                     
-                .six.wide.column
+                .five.wide.column
                     +date_edit key='due_date' label='due date' icon='calendar' direct=true
                     +boolean_edit key='has_content' icon='content' direct=true
                     // if has_content
@@ -154,7 +154,7 @@ template(name='task_edit')
                     +boolean_edit key='is_assigned' icon='visible' direct=true
                     if is_assigned 
                         +single_user_edit key='_assigned_id' label='assigned to' direct=true
-                .six.wide.column    
+                .five.wide.column    
                     +boolean_edit key='published' icon='visible' direct=true
                     if is_dev 
                         +text_edit key='model' label='model' direct=true

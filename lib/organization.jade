@@ -29,7 +29,7 @@ template(name='organization_card')
     .ui.link.card.view_org.pointer.fly_right
         img.ui.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
         .content
-            a.ui.header.zoomer(href="/org/#{_id}") #{title}
+            a.ui.header.zoomer(href="/organization/#{_id}") #{title}
             // .ui.small.grey.inline.header #{when}
             .smallscroll
                 | !{content}
@@ -41,7 +41,7 @@ template(name='organization_card')
         
 template(name='organization_item')
     .ui.fluid.segment.view_org.pointer
-        a.ui.header(href="/org/#{_id}/view") #{title}
+        a.ui.header(href="/organization/#{_id}/view") #{title}
         div
         .ui.small.grey.inline.header #{when}
         | #{content}
@@ -60,7 +60,7 @@ template(name='organization_view')
                         |organizations
                     .ui.inline.grey.header {{from_now start_datetime}}
                     if can_edit
-                        a.ui.circular.icon.button.fly_down(href="/org/#{_id}/edit" title='edit')
+                        a.ui.circular.icon.button.fly_down(href="/organization/#{_id}/edit" title='edit')
                             +i name='pencil'
                     .ui.list
                         .item #{views} views
@@ -98,7 +98,7 @@ template(name='organization_edit')
                     .ui.inline.header 
                         +icolor name='news' cl='ui image inline pointer'
                         |edit org
-                    a.ui.icon.green.big.button.fly_up(href="/org/#{_id}" title='save')
+                    a.ui.icon.green.big.button.fly_up(href="/organization/#{_id}" title='save')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +html_edit key='content' label='content' direct=true
