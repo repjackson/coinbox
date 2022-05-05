@@ -214,6 +214,8 @@ template(name='link_edit')
     div
     if icon
         +i name=icon
+    else 
+        +i name='link'
     .ui.inline.header
         |#{title} #{label}
     .ui.fluid.input
@@ -388,8 +390,8 @@ template(name='text_edit')
         else if key
             |#{key}
             //- +clear_value
-    .ui.icon.large.input
-        input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
+    .ui.icon.fluid.large.input
+        input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off" class=cl)
         
 
 template(name='location_edit')

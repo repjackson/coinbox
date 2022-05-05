@@ -615,6 +615,7 @@ Template.single_user_edit.events
         if doc
             Docs.update parent._id,
                 $set:"#{field.key}":@_id
+        console.log doc
         $('.single_user_select_input').val ''
         # Docs.update page_doc._id,
         #     $set: assignment_timestamp:Date.now()

@@ -228,11 +228,11 @@ if Meteor.isClient
 
             
         'click .remove_group': (e,t)->
-            if confirm "remove #{@title} group?"
-                Docs.update Router.current().params.doc_id,
-                    $unset:
-                        group_id:@_id
-                        group_title:@title
+            # if confirm "remove #{@title} group?"
+            Docs.update Router.current().params.doc_id,
+                $unset:
+                    group_id:@_id
+                    group_title:@title
         'click .pick_group': (e,t)->
             Docs.update Router.current().params.doc_id,
                 $set:
