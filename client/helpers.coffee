@@ -17,9 +17,15 @@ Template.registerHelper 'current_long', () ->
 #     Router.current().params.username
 
 Template.registerHelper 'log_docs', () ->
-    Docs.find 
-        model:'log'
-        task_id:@_id
+    match = {model:'log'}
+    if @_id
+        match.task_id = @_id
+    Docs.find match
+Template.registerHelper 'sub_task_docs', () ->
+    match = {model:'task'}
+    # if @parent_id
+    match.parent_id = @_id
+    Docs.find match
 
 Template.registerHelper 'subs_ready', () ->
     Template.instance().subscriptionsReady()

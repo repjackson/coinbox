@@ -15,10 +15,14 @@ template(name='tasks')
                 |yours
             +facet key='tag' model='task'
             .ui.header
+                +i name='coin'
+                |bounties available
+            .ui.header
+                +i name='clock'
                 |recent activity
-            .ui.animated.link.selection.list
+            .ui.animated.large.link.selection.list
                 each log_docs
-                    a.item #{body} #{when} #{_author_username}
+                    a.item.fly_right(href="/task/#{task_id}") #{body} #{when} #{_author_username}
         .twelve.wide.column
             .ui.centered.stackable.cards
                 each model_docs 'task' 
@@ -90,7 +94,16 @@ template(name='task_view')
                     +voting_full
                     +array_view key='location_tags' label='location_tags' direct=true
                     +group_widget
-                .eight.wide.column.scrolling
+                .eight.wide.column.scrollin
+                    .ui.segment
+                        .ui.header
+                            +i name='fork'
+                            |subtasks
+                        .ui.button.add_subtask
+                            i.plus.icon
+                            |add sub task
+                        each sub_task_docs
+                            a.item.fly_down(href="/task/#{_id}") #{title}
                     unless complete
                         .ui.button.mark_complete
                             |complete
@@ -127,13 +140,9 @@ template(name='task_view')
                     .spacer
                     +comments
                 .four.wide.column
-                    if can_edit 
-                        +boolean_edit key='complete' icon='checkmark' direct=true
-
-                    .ui.list
-                        .item #{views} views
-                    each viewers
-                        .ui.label #{username
+                    +view_stats
+                    
+                    
                     +visibility_settings
                     // .ui.fluid.green.button.submit
                     //     i.checkmark.icon
@@ -141,6 +150,11 @@ template(name='task_view')
 
 
 
+template(name='view_stats')
+    .ui.list
+        .item #{views} views
+    each viewers
+        .ui.label #{username
 
 
 template(name='task_edit')

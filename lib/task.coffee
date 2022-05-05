@@ -39,6 +39,7 @@ if Meteor.isClient
         @autorun => @subscribe 'related_group',Router.current().params.doc_id, ->
         @autorun => @subscribe 'model_docs','log', ->
         @autorun => @subscribe 'task_children',Router.current().params.doc_id, ->
+        @autorun => @subscribe 'model_docs','task', ->
 
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.task_edit.onCreated ->
