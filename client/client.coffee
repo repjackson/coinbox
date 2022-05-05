@@ -190,8 +190,8 @@ Template.layout.events
         
     'click a:not(.no_blink)': ->
         $('.global_container')
-        .transition('fade out', 200)
-        .transition('fade in', 200)
+        .transition('fade out', 100)
+        .transition('fade in', 100)
 
     'click .log_view': ->
         # console.log Template.currentData()

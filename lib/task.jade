@@ -37,7 +37,10 @@ template(name='task_card')
                 +group_info
             if is_assigned 
                 .ui.label assigned to: #{_assignee.username}
-            
+            i.clock.icon
+            .ui.small.list
+                each latest_activity 
+                    .item #{when} #{body}
         
 template(name='task_item')
     .ui.fluid.segment.view_task.pointer
@@ -82,6 +85,11 @@ template(name='task_view')
                     +voting_full
                     +array_view key='location_tags' label='location_tags' direct=true
                     +group_widget
+                    unless complete
+                        .ui.button.mark_complete
+                            |complete
+                    if complete 
+                        .ui.header completed at {{from_now complete_timestamp}}
                 .eight.wide.column.scrolling
                     +date_view key='due_date' icon='calendar' direct=true
 
@@ -99,7 +107,11 @@ template(name='task_view')
                         |join task
                     .ui.header 
                         +i name='clock'
-                        |recent activity
+                        |#{log_docs.count} recent activity
+                    .ui.list 
+                        each log_docs 
+                            .item
+                                |#{body} #{when} #{_author_username}
                     .ui.header 
                         +i name='file'
                         |posts
@@ -110,6 +122,9 @@ template(name='task_view')
                     .spacer
                     +comments
                 .four.wide.column
+                    if can_edit 
+                        +boolean_edit key='complete' icon='checkmark' direct=true
+
                     .ui.list
                         .item #{views} views
                     each viewers
@@ -164,6 +179,7 @@ template(name='task_edit')
                     // if is_assigned 
                     +single_user_edit key='_assigned_id' label='assigned to' direct=true
                 .five.wide.column    
+                    +boolean_edit key='complete' icon='checkmark' direct=true
                     +boolean_edit key='published' icon='visible' direct=true
                     if is_dev 
                         +text_edit key='model' label='model' direct=true
