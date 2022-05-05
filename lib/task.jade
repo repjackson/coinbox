@@ -14,6 +14,11 @@ template(name='tasks')
                     i.circle.outline.icon
                 |yours
             +facet key='tag' model='task'
+            .ui.header
+                |recent activity
+            .ui.animated.link.selection.list
+                each log_docs
+                    a.item #{body} #{when} #{_author_username}
         .twelve.wide.column
             .ui.centered.stackable.cards
                 each model_docs 'task' 
@@ -39,7 +44,7 @@ template(name='task_card')
                 .ui.label assigned to: #{_assignee.username}
             i.clock.icon
             .ui.small.list
-                each latest_activity 
+                each log_docs 
                     .item #{when} #{body}
         
 template(name='task_item')
