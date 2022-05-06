@@ -112,8 +112,30 @@ template(name='profile_dashboard')
         .eight.wide.column
             +user_transfers
         .four.wide.column
+            +profile_checklist
             +user_posts
 
+
+template(name='profile_checklist')
+    .ui.header 
+        i.grey.chevron.right.icon
+        |getting started
+    .ui.large.list
+        .item    
+            i.circle.outline.large.icon
+            |Fill out your profile
+        .item    
+            i.circle.outline.large.icon
+            |Set a profile picture
+        .item    
+            i.circle.outline.large.icon
+            |Join 3 spaces
+        .item    
+            i.circle.outline.large.icon
+            |Add a comment
+        .item    
+            i.circle.outline.large.icon
+            |Create a post    
                     
                     
 template(name='request_button')
