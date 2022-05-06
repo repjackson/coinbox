@@ -105,10 +105,12 @@ template(name='footer')
             .ui.header dev 
             .ui.grid 
                 .eight.wide.column
-                    .ui.inverted.link.list
-                        each dev_docs
-                            .item #{title} #{model}
-                                +print_this
+                    each dev_docs
+                        .ui.large.label 
+                            |#{title}: #{model}
+                            a.fly_right(href="/#{model}/#{_id}") 
+                                i.chevron.right.circular.link.icon
+                            +print_this
                 .eight.wide.column
                     .ui.inverted.link.list
                         each dev_results

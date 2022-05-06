@@ -205,6 +205,7 @@ template(name='user_dashboard')
                 .ui.header 
                     |transfers
             .column
+                +global_activity
                 +user_invoices
             .column
                 +user_posts
@@ -269,6 +270,41 @@ template(name='menu')
             span units
         
         
+        
+template(name='global_activity')        
+    .ui.header 
+        +i name='clock'
+        |latest activity
+    .ui.large.link.selection.animated.divided.list.medscroll
+        each latest_docs
+            +home_doc_item
+
+
+template(name='home_doc_item')
+    a.ui.item.fly_right(href="/post/#{_id}")
+        if youtube_id
+            +youtube_view key='youtube_id'
+        else if image_id
+            // .image
+            img.ui.rounded.inline.image(src="{{c.url image_id gravity='face' crop='fill'}}")
+        .content
+            .header 
+                |#{title}
+            .description 
+                .smallscroll
+                    |!{content}
+                |#{when}
+                if is model 'post'
+                    +i name='blog'
+                else if is model 'product'
+                    +i name='shop'
+                else if is model 'event'
+                    +i name='calendar'
+                else 
+                    .ui.label #{model}
+                +author_info
+                if watson 
+                    +doc_emotion        
         
 template(name='user_invoices')
     .ui.header 
