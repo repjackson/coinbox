@@ -2,10 +2,10 @@ template(name='invoices')
     .ui.stackable.padded.grid 
         .four.wide.column
             .ui.inline.header 
-                +i name='blog'
-                |blog
+                +i name='money'
+                |invoices
             if currentUser
-                .ui.icon.circular.button.add_invoice
+                .ui.icon.button.add_invoice
                     // i.plus.large.icon
                     +i name='plus'
             .ui.compact.button.toggle_yours
@@ -15,6 +15,8 @@ template(name='invoices')
                     i.circle.outline.icon
                 |yours
             +facet key='tag'
+            .ui.header amount you owe: $#{amount_debt}
+            .ui.header amount you're owed $#{amount_credited}
         .twelve.wide.column
             +session_set key='view_mode' value='cards' icon='th'
             +session_set key='view_mode' value='list' icon='list'
@@ -35,7 +37,6 @@ template(name='invoices')
                     i.massive.yin.yang.loading.icon
 
 
-
 template(name='invoice_card')
     .ui.link.card.view_invoice.pointer.fly_right
         if youtube_id 
@@ -49,6 +50,10 @@ template(name='invoice_card')
             .ui.small.grey.inline.header #{when}
             .smallscroll
                 | !{content}
+            .ui.header 
+                |amount: $#{amount}
+            .ui.header 
+                |worker hourly: $#{amount}/hr
             // +comments_view_small
             +author_info
             if group_id     
@@ -71,13 +76,17 @@ template(name='invoice_view')
         .ui.stackable.padded.grid
             .row 
                 .four.wide.column.scrolling
-                    a.ui.circular.icon.button(href="/invoices" title='invoices')
+                    a.ui.icon.button(href="/invoices" title='invoices')
                         i.chevron.left.icon
                         +i name='invoice'
                         |invoices
                     if can_edit
-                        a.ui.circular.icon.button.fly_down(href="/invoice/#{_id}/edit" title='edit')
+                        a.ui.icon.button.fly_down(href="/invoice/#{_id}/edit" title='edit')
                             +i name='pencil'
+                    .ui.header 
+                        |amount: $#{amount}
+                    .ui.header 
+                        |projected hours: #{hours_projected}
                     +author_info
                     // .ui.segment
                     //     .ui.header 
@@ -120,17 +129,22 @@ template(name='invoice_edit')
     with current_doc
         .ui.stackable.padded.grid
             .two.column.row 
-                .column.scrolling
+                .column.scrollin
                     .ui.inline.header 
                         +icolor name='news' cl='ui image inline pointer'
                         |edit invoice
-                    a.ui.icon.green.big.button(href="/invoice/#{_id}/view" title='save')
+                    a.ui.green.fluid.button.fly_down(href="/invoice/#{_id}" title='save')
                         i.checkmark.big.icon
+                        |save
                     +text_edit key='title' label='title' direct=true
                     
                     +html_edit key='content' label='content' direct=true
                     +call_watson key='content'
-                .column.scrolling
+                .column.scrollin
+                    +number_edit key='amount' label='amount' icon='money'
+                    +date_edit key='date' label='date' icon='calendar'
+                    +number_edit key='hours_projected' label='projected hours' icon='clock'
+                    +number_edit key='hours_actual' label='actual hours' icon='clock'
                     i.large.link.red.remove.icon.delete_invoice
                     if is_dev
                         +single_user_edit key='_author_id' label='author' direct=true
@@ -144,7 +158,7 @@ template(name='invoice_edit')
                     +boolean_edit key='published' icon='visible' direct=true
                     if is_dev 
                         +text_edit key='model' label='model' direct=true
-                .column.scrolling
+                .column.scrollin
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     unless published
                         a.ui.fluid.green.button.submit

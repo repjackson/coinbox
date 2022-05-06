@@ -184,7 +184,7 @@ template(name='walletbar')
         .ui.header wallet
         
 template(name='rightbar')
-    .ui.right.sidebar.vertical.borderless.menu.rightbar
+    .ui.right.sidebar.vertical.borderless.small.menu.rightbar
         a.item.zoomer.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.name}
