@@ -38,6 +38,7 @@ if Meteor.isClient
                     $(e.currentTarget).closest('.grid').transition('fly right', 500)
                     Meteor.setTimeout ->
                         Router.go "/"
+                        Meteor.call 'log_event', 'login', Meteor.user().username, ->
                     , 500
                     $('body').toast({
                         title: "logged in"
@@ -72,6 +73,7 @@ if Meteor.isClient
                             })
                         else
                             Router.go "/user/#{username}"
+                            Meteor.call 'log_event', 'login', Meteor.user().username, ->
                             # Router.go "/"
 
 
