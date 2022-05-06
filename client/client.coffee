@@ -143,6 +143,7 @@ Template.nav.events
 Template.rightbar.events
     'click .logout': ->
         Session.set('logging_out', true)
+        Meteor.call 'log_event', 'log out', Meteor.user().username, ->
         Meteor.logout ->
             Session.set('logging_out', false)
             

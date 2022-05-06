@@ -275,24 +275,23 @@ template(name='global_activity')
     .ui.header 
         +i name='clock'
         |latest activity
-    .ui.large.link.selection.animated.divided.list.medscroll
-        each latest_docs
+    .ui.link.selection.animated.divided.list.smallscroll
+        each latest_log_docs
             +home_doc_item
 
 
 template(name='home_doc_item')
-    a.ui.item.fly_right(href="/post/#{_id}")
-        if youtube_id
-            +youtube_view key='youtube_id'
-        else if image_id
-            // .image
-            img.ui.rounded.inline.image(src="{{c.url image_id gravity='face' crop='fill'}}")
+    a.ui.item.fly_right(href="/log/#{_id}")
+        // if youtube_id
+        //     +youtube_view key='youtube_id'
+        // else if image_id
+        //     // .image
+        //     img.ui.rounded.inline.image(src="{{c.url image_id gravity='face' crop='fill'}}")
         .content
             .header 
                 |#{title}
             .description 
-                .smallscroll
-                    |!{content}
+                !{body}
                 |#{when}
                 if is model 'post'
                     +i name='blog'

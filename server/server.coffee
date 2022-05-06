@@ -181,8 +181,16 @@ Meteor.publish 'some_rentals', ->
     }, limit:10
     
     
-    
 Meteor.methods
+    log_event: (body, username)->
+        if body
+            new_id = 
+                Docs.insert 
+                    model:'log'
+                    body:body
+                    username:username
+            console.log 'made new log event', body, username
+                    
     increment_view: (doc_id)->
         Docs.update doc_id,
             $inc:
