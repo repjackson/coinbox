@@ -193,10 +193,26 @@ template(name='why_choose_us')
                 
                         
 template(name='user_dashboard')
-    .ui.sixteen.wide.column
-        .ui.header 
-            +i name='dashboard'
-            |dashboard
-        .ui.header 
-            |transfers
-            
+    .ui.stackable.padded.divided.grid
+        .four.column.row
+            .column
+                .ui.header 
+                    +i name='dashboard'
+                    |dashboard
+            .column
+                .ui.header 
+                    |transfers
+            .column
+                +user_invoices
+            .column
+                +user_posts
+            .column
+                +user_bank
+            .column
+                +user_social
+        
+        
+template(name='user_invoices')
+    .ui.header 
+        +i name='money'
+        |invoices

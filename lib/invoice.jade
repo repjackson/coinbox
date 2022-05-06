@@ -128,7 +128,7 @@ template(name='invoice_view')
 template(name='invoice_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .two.column.row 
+            .three.column.row 
                 .column.scrollin
                     .ui.inline.header 
                         +icolor name='news' cl='ui image inline pointer'
@@ -153,6 +153,7 @@ template(name='invoice_edit')
                             small author
                             |#{_author.username}
                     +image_edit key='image_id' label='image' direct=true
+                    +single_user_edit key='target_id' label='recipient'
                     div 
                     +array_edit key='tags' label='tags' direct=true icon='tags'
                     +boolean_edit key='published' icon='visible' direct=true

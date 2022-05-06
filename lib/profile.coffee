@@ -15,6 +15,10 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_shop'
         ), name:'user_shop'
+    Router.route '/user/:username/services', (->
+        @layout 'profile_layout'
+        @render 'user_services'
+        ), name:'user_services'
     Router.route '/user/:username/messages', (->
         @layout 'profile_layout'
         @render 'user_messages'
@@ -331,8 +335,8 @@ if Meteor.isClient
         ), name:'account_appearance'
     Router.route '/user/:username/edit/bank', (->
         @layout 'account_layout'
-        @render 'account_bank'
-        ), name:'account_bank'
+        @render 'account_finance'
+        ), name:'account_finance'
     Router.route '/user/:username/edit/profile', (->
         @layout 'account_layout'
         @render 'account_profile'

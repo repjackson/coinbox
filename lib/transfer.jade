@@ -243,18 +243,18 @@ template(name='user_transfers')
     .ui.header 
         +i name='order-history'
         |#{transfer_out_docs.count} transfers out
-    .ui.horizontal.cards
+    .ui.divided.animated.list
         each transfer_out_docs
             +transfer_out_item
     .ui.header 
         +i name='clock'
         |#{transfer_in_docs.count} transfers in
-    .ui.cards
+    .ui.divided.selection.list
         each transfer_in_docs
             +transfer_in_item
 
 template(name='transfer_in_item')
-    a.card.zoomer(href="/transfer/#{_id}")
+    a.item.zoomer(href="/transfer/#{_id}")
         if image_id
             img.ui.tiny.image(src="{{c.url image_id width=300 height=300}}")
         //     a.image.zoomer.fly_right(href="/transfer/#{_id}")
@@ -280,7 +280,7 @@ template(name='transfer_in_item')
             //         i.pencil.blue.icon
                     
 template(name='transfer_out_item')
-    a.horizontal.card.zoomer(href="/transfer/#{_id}")
+    a.item.zoomer(href="/transfer/#{_id}")
         if image_id
             img.ui.tiny.image(src="{{c.url image_id width=300 height=300}}")
         //     a.image.zoomer.fly_right(href="/transfer/#{_id}")
