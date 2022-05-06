@@ -144,9 +144,17 @@ if Meteor.isServer
             for invoice in sent_invoices
                 if invoice.amount
                     total_sent_amount += invoice.amount
+            
+            total_paid_amount = 0
+            paid_invoices = 
+                Docs.find(model:'invoice',paid:true).fetch()
+            for invoice in paid_invoices
+                if invoice.amount
+                    total_paid_amount += invoice.amount
             Docs.update doc._id,
                 $set:
                     total_invoice_amount:total_sent_amount
+                    total_paid_amount:total_paid_amount
             console.log doc      
                     
     Meteor.publish 'invoice_count', (

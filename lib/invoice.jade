@@ -21,7 +21,7 @@ template(name='invoices')
             .ui.list
                 with invoice_stat_doc
                     .item $#{total_invoice_amount} sent total
-                    .item $#{total_invoice_paid} paid total
+                    .item $#{total_paid_amount} paid total
             .ui.header amount you owe: $#{amount_debt}
             .ui.header amount you're owed $#{amount_credited}
         .twelve.wide.column
