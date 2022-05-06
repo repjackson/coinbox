@@ -23,6 +23,7 @@ if Meteor.isClient
         Session.setDefault 'view_open', true
 
     Template.invoices.onCreated ->
+        @autorun => @subscribe 'model_docs','stat',->
         @autorun => @subscribe 'results',
             'invoice'
             picked_tags.array()
@@ -40,7 +41,14 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc_comments', @data._id, ->
 
                 
+    Template.invoices.helpers
+        invoice_stat_doc: ->
+            Docs.findOne
+                model:'stat'
     Template.invoices.events
+        'click .recalc': ->
+            console.log 'recalc'
+            Meteor.call 'calc_finance_stats', ->
         'click .add_invoice': ->
             new_id = 
                 Docs.insert 
@@ -123,6 +131,24 @@ if Meteor.isClient
             )
             
 if Meteor.isServer
+    Meteor.methods 
+        calc_finance_stats: ->
+            doc = 
+                Docs.findOne 
+                    model:'stat'
+            unless doc 
+                Docs.insert model:'stat'
+            total_sent_amount = 0
+            sent_invoices = 
+                Docs.find(model:'invoice').fetch()
+            for invoice in sent_invoices
+                if invoice.amount
+                    total_sent_amount += invoice.amount
+            Docs.update doc._id,
+                $set:
+                    total_invoice_amount:total_sent_amount
+            console.log doc      
+                    
     Meteor.publish 'invoice_count', (
         picked_ingredients
         picked_sections
