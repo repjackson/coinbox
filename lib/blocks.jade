@@ -22,6 +22,22 @@ template(name='fans')
         +user_pill
     
 
+template(name='viewing_info')
+    .ui.list
+        .item #{views} views
+    each viewers
+        .ui.label #{username
+
+
+template(name='tips')
+    .ui.header 
+        +i name='donate'
+        |tips
+    .ui.button.tip
+        i.plus.icon
+        |tip
+
+
 template(name='facet')
     each picked_tags
         a.ui.blue.button.unpick_tag.no_blink

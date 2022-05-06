@@ -22,7 +22,7 @@ if Meteor.isClient
         Session.setDefault 'limit', 20
         Session.setDefault 'view_open', true
 
-        # @autorun => @subscribe 'model_docs', 'org', ->
+        @autorun => @subscribe 'model_docs', 'organization', ->
 
     Template.organizations.onCreated ->
         @autorun => @subscribe 'results',
@@ -46,21 +46,12 @@ if Meteor.isClient
 
 
     Template.organizations.helpers
-        org_docs: ->
-            Docs.find {
-                model:'org'
-            }, sort:_timestamp:-1
-        tag_results: ->
-            Results.find 
-                model:'org_tag'
-        picked_org_tags: -> picked_tags.array()
-        
                 
     Template.organizations.events
-        'click .add_org': ->
+        'click .add_organization': ->
             new_id = 
                 Docs.insert 
-                    model:'org'
+                    model:'organization'
             Router.go "/organization/#{new_id}/edit"
     Template.organization_card.events
         'click .view_org': ->
@@ -153,7 +144,7 @@ if Meteor.isServer
     
         # console.log picked_ingredients
         self = @
-        match = {model:'org'}
+        match = {model:'organization'}
         if picked_ingredients.length > 0
             match.ingredients = $all: picked_ingredients
             # sort = 'price_per_serving'

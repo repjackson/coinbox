@@ -57,6 +57,8 @@ if Meteor.isClient
         fan_user_docs: ->
             Meteor.users.find 
                 _id:$in:@fan_user_ids
+                
+                
     Template.fans.events
         'click .become_fan': ->
             if Meteor.userId()
@@ -141,6 +143,11 @@ if Meteor.isClient
             if confirm 'Confirm remove comment'
                 Docs.remove @_id
 
+
+    Template.viewing_info.helpers
+        viewers: ->
+            Meteor.users.find 
+                _id:$in:@viewer_user_ids
 
 
 

@@ -24,21 +24,6 @@ template(name='account_layout')
                         .ui.hidden.divider
                         +image_edit key='image_id' icon='picture' title='profile image' 
                     
-                        if is_current_user
-                            +password_edit
-                            //- +phone_editor
-                            +username_edit
-                        else if in_dev
-                            +password_edit
-                            //- +phone_editor
-                            +username_edit
-                        if currentUser.admin
-                            with user_from_username_param
-                                .ui.orange.button.remove_user 
-                                    i.remove.icon
-                                    |delete user
-                        +boolean_edit key='admin' label='admin' icon='shield' 
-                        +link_edit key='link' label='profile link' icon='globe'
                     .twelve.wide.column
                         +account_menu_item key='profile' icon='info'
                         +account_menu_item key='appearance' icon='paint' 
@@ -93,6 +78,21 @@ template(name='account_profile')
                 +text_edit key='linkedin_link' label='LinkedIn profile ' icon='linkedin'
                 +text_edit key='twitter_link' label='twitter profile ' icon='twitter'
                 +text_edit key='facebook_link' label='facebook profile ' icon='facebook'
+                if is_current_user
+                    +password_edit
+                    //- +phone_editor
+                    +username_edit
+                else if in_dev
+                    +password_edit
+                    //- +phone_editor
+                    +username_edit
+                if currentUser.admin
+                    with user_from_username_param
+                        .ui.orange.button.remove_user 
+                            i.remove.icon
+                            |delete user
+                +boolean_edit key='admin' label='admin' icon='shield' 
+                +link_edit key='link' label='profile link' icon='globe'
 
 
 template(name='account_appearance')
@@ -150,7 +150,7 @@ template(name='password_edit')
         |change password
     //- .ui.fluid.input
     //-     input#password(type='password', placeholder='old password')
-    .ui.fluid.icon.input
+    .ui.icon.input
         input#new_password(type='password', placeholder='new password')
     // if is_dev
     //     .ui.fluid.button.send_enrollment_email
@@ -158,7 +158,7 @@ template(name='password_edit')
     // if is_admin
     //     .ui.fluid.button.reset_password
     //         |reset password
-    .ui.fluid.large.button.set_password
+    .ui.large.button.set_password
         +i name='password' cl='ui mini inline image'
         | set password
             

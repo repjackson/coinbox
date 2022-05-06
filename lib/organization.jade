@@ -5,7 +5,7 @@ template(name='organizations')
                 +i name='organization'
                 |organizations
             if currentUser
-                .ui.icon.button.add_org
+                .ui.icon.button.add_organization
                     i.plus.large.icon
             +facet key='tag' model='organization'
             +search_input key='title'
@@ -15,7 +15,7 @@ template(name='organizations')
             i.large.sort.icon
             +session_set key='sort_key' value='_timestamp' label='added' icon='clock'
             +session_set key='sort_key' value='points' label='points' icon='hashtag'
-            .scrolling
+            .scrollin
                 // if subs_ready
                 .ui.centered.stackable.fluid.cards
                     each model_docs 'organization' 
