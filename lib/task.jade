@@ -24,23 +24,44 @@ template(name='tasks')
                 each log_docs
                     a.item.fly_right(href="/task/#{task_id}") #{body} #{when} #{_author_username}
         .twelve.wide.column
-            .ui.centered.stackable.cards
-                each model_docs 'task' 
-                    +task_card
-                    
+            +session_set key='view_mode' value='cards' icon='th'
+            +session_set key='view_mode' value='list' icon='list'
+            i.large.sort.icon
+            +session_set key='sort_key' value='_timestamp' label='added' icon='clock'
+            +session_set key='sort_key' value='points' label='points' icon='hashtag'
+            if subs_ready
+                if session_is 'view_mode' 'cards'
+                    .ui.centered.stackable.cards
+                        each model_docs 'task' 
+                            +post_card
+                else 
+                    .ui.divided.animated.selection.list
+                        each model_docs 'task' 
+                            +post_item
+            else
+                i.massive.yin.yang.loading.icon
+
 
 
 template(name='task_card')
     .ui.card.view_task.pointer.fly_right
-        img.ui.fluid.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
         .content
-            a.ui.header(href="/task/#{_id}") #{title}
+            with _author
+                .ui.label(title='author')
+                    img.ui.avatar.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                    |#{username}
+            a.ui.inline.header(href="/task/#{_id}") #{title}
+            with _target
+                .ui.label(title='target')
+                    img.ui.avatar.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                    |#{username}
             if private 
                 +i name='lock'
             .ui.small.grey.header #{when}
             .smallscroll
                 | !{content}
-            // +comments_view_small
+            +comments_view_small
+            |#{parent_title}
             +author_info
             if group_id     
                 +group_info
@@ -50,6 +71,11 @@ template(name='task_card')
             .ui.small.list
                 each log_docs 
                     .item #{when} #{body}
+        
+template(name='comments_view_small')
+    .ui.input
+        i.chat.icon
+        |chat
         
 template(name='task_item')
     .ui.fluid.segment.view_task.pointer
@@ -95,18 +121,20 @@ template(name='task_view')
                     +array_view key='location_tags' label='location_tags' direct=true
                     +group_widget
                 .eight.wide.column.scrollin
+                    if parent_id
+                        a.ui.big.button.fly_up(href="/task/#{parent_id}")
+                            |parent:
+                            |#{_parent.title}
                     .ui.segment
-                        .ui.header
-                            +i name='fork'
+                        .ui.inline.header
+                            +i name='code'
                             |subtasks
-                        .ui.button.add_subtask
+                        .ui.icon.button.add_subtask
                             i.plus.icon
-                            |add sub task
-                        each sub_task_docs
-                            a.item.fly_down(href="/task/#{_id}") #{title}
-                    unless complete
-                        .ui.button.mark_complete
-                            |complete
+                            // |add sub task
+                        .ui.large.selection.animated.list
+                            each sub_task_docs
+                                a.item.fly_down(href="/task/#{_id}") #{title}
                     if complete 
                         .ui.header completed at {{from_now complete_timestamp}}
                     +date_view key='due_date' icon='calendar' direct=true
@@ -121,8 +149,6 @@ template(name='task_view')
                             |assigned 
                             +i name='user'
                         |#{_assigned.username}
-                    .ui.icon.compact.button.add_task_post
-                        |join task
                     .ui.header 
                         +i name='clock'
                         |#{log_docs.count} recent activity
@@ -139,15 +165,24 @@ template(name='task_view')
                     .spacer
                     .spacer
                     +comments
-                .four.wide.column
+                .four.wide.column   
+                    .ui.header 
+                        +i name='button'
+                        |actions
+                    .ui.icon.compact.button.add_task_post
+                        |join task
+                    unless complete
+                        .ui.button.mark_complete
+                            |complete
+
                     +view_stats
-                    
-                    
                     +visibility_settings
                     // .ui.fluid.green.button.submit
                     //     i.checkmark.icon
                     //     |submit
 
+
+template(name='')
 
 
 template(name='view_stats')

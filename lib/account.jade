@@ -47,7 +47,7 @@ template(name='account_layout')
                         +account_menu_item key='posts' icon='blog'
                         +account_menu_item key='shop' icon='shop'
                         +account_menu_item key='rentals' icon='clock'
-                        +account_menu_item key='services' icon='wrench'
+                        // +account_menu_item key='services' icon='wrench'
                     
                         +yield
                     
@@ -58,39 +58,42 @@ template(name='account_menu_item')
 
 
 template(name='account_profile')
-    .twelve.wide.column
-        +text_edit key='first_name' label='first name' icon='user'
-        div
-        +text_edit key='last_name' label='last name' icon='user'
-        div
-        +text_edit key='display_name' label='display name'
-        div
-        +html_edit key='bio' label='bio'
-        .ui.segment
-            .ui.header 
-                +i name='money'
-                |preferred payment received method
-        .ui.button
-            +i name='apple-pay'
-            |apple pay
-        .ui.button
-            +i name='paypal'
-            |paypal
-        .ui.button 
-            +i name='venmo'
-            |venmo
-    .ui.header 
-        i.envelope.outline.icon
-        |emails
-    +emails_edit
-    +text_edit key='address' label='address' icon='marker' 
-    +text_edit key='city' label='city' icon='marker' 
-    +text_edit key='state' label='state' icon='marker' 
-    +phone_edit key='phone' label='phone' icon='phone' 
-    +text_edit key='company' label='company' icon='business'
-    +text_edit key='linkedin_link' label='LinkedIn profile ' icon='linkedin'
-    +text_edit key='twitter_link' label='twitter profile ' icon='twitter'
-    +text_edit key='facebook_link' label='facebook profile ' icon='facebook'
+    .ui.stackable.grid 
+        .two.column.row
+            .column
+                +text_edit key='first_name' label='first name' icon='user'
+                div
+                +text_edit key='last_name' label='last name' icon='user'
+                div
+                +text_edit key='display_name' label='display name'
+                div
+                +html_edit key='bio' label='bio'
+                .ui.segment
+                    .ui.header 
+                        +i name='money'
+                        |preferred payment received method
+                .ui.button
+                    +i name='apple-pay'
+                    |apple pay
+                .ui.button
+                    +i name='paypal'
+                    |paypal
+                .ui.button 
+                    +i name='venmo'
+                    |venmo
+            .column
+                .ui.header 
+                    i.envelope.outline.icon
+                    |emails
+                +emails_edit
+                +text_edit key='address' label='address' icon='marker' 
+                +text_edit key='city' label='city' icon='marker' 
+                +text_edit key='state' label='state' icon='marker' 
+                +phone_edit key='phone' label='phone' icon='phone' 
+                +text_edit key='company' label='company' icon='business'
+                +text_edit key='linkedin_link' label='LinkedIn profile ' icon='linkedin'
+                +text_edit key='twitter_link' label='twitter profile ' icon='twitter'
+                +text_edit key='facebook_link' label='facebook profile ' icon='facebook'
 
 
 template(name='account_appearance')

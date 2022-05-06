@@ -71,7 +71,7 @@ template(name='nav')
                         // +i name='internal'
                         | Login
     if true
-        .ui.attached.borderless.menu.hscroll
+        .ui.attached.borderless.small.menu.hscroll
             a.icon.item.zoomer.fly_right(href="/posts" class="{{isActiveRoute 'posts'}}" title='posts')
                 // i.large.users.icon
                 +i name='blog'
@@ -84,6 +84,10 @@ template(name='nav')
                 // i.large.fire.icon
                 +i name='exchange'
                 span.mobile.hidden transfers
+            a.icon.item.zoomer.fly_right(href="/invoices" class="{{isActiveRoute 'invoices'}}" title='invoices')
+                // i.large.fire.icon
+                +i name='invoice'
+                span.mobile.hidden invoices
             a.icon.item.zoomer.fly_right(href="/requests" class="{{isActiveRoute 'requests'}}" title='requests')
                 // i.large.fire.icon
                 +i name='order-history'

@@ -1,11 +1,11 @@
-template(name='posts')
+template(name='invoices')
     .ui.stackable.padded.grid 
         .four.wide.column
             .ui.inline.header 
                 +i name='blog'
                 |blog
             if currentUser
-                .ui.icon.circular.button.add_post
+                .ui.icon.circular.button.add_invoice
                     // i.plus.large.icon
                     +i name='plus'
             .ui.compact.button.toggle_yours
@@ -25,25 +25,25 @@ template(name='posts')
                 if subs_ready
                     if session_is 'view_mode' 'cards'
                         .ui.centered.stackable.cards
-                            each model_docs 'post' 
-                                +post_card
+                            each model_docs 'invoice' 
+                                +invoice_card
                     else 
                         .ui.divided.animated.selection.list
-                            each model_docs 'post' 
-                                +post_item
+                            each model_docs 'invoice' 
+                                +invoice_item
                 else
                     i.massive.yin.yang.loading.icon
 
 
 
-template(name='post_card')
-    .ui.link.card.view_post.pointer.fly_right
+template(name='invoice_card')
+    .ui.link.card.view_invoice.pointer.fly_right
         if youtube_id 
             +youtube_view key='youtube_id'
         else if image_id
             img.ui.fluid.rounded.image(src="{{c.url image_id height=200 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
         .content
-            a.ui.header.zoomer(href="/post/#{_id}") #{title}
+            a.ui.header.zoomer(href="/invoice/#{_id}") #{title}
             if private 
                 i.large.lock.icon
             .ui.small.grey.inline.header #{when}
@@ -55,13 +55,9 @@ template(name='post_card')
                 +group_info
             
         
-template(name='post_item')
-    .ui.fluid.segment.view_post.pointer
-        if youtube_id 
-            +youtube_view key='youtube_id'
-        else if image_id    
-            img.ui.fluid.rounded.image(src="{{c.url image_id gravity='face' crop='fill'}}" class=currentUser.invert_class)
-        a.ui.header(href="/post/#{_id}/view") #{title}
+template(name='invoice_item')
+    .ui.fluid.segment.view_invoice.pointer
+        a.ui.header(href="/invoice/#{_id}/view") #{title}
         div
         .ui.small.grey.inline.header #{when}
         .smallscroll
@@ -70,17 +66,17 @@ template(name='post_item')
             .ui.basic.small.label #{this}
         
 
-template(name='post_view')
+template(name='invoice_view')
     with current_doc
         .ui.stackable.padded.grid
             .row 
                 .four.wide.column.scrolling
-                    a.ui.circular.icon.button(href="/posts" title='posts')
+                    a.ui.circular.icon.button(href="/invoices" title='invoices')
                         i.chevron.left.icon
-                        +i name='post'
-                        |posts
+                        +i name='invoice'
+                        |invoices
                     if can_edit
-                        a.ui.circular.icon.button.fly_down(href="/post/#{_id}/edit" title='edit')
+                        a.ui.circular.icon.button.fly_down(href="/invoice/#{_id}/edit" title='edit')
                             +i name='pencil'
                     +author_info
                     // .ui.segment
@@ -119,53 +115,23 @@ template(name='post_view')
                     //-     |submit
 
 
-template(name='viewing_info')
-    .ui.list
-        .item #{views} views
-    each viewers
-        .ui.label #{username
 
-
-template(name='tips')
-    .ui.header 
-        +i name='donate'
-        |tips
-    .ui.button.tip
-        i.plus.icon
-        |tip
-
-
-
-template(name='visibility_settings')
-    .ui.header 
-        i.eye.icon
-        |visibility settings
-    if private 
-        .ui.header 
-            i.lock.icon
-            |private
-    if friends_only
-        .ui.header 
-            +i name='friends'
-            |friends only
-
-
-template(name='post_edit')
+template(name='invoice_edit')
     with current_doc
         .ui.stackable.padded.grid
             .two.column.row 
                 .column.scrolling
                     .ui.inline.header 
                         +icolor name='news' cl='ui image inline pointer'
-                        |edit post
-                    a.ui.icon.green.big.button(href="/post/#{_id}/view" title='save')
+                        |edit invoice
+                    a.ui.icon.green.big.button(href="/invoice/#{_id}/view" title='save')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     
                     +html_edit key='content' label='content' direct=true
                     +call_watson key='content'
                 .column.scrolling
-                    i.large.link.red.remove.icon.delete_post
+                    i.large.link.red.remove.icon.delete_invoice
                     if is_dev
                         +single_user_edit key='_author_id' label='author' direct=true
                     else 
