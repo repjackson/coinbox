@@ -10,6 +10,12 @@ template(name='transfers')
                 a.ui.icon.circular.button.add_transfer(title='add')
                     i.plus.green.large.icon
             +facet key='tag' model='transfer'
+            .ui.header 
+                +i name='line-chart'
+                |stats
+            .ui.list 
+                .item #{transfered_out} points transfered out
+                .item #{transfered_in} points transfered in
         .twelve.wide.column
             span.sorting_row
                 +search_input key='title'

@@ -67,8 +67,8 @@ template(name='profile_layout')
                         +profile_menu_item key='social' icon='friends'
                         +profile_menu_item key='posts' icon='blog'
                         +profile_menu_item key='shop' icon='shop'
-                        +profile_menu_item key='rentals' icon='clock'
-                        +profile_menu_item key='services' icon='wrench'
+                        // +profile_menu_item key='rentals' icon='clock'
+                        // +profile_menu_item key='services' icon='wrench'
                         .scrolling
                             +yield
                             
@@ -87,7 +87,10 @@ template(name='profile_dashboard')
                 |#{user_fiat_balance} fiat balance 
             .ui.header
                 +i name='cube'
-                |#{box_coin_balance} box coin balance 
+                |#{boxcoin_balance} box coin balance 
+            .ui.header
+                +i name='cube'
+                |#{points} points 
             .ui.header 
                 +i name='donate'
                 |deposits

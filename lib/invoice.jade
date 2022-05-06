@@ -15,7 +15,8 @@ template(name='invoices')
                     i.circle.outline.icon
                 |yours
             +facet key='tag'
-            .ui.small.header.recalc
+            +recalc_stats_button
+            .ui.small.header
                 +i name='line-chart'
                 |stats
             .ui.list

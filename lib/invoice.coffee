@@ -46,9 +46,6 @@ if Meteor.isClient
             Docs.findOne
                 model:'stat'
     Template.invoices.events
-        'click .recalc': ->
-            console.log 'recalc'
-            Meteor.call 'calc_finance_stats', ->
         'click .add_invoice': ->
             new_id = 
                 Docs.insert 
@@ -132,7 +129,8 @@ if Meteor.isClient
             
 if Meteor.isServer
     Meteor.methods 
-        calc_finance_stats: ->
+        calc_stats: ->
+            console.log 'calculating stats'
             doc = 
                 Docs.findOne 
                     model:'stat'
@@ -156,6 +154,37 @@ if Meteor.isServer
                     total_invoice_amount:total_sent_amount
                     total_paid_amount:total_paid_amount
             console.log doc      
+                    
+                    
+        calc_user_stats: (user_id, username)->
+            console.log 'calculating stats'
+            doc = 
+                Docs.findOne 
+                    model:'stat'
+            unless doc 
+                Docs.insert model:'stat'
+            total_sent_amount = 0
+            sent_invoices = 
+                Docs.find(model:'invoice').fetch()
+            for invoice in sent_invoices
+                if invoice.amount
+                    total_sent_amount += invoice.amount
+            
+            total_paid_amount = 0
+            paid_invoices = 
+                Docs.find(model:'invoice',paid:true).fetch()
+            for invoice in paid_invoices
+                if invoice.amount
+                    total_paid_amount += invoice.amount
+            Docs.update doc._id,
+                $set:
+                    total_invoice_amount:total_sent_amount
+                    total_paid_amount:total_paid_amount
+            console.log doc      
+                    
+                    
+                    
+                    
                     
     Meteor.publish 'invoice_count', (
         picked_ingredients

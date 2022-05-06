@@ -7,6 +7,11 @@ template(name='toggle_sort_direction')
             i.sort.direction.up.large.icon
 
 
+template(name='recalc_stats_button')
+    .ui.circular.icon.button.recalc(title='recalc stats')
+        i.refresh.icon
+        i.large.line.chart.icon
+
 template(name='fans')                    
     .ui.header 
         +i name='audience'

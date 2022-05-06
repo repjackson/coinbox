@@ -1,4 +1,10 @@
 if Meteor.isClient
+    Template.recalc_stats_button.events
+        'click .recalc': ->
+            console.log 'recalc'
+            Meteor.call 'calc_stats', ->
+
+
     Template.toggle_sort_direction.events 
         'click .toggle': ->
             if Session.equals 'sort_direction', -1

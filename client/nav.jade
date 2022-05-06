@@ -7,7 +7,9 @@ template(name='nav')
         // else 
         a.icon.item.zoomer.toggle_leftbar.no_blink
             i.large.bars.icon
-        a.pointer(href='/' class="{{isActivePath '/'}}" )
+        a.item.mobile.only(href='/')
+            +i name='coins'
+        a.pointer.mobile.hidden(href='/' class="{{isActivePath '/'}}" )
             img.ui.image(src="{{c.url 'coinbox_logo'}}")
         // if currentUser
         //     .search.item.zoomer.zoomer.mobile.hidden(title='search')
