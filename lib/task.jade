@@ -21,7 +21,7 @@ template(name='tasks')
                 +i name='clock'
                 |recent activity
             .ui.animated.large.link.selection.list
-                each log_docs
+                each log_docs 'task'
                     a.item.fly_right(href="/task/#{task_id}") #{body} #{when} #{_author_username}
         .twelve.wide.column
             +session_set key='view_mode' value='cards' icon='th'

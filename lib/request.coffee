@@ -305,6 +305,8 @@ if Meteor.isClient
             'request'
             picked_tags.array()
             Session.get('current_query')
+            []
+            picked_timestamp_tags.array()
             picked_location_tags.array()
             Session.get('limit')
             Session.get('sort_key')
@@ -317,6 +319,7 @@ if Meteor.isClient
             'request'
             picked_tags.array()
             Session.get('current_query')
+            picked_timestamp_tags.array()
             picked_location_tags.array()
             Session.get('limit')
             Session.get('sort_key')

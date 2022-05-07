@@ -16,8 +16,10 @@ Template.registerHelper 'current_long', () ->
 # Template.registerHelper 'current_username', () ->
 #     Router.current().params.username
 
-Template.registerHelper 'log_docs', () ->
+Template.registerHelper 'log_docs', (model=null) ->
     match = {model:'log'}
+    if model
+        match.parent_model = model
     if @_id
         match.task_id = @_id
     Docs.find match

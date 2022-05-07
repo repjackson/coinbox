@@ -1,7 +1,7 @@
 Meteor.publish 'facets', (
     model
     picked_tags=[]
-    selected_author_ids=[]
+    picked_author_ids=[]
     picked_location_tags=[]
     picked_timestamp_tags=[]
     # author_id
@@ -27,8 +27,8 @@ Meteor.publish 'facets', (
 
         # if selected_theme_tags.length > 0 then match.tags = $all: selected_theme_tags
 
-        # if selected_author_ids.length > 0
-        #     match.author_id = $in: selected_author_ids
+        # if picked_author_ids.length > 0
+        #     match.author_id = $in: picked_author_ids
         #     match.published = 1
         # if picked_location_tags.length > 0 then match.location_tags = $all: picked_location_tags
         # if selected_building_tags.length > 0 then match.building_tags = $all: selected_building_tags
@@ -96,7 +96,7 @@ Meteor.publish 'facets', (
             ]
         # console.log 'theme tag_cloud, ', tag_cloud
         tag_cloud.forEach (tag, i) ->
-            console.log tag
+            # console.log tag
             self.added 'results', Random.id(),
                 name: tag.name
                 count: tag.count
@@ -182,7 +182,7 @@ Meteor.publish 'facets', (
         #     { $match: author_match }
         #     { $project: _author_id: 1 }
         #     { $group: _id: '$_author_id', count: $sum: 1 }
-        #     { $match: _id: $nin: selected_author_ids }
+        #     { $match: _id: $nin: picked_author_ids }
         #     { $sort: count: -1, _id: 1 }
         #     { $limit: limit }
         #     { $project: _id: 0, text: '$_id', count: 1 }

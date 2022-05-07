@@ -43,9 +43,11 @@ Cloudinary.config
 
 
 Meteor.publish 'results', (
-    model
+    model='post'
     picked_tags=[]
     current_query=''
+    picked_timestamp_tags=[]
+    picked_location_tags=[]
     sort_key='_timestamp'
     sort_direction=-1
     limit=42

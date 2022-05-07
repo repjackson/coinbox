@@ -1,5 +1,7 @@
 @selected_rental_tags = new ReactiveArray []
 @picked_tags = new ReactiveArray []
+@picked_timestamp_tags = new ReactiveArray []
+@picked_location_tags = new ReactiveArray []
 @picked_user_tags = new ReactiveArray []
 @picked_location_tags = new ReactiveArray []
 
@@ -28,7 +30,7 @@ Template.layout.onCreated ->
 Template.nav.onCreated ->
     Session.setDefault 'limit', 20
     @autorun -> Meteor.subscribe 'me', ->
-    @autorun -> Meteor.subscribe 'users', ->
+    # @autorun -> Meteor.subscribe 'users', ->
     # @autorun -> Meteor.subscribe 'users_by_role','staff'
     # @autorun -> Meteor.subscribe 'unread_messages'
 
