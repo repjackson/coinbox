@@ -500,7 +500,7 @@ if Meteor.isClient
                 true
         can_complete: ->
             request = Docs.findOne Router.current().params.doc_id
-            request.rental_daily_rate < Meteor.user().points 
+            request.amount < Meteor.user().points 
             
             # request.request_date
             
@@ -549,7 +549,9 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'rental_from_request_id', Router.current().params.doc_id
 
-
+    Template.request_view.onRendered ->
+        Meteor.call 'log_doc_view', Router.current().params.doc_id, ->
+            console.log 'logged doc view'
     Template.request_view.events
         'click .cancel_request': ->
             if confirm 'cancel?'
@@ -582,6 +584,17 @@ if Meteor.isServer
         Docs.find
             _id: request.rental_id
 
+    Meteor.methods
+        log_doc_view: (doc_id)->
+            if doc = Docs.findOne doc_id
+                Docs.update doc_id,
+                    $inc:
+                        views:1
+                    $addToSet:
+                        viewed_usernames:Meteor.user().username
+                Docs.insert 
+                    model:'log'
+                    body:"#{@title} viewed by #{Meteor.user().username}"
     # Meteor.methods
         # request_request: (request_id)->
         #     request = Docs.findOne request_id

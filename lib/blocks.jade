@@ -28,10 +28,21 @@ template(name='fans')
     
 
 template(name='viewing_info')
-    .ui.list
-        .item #{views} views
-    each viewers
-        .ui.label #{username
+    .ui.segment
+        .ui.header 
+            i.eye.icon
+            |viewer info
+        .ui.list
+            .item #{views} views
+        .ui.small.grey.header 
+            |viewed by
+        each viewed_usernames
+            .ui.label #{this}
+        .ui.small.grey.header
+            i.clock.icon
+            |history
+        each viewer_events
+            .item #{when}, #{viewer_username}
 
 
 template(name='tips')

@@ -10,32 +10,34 @@ template(name='profile_layout')
                 .row
                     //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                     .four.wide.column
-                        a.item(href="/user/#{username}")
+                        a.item.mobile.only.inline(href="/user/#{username}")
+                            img.ui.small.image.inline(src="{{c.url image_id height=500 width=500 gravity='face' crop='fill'}}")
+                        a.item.mobile.hidden(href="/user/#{username}")
                             img.ui.centered.rounded.image(src="{{c.url image_id height=500 width=500 gravity='face' crop='fill'}}")
-                        .spacer
-                        a(href="/user/#{username}")
-                            if first_name
-                                .ui.inline.header #{first_name}
-                            if last_name
-                                .ui.inline.header #{last_name}
-                            div
-                            if company 
-                                .ui.header
-                                    +i name='business' 
-                                    |#{company}
-                            if linkedin_link
-                                .ui.circular.compact.button(href=linkedin_link target='_window')
-                                    +i name='linkedin'
-                            if twitter_link
-                                .ui.circular.compact.button(href=twitter_link target='_window')
-                                    +i name='twitter'
+                        // .spacer
+                        // a(href="/user/#{username}")
+                        if first_name
+                            .ui.inline.header #{first_name}
+                        if last_name
+                            .ui.inline.header #{last_name}
+                        // div
+                        if company 
                             .ui.header
-                                strong @#{username}
-                                //- small @#{user.username}        
-                            a.ui.header(href="/user/#{username}/points" title='points')
-                                //- +i name='coins'
-                                //- i.coins.icon
-                                |#{points} pts
+                                +i name='business' 
+                                |#{company}
+                        if linkedin_link
+                            .ui.circular.compact.button(href=linkedin_link target='_window')
+                                +i name='linkedin'
+                        if twitter_link
+                            .ui.circular.compact.button(href=twitter_link target='_window')
+                                +i name='twitter'
+                        .ui.inline.header
+                            strong @#{username}
+                            //- small @#{user.username}        
+                        a.ui.large.link.label(href="/user/#{username}/points" title='points')
+                            //- +i name='coins'
+                            //- i.coins.icon
+                            |#{points} pts
                         // if is_current_user
                         a.ui.large.button.fly_down.no_blink(href="/user/#{username}/edit" title='profile settings')
                             i.cog.icon
@@ -91,29 +93,33 @@ template(name='profile_dashboard')
             .ui.header
                 +i name='cube'
                 |#{points} points 
-            .ui.header 
-                +i name='donate'
-                |deposits
-            |includes 2% points card processing fee
-            .ui.action.fluid.input
-                input.deposit_amount(type='number' min='1' placeholder='deposit')
-                .ui.icon.button.add_points   
-                    i.right.chevron.icon
-                    
-            .ui.large.bulleted.list.smallscroll
-                each deposit_docs
-                    .item 
-                        .content
-                            .header 
-                                |$#{amount}
-                            .description #{when} {{long_date _timestamp}}
-                            //- if is_dev
-                            +remove_button
+            +user_deposits
         .eight.wide.column
             +user_transfers
         .four.wide.column
             +profile_checklist
             +user_posts
+
+
+template(name='user_deposits')
+    .ui.header 
+        +i name='donate'
+        |deposits
+    // |includes 2% points card processing fee
+    .ui.action.input
+        input.deposit_amount(type='number' min='1' placeholder='deposit')
+        .ui.icon.button.add_points   
+            i.right.chevron.icon
+            
+    .ui.large.bulleted.list.smallscroll
+        each deposit_docs
+            .item 
+                .content
+                    .header 
+                        |$#{amount}
+                    .description #{when} {{long_date _timestamp}}
+                    //- if is_dev
+                    +remove_button
 
 
 template(name='profile_checklist')
