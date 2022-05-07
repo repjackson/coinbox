@@ -49,6 +49,10 @@ template(name='request_card')
         a.image.fly_right(href="/request/#{_id}/") 
             img.ui.zoomer.pointer.goto_request.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
         .content
+            if paid 
+                i.green.large.money.icon
+            if complete
+                i.green.large.checkmar.icon
             a.ui.inline.header.zoomer.fly_right(href="/request/#{_id}/") 
                 | #{title}
             .ui.inline.header amount: #{amount}pts
@@ -110,6 +114,15 @@ template(name='request_view')
                         .ui.large.label ongoing (incomplete)
                     +request_events
                 .eight.wide.column
+                    if paid 
+                        .ui.big.green.label
+                            i.large.money.icon
+                            |paid
+                    if complete
+                        .ui.big.green.label
+                            i.large.checkmar.icon
+                            |complete
+
                     // a.ui.circular.compact.button(href="/food/#{food_id}/")
                     //     i.left.chevron.icon
                     //     img.ui.avatar.image(src="{{c.url request_rental.image width=200 height=200}}")    
@@ -239,6 +252,8 @@ template(name='request_edit')
                 .column
                     +date_edit key='request_date' label='request date' icon='calendar'
                     +textarea_edit key='notes' label='notes' direct=true
+                    +boolean_edit key='paid' label='paid' direct=true
+                    +boolean_edit key='complete' label='complete' direct=true
                     .ui.hidden.divider
                     if can_complete
                         a.ui.large.fluid.green.button.complete_request
