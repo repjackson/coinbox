@@ -33,18 +33,18 @@ template(name='tasks')
                 if session_is 'view_mode' 'cards'
                     .ui.centered.stackable.cards
                         each model_docs 'task' 
-                            +post_card
+                            +task_card
                 else 
                     .ui.divided.animated.selection.list
                         each model_docs 'task' 
-                            +post_item
+                            +task_item
             else
                 i.massive.yin.yang.loading.icon
 
 
 
 template(name='task_card')
-    .ui.card.view_task.pointer.fly_right
+    .ui.card.pointer.fly_right
         .content
             with _author
                 .ui.label(title='author')
@@ -57,6 +57,8 @@ template(name='task_card')
                     |#{username}
             if private 
                 +i name='lock'
+            if complete 
+                +i name='checkmark'
             .ui.small.grey.header #{when}
             .smallscroll
                 | !{content}
@@ -149,18 +151,8 @@ template(name='task_view')
                             |assigned 
                             +i name='user'
                         |#{_assigned.username}
-                    .ui.header 
-                        +i name='clock'
-                        |#{log_docs.count} recent activity
-                    .ui.list 
-                        each log_docs 
-                            .item
-                                |#{body} #{when} #{_author_username}
-                    .ui.header 
-                        +i name='file'
-                        |posts
-                    .ui.icon.compact.button.add_task_post
-                        i.plus.icon
+                    +doc_log_history
+                    +task_posts
                     
                     .spacer
                     .spacer
@@ -182,7 +174,22 @@ template(name='task_view')
                     //     |submit
 
 
-template(name='')
+template(name='task_posts')
+    .ui.header 
+        +i name='file'
+        |posts
+    .ui.icon.compact.button.add_task_post
+        i.plus.icon
+
+
+template(name='doc_log_history')
+    .ui.header 
+        +i name='clock'
+        |#{log_docs.count} recent activity
+    .ui.list 
+        each log_docs 
+            .item
+                |#{body} #{when} #{_author_username}
 
 
 template(name='view_stats')

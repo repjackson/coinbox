@@ -19,7 +19,7 @@ if Meteor.isClient
     
     # Template.tasks.onCreated ->
     Template.tasks.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'log', ->
+        @autorun => Meteor.subscribe 'model_logs', 'log', ->
         Session.setDefault 'view_mode', 'list'
         Session.setDefault 'sort_key', 'member_count'
         Session.setDefault 'sort_label', 'available'
@@ -155,6 +155,14 @@ if Meteor.isClient
             )
             
 if Meteor.isServer            
+    Meteor.publish 'model_logs', (model)->
+        Docs.find {
+            model:'log'
+            parent_model:model
+        }, 
+            limit:20
+            sort:_timestamp:-1
+        
     Meteor.publish 'task_count', (
         picked_ingredients
         picked_sections
