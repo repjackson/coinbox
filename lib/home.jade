@@ -1,9 +1,12 @@
 template(name='home')
-    if currentUser
-        +user_dashboard
+    if subs_ready 
+        if currentUser
+            +user_dashboard
+        else 
+            +landing_page
     else 
-        +landing_page
-    
+        .ui.basic.center.aligned.segment 
+            i.massive.loading.coins.icon
     
 template(name='landing_page')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'footer_logo' width=1000 height=1000 crop='crop'}}")
@@ -195,7 +198,7 @@ template(name='why_choose_us')
 template(name='user_dashboard')
     .ui.stackable.padded.divided.grid
         .four.column.row
-            .column
+            .column.mobile.hidden
                 +menu
             .column
                 .ui.header 
@@ -301,9 +304,12 @@ template(name='home_doc_item')
                     +i name='calendar'
                 else 
                     .ui.label #{model}
-                +author_info
-                if watson 
-                    +doc_emotion        
+                a(href="user/#{_author_username}")
+                    if _author.image_id
+                        img.ui.avatar.image(src="{{c.url _author.image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    else 
+                        i.user.icon
+                    |#{_author_username}
         
 template(name='user_invoices')
     .ui.header 

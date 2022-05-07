@@ -393,6 +393,8 @@ if Meteor.isClient
             current_user = 
                 Meteor.users.findOne 
                     username:Router.current().params.username
+            unless current_user 
+                current_user = Meteor.user()
             Docs.find  {
                 model:'transfer'
                 _author_id:current_user._id

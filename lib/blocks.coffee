@@ -5,6 +5,14 @@ if Meteor.isClient
             Meteor.call 'calc_stats', ->
 
 
+    Template.add_doc_button.events
+        'click .add_doc': ->
+            if @model
+                new_id = 
+                    Docs.insert 
+                        model:@model
+                Router.go "/#{@model}/#{new_id}/edit"
+
     Template.toggle_sort_direction.events 
         'click .toggle': ->
             if Session.equals 'sort_direction', -1
