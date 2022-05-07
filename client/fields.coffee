@@ -383,7 +383,17 @@ Template.number_edit.events
         if doc
             Docs.update parent._id,
                 $set:"#{@key}":val
-
+        else 
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
+        $('body').toast(
+            showIcon: 'checkmark'
+            message: "updated #{@key}:#{@value}"
+            # showProgress: 'bottom'
+            class: 'success'
+            displayTime: 'auto',
+            position: "bottom center"
+        )
 
 Template.float_edit.events
     'blur .edit_float': (e,t)->

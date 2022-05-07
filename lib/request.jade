@@ -166,7 +166,7 @@ template(name='request_edit')
                     .ui.header 
                         strong #{rental.title}
                         small request
-                    +number_edit key='amount' label='request amount (points)'
+                    +number_edit key='amount' label='request amount (points)' min='0' max='1000'
                     // with rental
                     //     .ui.inline.header #{daily_rate}c
                     //         small /day
@@ -202,13 +202,18 @@ template(name='request_edit')
                             .ui.big.green.fluid.button.submit_request(class=submit_button_class)
                                 |pay
                         else if need_credit
-                            .ui.header #{member_balance_after_request} credit needed to purchase
-                            .ui.inline.header add 
-                            .ui.inline.input
-                                input.adding_credit(type='number' value=member_balance_after_request) 
-                            .ui.big.teal.fluid.button.add_credit(class=submit_button_class)
-                                i.plus.icon
-                                |add credit to reserve
+                            .ui.segemnt
+                                .ui.header #{member_balance_after_request} credit needed to purchase
+                                .ui.inline.header 
+                                    i.shield.red.icon
+                                    |add 
+                                with currentUser
+                                    +number_edit key='points' label='points' icon='hashtag'
+                            // .ui.inline.input
+                            //     input.adding_credit(type='number' value=member_balance_after_request) 
+                            // .ui.big.teal.fluid.button.add_credit(class=submit_button_class)
+                            //     i.plus.icon
+                            //     |add credit to reserve
                     else
                         .ui.header submitted {{ from_now submitted_timestamp }}
                         .ui.orange.fluid.button.cancel_request
