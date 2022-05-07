@@ -4,6 +4,13 @@ if Meteor.isClient
         @render 'admin'
         ), name:'admin'
 
+    Router.route '/add', -> @render 'add'
+    Template.add_button_big.events
+        'click .add_model': ->
+            new_id = 
+                Docs.insert 
+                    model:@model
+            Router.go "/#{@model}/#{new_id}/edit"
 
     Template.admin.onCreated ->
         @autorun => @subscribe 'model_docs', 'admin', ->
@@ -12,7 +19,9 @@ if Meteor.isClient
         query_doc: ->
             Docs.findOne 
                 model:'admin'
-        
+
+
+
     Template.admin.events
         'click .run_query': ->
             qd = 
