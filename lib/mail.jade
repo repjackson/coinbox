@@ -9,44 +9,75 @@ template(name='inbox')
                     i.chat.blue.icon
                     |+ message
             .six.wide.column
-                .ui.header 
-                    i.chevron.down.icon
-                    |#{my_sent_messages.count} sent messages
-                .ui.list.medscroll
-                    each my_sent_messages
-                        .item
-                            img.ui.avatar.image(src="{{c.url target.image_id height=100 width=200}}" class=currentUser.invert_class)
-                            .content
-                                .header
-                                    |#{when} to #{target.name} #{target.name} #{to.name}
-                                |#{description} #{body}
-                                a(href="/m/message/#{_id}/view")
-                                   |view 
-                                +toggle_view_icon
-                                if can_edit
-                                    +remove_icon
-                                if is_dev
-                                    +print_this
+                +recent_logs
+                +sent_messages
             .six.wide.column
-                .ui.header 
-                    i.chevron.down.icon
-                    |#{my_received_messages.count} received messages
-                .ui.list.medscroll
-                    each my_received_messages
-                        .item
-                            img.ui.avatar.image(src="{{c.url author.image_id height=100 width=200}}" class=currentUser.invert_class)
-                            .content
-                                .header
-                                    |#{when} from #{author.name}
-                                |#{description} #{body}
-                                .meta    
-                                    a(href="/m/message/#{_id}/view")
-                                +toggle_view_icon
-                                if can_edit
-                                    +remove_icon
-                                if is_dev
-                                    +print_this
-                                
+                +received_messages
+
+
+template(name='recent_logs')
+    .ui.header
+        +i name='history'
+        |#{unread_log_count} log messages
+    .ui.list.scrolling
+        each log_docs
+            .item
+                img.ui.avatar.image(src="{{c.url _author.image_id height=100 width=200}}" class=currentUser.invert_class)
+                .content
+                    .header
+                        |#{when} from #{author.name}
+                    |#{description} #{body}
+                    .meta    
+                        a(href="/message/#{_id}/view")
+                    +toggle_view_icon
+                    if can_edit
+                        +remove_icon
+                    if is_dev
+                        +print_this
+
+
+
+template(name='received_messages')                    
+    .ui.header 
+        i.chevron.down.icon
+        |#{my_received_messages.count} received messages
+    .ui.list.medscroll
+        each my_received_messages
+            .item
+                img.ui.avatar.image(src="{{c.url author.image_id height=100 width=200}}" class=currentUser.invert_class)
+                .content
+                    .header
+                        |#{when} from #{author.name}
+                    |#{description} #{body}
+                    .meta    
+                        a(href="/m/message/#{_id}/view")
+                    +toggle_view_icon
+                    if can_edit
+                        +remove_icon
+                    if is_dev
+                        +print_this
+                    
+                    
+template(name='sent_messages')                    
+    .ui.header 
+        i.chevron.down.icon
+        |#{my_sent_messages.count} sent messages
+    .ui.list.medscroll
+        each my_sent_messages
+            .item
+                img.ui.avatar.image(src="{{c.url target.image_id height=100 width=200}}" class=currentUser.invert_class)
+                .content
+                    .header
+                        |#{when} to #{target.name} #{target.name} #{to.name}
+                    |#{description} #{body}
+                    a(href="/m/message/#{_id}/view")
+                       |view 
+                    +toggle_view_icon
+                    if can_edit
+                        +remove_icon
+                    if is_dev
+                        +print_this
+
                                 
 template(name='toggle_view_icon')
     if is_read
@@ -92,8 +123,8 @@ template(name='message_edit')
                             //         small #{points}p
                                     
                 .six.wide.column
-                    +textarea_edit key='description' label='description' direct=true
-                    // +image_edit key='image_id' label='image' direct=true
+                    +image_edit key='image_id' label='image' direct=true
+                    +html_edit key='description' label='description' direct=true
                     div 
                     div
                     // .ui.inline.header
@@ -111,11 +142,13 @@ template(name='message_edit')
                 .five.wide.column
                     .ui.center.aligned.basic.segment
                         if can_submit
-                            .ui.green.big.icon.circular.button.submit
+                            .ui.green.big.icon.button.submit
                                 i.big.checkmark.icon
+                                |send (-10pts)
                         else 
-                            .ui.big.green.big.icon.disabled.circular.button
+                            .ui.big.green.big.icon.disabled.button
                                 i.checkmark.big.icon
+                                |send
 
 
 template(name='message_item')

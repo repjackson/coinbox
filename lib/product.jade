@@ -73,7 +73,7 @@ template(name='product_view')
     with current_doc
         .ui.stackable.padded.four.column.grid
             .row
-                .four.wide.column
+                .six.wide.column
                     a.ui.basic.icon.button.fly_left(href="/shop")
                         i.chevron.left.large.icon
                         // i.large.food.icon
@@ -92,6 +92,7 @@ template(name='product_view')
                         img.ui.rounded.image.zoomer(src="{{c.url image_id2}}")
                     +message_author_button
                     +group_widget
+                    +array_view key='tags' icon='tags'
                 .eight.wide.column
                     +html_view key='description' direct=true
                     if watson 

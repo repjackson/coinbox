@@ -5,12 +5,23 @@ if Meteor.isClient
         ), name:'inbox'
 
     Template.inbox.onCreated ->
-        @autorun -> Meteor.subscribe 'user_model_docs', 'message', Router.current().params.username
-        @autorun => Meteor.subscribe 'my_received_messages'
-        @autorun => Meteor.subscribe 'my_sent_messages'
+        @autorun -> Meteor.subscribe 'user_model_docs', 'message', Router.current().params.username, ->
+        @autorun => Meteor.subscribe 'my_received_messages', ->
+        @autorun => Meteor.subscribe 'my_sent_messages', ->
         # @autorun => Meteor.subscribe 'inbox', Router.current().params.username
-        @autorun => Meteor.subscribe 'model_docs', 'stat'
+        @autorun => Meteor.subscribe 'model_docs', 'stat', ->
 
+if Meteor.isServer 
+    Meteor.publish 'my_received_messages', ->
+        Docs.find 
+            model:'message'
+            target_user_id:Meteor.userId()
+    Meteor.publish 'my_sent_messages', ->
+        Docs.find 
+            model:'message'
+            _author_id:Meteor.userId()
+
+if Meteor.isClient
     Template.inbox.events
         'click .add_message': ->
             new_message_id =
@@ -18,6 +29,13 @@ if Meteor.isClient
                     model:'message'
             Router.go "/message/#{new_message_id}/edit"
 
+
+    Template.recent_logs.helpers
+        unread_log_count: ->
+            Docs.find(
+                model:'log'
+                read_user_ids:$nin:[Meteor.userId()]
+            ).count()
 
 
     Template.inbox.helpers
@@ -41,7 +59,7 @@ if Meteor.isClient
 
     Template.toggle_view_icon.helpers
         is_read: ->
-            @read_ids and Meteor.userId() in @read_ids
+            @read_user_ids and Meteor.userId() in @read_user_ids
     Template.toggle_view_icon.events
         'click .mark_read': ->
             Meteor.call 'mark_read', @_id, ->

@@ -60,46 +60,47 @@ template(name='layout')
     
     
 template(name='footer')
-    .ui.stackable.padded.grid.footer_bg.mobile.hidden
-        .three.column.row
-            .column
-                img.ui.image(src="{{c.url 'coinbox/footer_logo'}}")
-                .ui.link.big.inverted.animated.list
-                    a.item(href="/get_started/" class="{{isActiveRoute 'get_started'}}" ) Get Started
-            .column
-                .ui.dividing.inverted.header 
-                    |Customer Care
-                .ui.link.big.inverted.animated.list
-                    if currentUser
-                        a.item(href="/user/#{currentUser.username}/" class="{{isActiveRoute 'transfers'}}" ) 
-                            |My Account
-                    else    
-                        a.item(href="/login" class="{{isActiveRoute 'transfers'}}" ) 
-                            |My Account
-                    a.item(href="/privacy" class="{{isActiveRoute 'privacy'}}" ) Privacy Policy
-                    a.item(href="/terms" class="{{isActiveRoute 'terms'}}" ) Terms & Conditions
-                    a.item(href="/faqs" class="{{isActiveRoute 'faqs'}}" ) FAQs
-                    a.item(href="https://trello.com/invite/b/0g5gAYUv/f138e7f3cdd7d8997d895818eca500b2/website" target='_window') Trello Board
-            .column
-                .ui.dividing.inverted.header
-                    i.info.icon
-                    |Company Information
-                .ui.link.big.inverted.animated.list
-                    a.item(href="/contact" class="{{isActiveRoute 'contact'}}" ) 
-                        i.phone.icon
-                        |Contact Us
-                    a.item(href="/about" class="{{isActiveRoute 'about'}}" ) 
+    unless currentUser
+        .ui.stackable.padded.grid.footer_bg.mobile.hidden
+            .three.column.row
+                .column
+                    img.ui.image(src="{{c.url 'coinbox/footer_logo'}}")
+                    .ui.link.big.inverted.animated.list
+                        a.item(href="/get_started/" class="{{isActiveRoute 'get_started'}}" ) Get Started
+                .column
+                    .ui.dividing.inverted.header 
+                        |Customer Care
+                    .ui.link.big.inverted.animated.list
+                        if currentUser
+                            a.item(href="/user/#{currentUser.username}/" class="{{isActiveRoute 'transfers'}}" ) 
+                                |My Account
+                        else    
+                            a.item(href="/login" class="{{isActiveRoute 'transfers'}}" ) 
+                                |My Account
+                        a.item(href="/privacy" class="{{isActiveRoute 'privacy'}}" ) Privacy Policy
+                        a.item(href="/terms" class="{{isActiveRoute 'terms'}}" ) Terms & Conditions
+                        a.item(href="/faqs" class="{{isActiveRoute 'faqs'}}" ) FAQs
+                        a.item(href="https://trello.com/invite/b/0g5gAYUv/f138e7f3cdd7d8997d895818eca500b2/website" target='_window') Trello Board
+                .column
+                    .ui.dividing.inverted.header
                         i.info.icon
-                        |About Us
-                    a.item(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" ) 
-                        i.chat.icon
-                        |Testimonials
-                    a.item(href="/corporate_services" class="{{isActiveRoute 'corporate_services'}}" ) 
-                        i.briefcase.icon
-                        |Corporate Services
-                    a.item(href="/organizations" class="{{isActiveRoute 'organizations'}}" ) 
-                        i.users.icon
-                        |Organizations
+                        |Company Information
+                    .ui.link.big.inverted.animated.list
+                        a.item(href="/contact" class="{{isActiveRoute 'contact'}}" ) 
+                            i.phone.icon
+                            |Contact Us
+                        a.item(href="/about" class="{{isActiveRoute 'about'}}" ) 
+                            i.info.icon
+                            |About Us
+                        a.item(href="/testimonials" class="{{isActiveRoute 'testimonials'}}" ) 
+                            i.chat.icon
+                            |Testimonials
+                        a.item(href="/corporate_services" class="{{isActiveRoute 'corporate_services'}}" ) 
+                            i.briefcase.icon
+                            |Corporate Services
+                        a.item(href="/organizations" class="{{isActiveRoute 'organizations'}}" ) 
+                            i.users.icon
+                            |Organizations
     if in_dev 
         .ui.inverted.fluid.segment
             .ui.header dev 

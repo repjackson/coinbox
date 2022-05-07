@@ -23,8 +23,8 @@ if Meteor.isClient
     #     'click .set_card_view': -> Session.set 'res_view_mode', 'cards'
     #     'click .set_segment_view': -> Session.set 'res_view_mode', 'segments'
 
-    Template.request_events.onCreated ->
-        @autorun => Meteor.subscribe 'log_events', Router.current().params.doc_id
+    Template.request_view.onCreated ->
+        @autorun => Meteor.subscribe 'log_events', Router.current().params.doc_id, ->
 
     # Template.rental_stats.onRendered ->
     #     Meteor.setTimeout ->
@@ -482,7 +482,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'rental_from_request_id', @data._id
     Template.request_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'rental_from_request_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'rental_from_request_id', Router.current().params.doc_id
 
     Template.request_view.onRendered ->
         Meteor.call 'log_doc_view', Router.current().params.doc_id, ->

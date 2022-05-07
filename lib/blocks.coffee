@@ -499,7 +499,7 @@ if Meteor.isClient
 
     Template.viewing.events
         'click .mark_read': (e,t)->
-            unless @read_ids and Meteor.userId() in @read_ids
+            unless @read_user_ids and Meteor.userId() in @read_user_ids
                 Meteor.call 'mark_read', @_id, ->
                     # $(e.currentTarget).closest('.comment').transition('pulse')
                     $('.unread_icon').transition('pulse')
@@ -511,12 +511,12 @@ if Meteor.isClient
                 $('.unread_icon').transition('pulse')
     Template.viewing.helpers
         viewed_by: -> 
-            if @read_ids 
-                Meteor.userId() in @read_ids
+            if @read_user_ids 
+                Meteor.userId() in @read_user_ids
         readers: ->
             readers = []
-            if @read_ids
-                for reader_id in @read_ids
+            if @read_user_ids
+                for reader_id in @read_user_ids
                     unless reader_id is @author_id
                         readers.push Docs.findOne reader_id
             readers
@@ -662,7 +662,7 @@ Meteor.methods
         doc = Docs.findOne doc_id
         Docs.update doc_id,
             $addToSet:
-                read_ids: Meteor.userId()
+                read_user_ids: Meteor.userId()
             $set:
                 last_viewed: Date.now() 
             $inc:views:1
@@ -670,7 +670,7 @@ Meteor.methods
         doc = Docs.findOne doc_id
         Docs.update doc_id,
             $pull:
-                read_ids: Meteor.userId()
+                read_user_ids: Meteor.userId()
             $inc:views:-1
 
 
