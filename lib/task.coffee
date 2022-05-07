@@ -44,6 +44,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.task_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'all_users', ->
     Template.task_card.onCreated ->
         @autorun => Meteor.subscribe 'doc_comments', @data._id, ->
 

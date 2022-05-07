@@ -170,6 +170,12 @@ Meteor.publish 'author_from_doc_id', (doc_id)->
     doc = Docs.findOne doc_id
     Meteor.users.find doc._author_id
 
+Meteor.publish 'unread_logs', ()->
+    Docs.find 
+        model:'log'
+        read_user_ids:$nin:[Meteor.userId()]
+Meteor.publish 'all_users', (slug)->
+    Meteor.users.find()
 Meteor.publish 'page', (slug)->
     if slug
         Docs.find

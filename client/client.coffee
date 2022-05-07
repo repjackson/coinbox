@@ -44,6 +44,15 @@ Template.layout.events
     'click .reconnect': ->
         Meteor.reconnect()
 
+Template.nav.onCreated ->
+    @autorun => @subscribe 'unread_logs',->
+Template.nav.helpers
+    unread_count: ->
+        Meteor.user().unread_count
+    unread_logs: ->
+        Docs.find 
+            model:'log'
+            read_user_ids:$nin:[Meteor.userId()]
 Template.nav.events
     'click .locate': ->
         navigator.geolocation.getCurrentPosition (position) =>

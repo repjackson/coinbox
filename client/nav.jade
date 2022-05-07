@@ -30,6 +30,9 @@ template(name='nav')
                 a.icon.item.zoomer.mobile.hidden(href="/inbox" class="{{isActivePath '/inbox'}}")
                     // i.large.inbox.icon
                     +i name='inbox'
+                    if unread_logs
+                        .ui.circular.label(title='unread count')
+                            |#{unread_logs.count}
                 a.icon.item.zoomer.mobile.hidden(href="/chat" class="{{isActivePath '/chat'}}")
                     // i.large.inbox.icon
                     +i name='chat'

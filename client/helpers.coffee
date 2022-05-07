@@ -33,7 +33,7 @@ Template.registerHelper 'subs_ready', () ->
     Template.instance().subscriptionsReady()
 
 
-Template.registerHelper 'target', () ->
+Template.registerHelper '_target', () ->
     Meteor.users.findOne @target_user_id
     
     
@@ -227,7 +227,6 @@ Template.registerHelper 'sorted_field_values', () ->
         _.sortBy parent["#{@key}"], 'number'
 
 
-Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
 
 Template.registerHelper 'calculated_size', (metric) ->
     # console.log metric

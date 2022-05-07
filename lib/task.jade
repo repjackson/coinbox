@@ -84,7 +84,8 @@ template(name='task_item')
         a.ui.header(href="/task/#{_id}/view") #{title}
         div
         .ui.small.grey.inline.header #{when}
-        | #{content}
+        .smallscroll
+            | !{content}
         each tags 
             .ui.basic.small.label #{this}
         
@@ -145,6 +146,8 @@ template(name='task_view')
                     // a.ui.header(href="/user/#{target.username}")
                     //     |#{target.username}
                     |!{content}
+                    if watson 
+                        +watson_view
                     div 
                     if is_assigned 
                         .ui.header 
@@ -223,6 +226,7 @@ template(name='task_edit')
                     // if has_content
                     div
                     +html_edit key='content' label='content' direct=true
+                    +call_watson key='content'
                     i.large.link.red.remove.circular.icon.delete_task
                     .ui.header 
                         small 
