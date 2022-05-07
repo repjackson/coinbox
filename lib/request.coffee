@@ -138,7 +138,7 @@ if Meteor.isClient
         point_balance_after_request: ->
             # rental = Docs.findOne @rental_id
             if @amount 
-                Meteor.user().points - @amount
+                Meteor.user().points + @amount
             # if rental
             #     current_balance = Meteor.user().points
             #     (current_balance-@total_cost).toFixed(2)

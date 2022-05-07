@@ -81,9 +81,10 @@ if Meteor.isClient
             new_id = 
                 Docs.insert 
                     model:'log'
-                    body: "Marked complete at #{moment(Date.now()).format('dddd, MMMM Do h:mm a')}"
+                    body: "#{@title} marked complete at #{moment(Date.now()).format('dddd, MMMM Do h:mm a')} by #{Meteor.user().username}"
                     task_id:Router.current().params.doc_id
-            console.log new_id
+                    parent_id:Router.current().params.doc_id
+            console.log 'new log message about', @title
     Template.task_edit.events
         'click .delete_task': ->
             Swal.fire({

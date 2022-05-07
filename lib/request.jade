@@ -91,25 +91,25 @@ template(name='request_card')
 template(name='request_view')
     with current_doc
         .ui.stackable.padded.grid
-            .three.column.row
-                .column 
+            .row
+                .four.wide.column 
                     // with request_rental
-                    a.ui.button.fly_left(href="/requests/")
+                    .ui.inline.header 
+                        |#{title}
+                    a.ui.compact.large.button.fly_left(href="/requests/")
                         // img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
                         i.left.chevron.icon
                         +i name='horn'
-                        .ui.inline.header requests
+                        strong requests
                     +image_view key='image' label='image' direct=true
                     .ui.small.grey.header 
                         |viewing request #{_id} 
-                    .ui.inline.header 
-                        |#{title}
                     if complete 
                         .ui.large.green.label complete 
                     else 
                         .ui.large.label ongoing (incomplete)
                     +request_events
-                .column
+                .eight.wide.column
                     // a.ui.circular.compact.button(href="/food/#{food_id}/")
                     //     i.left.chevron.icon
                     //     img.ui.avatar.image(src="{{c.url request_rental.image width=200 height=200}}")    
@@ -127,11 +127,11 @@ template(name='request_view')
                         .ui.basic.red.button.cancel_request
                             i.remove.icon
                             |cancel
-                .column
                     +comments
+                .four.wide.column
                     .ui.header 
                         +i name='donate'
-                        | buyer
+                        | requester
                         strong #{_author_username}
                     with _author
                         +user_card
@@ -188,44 +188,45 @@ template(name='request_edit')
                     //         small = 
                     //         //- small balance after purchase 
                     //         |#{member_balance_after_request}
-                    if need_credit
-                        .ui.header need credit
-                        .ui.header 
-                            |{{fixed currentUser.credit}} 
-                        .ui.header
-                            small cost
-                            | #{total_cost} 
-                        .ui.header
-                            small balance after purchase
-                            small = 
-                            |#{point_balance_after_request}
-                    unless submitted
-                        if can_buy
-                            .ui.big.green.fluid.button.submit_request(class=submit_button_class)
-                                |pay
-                        else if need_credit
-                            .ui.segemnt
-                                .ui.header #{member_balance_after_request} credit needed to purchase
-                                .ui.inline.header 
-                                    i.shield.red.icon
-                                    |add 
-                                with currentUser
-                                    +number_edit key='points' label='points' icon='hashtag'
-                            // .ui.inline.input
-                            //     input.adding_credit(type='number' value=member_balance_after_request) 
-                            // .ui.big.teal.fluid.button.add_credit(class=submit_button_class)
-                            //     i.plus.icon
-                            //     |add credit to reserve
-                    else
+                    // if need_credit
+                    //     .ui.header need credit
+                    //     .ui.header 
+                    //         |{{fixed currentUser.credit}} 
+                    //     .ui.header
+                    //         small cost
+                    //         | #{total_cost} 
+                    //     .ui.header
+                    //         small balance after purchase
+                    //         small = 
+                    //         |#{point_balance_after_request}
+                    // unless submitted
+                    //     if can_buy
+                    //         .ui.big.green.fluid.button.submit_request(class=submit_button_class)
+                    //             |pay
+                    //     else if need_credit
+                    //         .ui.segemnt
+                    //             .ui.header #{member_balance_after_request} credit needed to purchase
+                    //             .ui.inline.header 
+                    //                 i.shield.red.icon
+                    //                 |add 
+                    //             with currentUser
+                    //                 +number_edit key='points' label='points' icon='hashtag'
+                    //         // .ui.inline.input
+                    //         //     input.adding_credit(type='number' value=member_balance_after_request) 
+                    //         // .ui.big.teal.fluid.button.add_credit(class=submit_button_class)
+                    //         //     i.plus.icon
+                    //         //     |add credit to reserve
+                    // else
+                    if submitted
                         .ui.header submitted {{ from_now submitted_timestamp }}
-                        .ui.orange.fluid.button.cancel_request
-                            i.undo.icon
-                            |cancel
+                    .ui.orange.fluid.button.cancel_request
+                        i.undo.icon
+                        |cancel
                     img.ui.image(src="{{c.url request_rental.image_id width=200 height=200}}")    
-                    with request_rental
-                        a.ui.small.header(href="/rental/#{rental_id}") #{title}
-                        +image_view key='image' direct=true
-                        +html_view key='description' direct=true
+                    // with request_rental
+                    //     a.ui.small.header(href="/rental/#{rental_id}") #{title}
+                    //     +image_view key='image' direct=true
+                    //     +html_view key='description' direct=true
                     .ui.header 
                         small your credit: 
                         strong #{currentUser.points}pts
@@ -233,7 +234,7 @@ template(name='request_edit')
                     //     i.sun.icon
                     //     |daily rate: #{rental_daily_rate}p/day
                     .ui.header 
-                        small credit after purchase 
+                        small credit after request 
                         strong #{point_balance_after_request}p
                 .column
                     +date_edit key='request_date' label='request date' icon='calendar'

@@ -115,7 +115,9 @@ Meteor.publish 'model_docs', (
     Docs.find {
         model: model
         # app:'goldrun'
-    }, limit:100
+    }, 
+        limit:limit
+        sort:_timestamp:-1
 
 Meteor.publish 'document_by_slug', (slug)->
     Docs.find

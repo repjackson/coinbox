@@ -1,6 +1,6 @@
 if Meteor.isClient
     Template.global_activity.onCreated ->
-        @autorun => @subscribe 'model_docs','log',->
+        @autorun => @subscribe 'model_docs','log',20,->
     
     Template.global_activity.helpers
         latest_log_docs: ->

@@ -277,7 +277,7 @@ template(name='menu')
 template(name='global_activity')        
     .ui.header 
         +i name='clock'
-        |latest activity
+        |#{latest_log_docs.count} latest activity
     .ui.link.selection.animated.divided.list.smallscroll
         each latest_log_docs
             +home_doc_item

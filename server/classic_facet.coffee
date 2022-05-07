@@ -1,9 +1,9 @@
 Meteor.publish 'facets', (
     model
     picked_tags=[]
-    # selected_author_ids=[]
-    # selected_location_tags
-    # picked_timestamp_tags
+    selected_author_ids=[]
+    picked_location_tags=[]
+    picked_timestamp_tags=[]
     # author_id
     # parent_id
     # tag_limit
@@ -30,7 +30,7 @@ Meteor.publish 'facets', (
         # if selected_author_ids.length > 0
         #     match.author_id = $in: selected_author_ids
         #     match.published = 1
-        # if selected_location_tags.length > 0 then match.location_tags = $all: selected_location_tags
+        # if picked_location_tags.length > 0 then match.location_tags = $all: picked_location_tags
         # if selected_building_tags.length > 0 then match.building_tags = $all: selected_building_tags
         # if picked_timestamp_tags.length > 0 then match.timestamp_tags = $all: picked_timestamp_tags
 
@@ -162,9 +162,9 @@ Meteor.publish 'facets', (
             { $project: location_tags: 1 }
             { $unwind: "$location_tags" }
             { $group: _id: '$location_tags', count: $sum: 1 }
-            { $match: _id: $nin: selected_location_tags }
+            { $match: _id: $nin: picked_location_tags }
             { $sort: count: -1, _id: 1 }
-            { $limit: limit }
+            { $limit: 10 }
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
         # console.log 'location location_tag_cloud, ', location_tag_cloud
