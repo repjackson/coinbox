@@ -166,26 +166,27 @@ template(name='request_edit')
                     .ui.header 
                         strong #{rental.title}
                         small request
-                    with rental
-                        .ui.inline.header #{daily_rate}c
-                            small /day
-                        |&nbsp;
-                        |&nbsp;
-                        +image_view key='image' label='image' direct=true cl='ui rounded image'
-                    if can_buy
-                        .ui.header 
-                            small your balance
-                            |{{fixed currentUser.credit}} 
-                        .ui.header
-                            small
-                            //- | -  #{cost} 
-                            | -  #{total_cost} 
-                        .ui.header
-                            small balance after purchase
-                            small = 
-                            //- small balance after purchase 
-                            |#{member_balance_after_request}
-                    else if need_credit
+                    +number_edit key='amount' label='request amount (points)'
+                    // with rental
+                    //     .ui.inline.header #{daily_rate}c
+                    //         small /day
+                    //     |&nbsp;
+                    //     |&nbsp;
+                    //     +image_view key='image' label='image' direct=true cl='ui rounded image'
+                    // if can_buy
+                    //     .ui.header 
+                    //         small your balance
+                    //         |{{fixed currentUser.credit}} 
+                    //     .ui.header
+                    //         small
+                    //         //- | -  #{cost} 
+                    //         | -  #{total_cost} 
+                    //     .ui.header
+                    //         small balance after purchase
+                    //         small = 
+                    //         //- small balance after purchase 
+                    //         |#{member_balance_after_request}
+                    if need_credit
                         .ui.header need credit
                         .ui.header 
                             |{{fixed currentUser.credit}} 
@@ -195,7 +196,7 @@ template(name='request_edit')
                         .ui.header
                             small balance after purchase
                             small = 
-                            |#{member_balance_after_request}
+                            |#{point_balance_after_request}
                     unless submitted
                         if can_buy
                             .ui.big.green.fluid.button.submit_request(class=submit_button_class)
@@ -221,12 +222,12 @@ template(name='request_edit')
                     .ui.header 
                         small your credit: 
                         strong #{currentUser.points}pts
-                    .ui.big.label
-                        i.sun.icon
-                        |daily rate: #{rental_daily_rate}p/day
+                    // .ui.big.label
+                    //     i.sun.icon
+                    //     |daily rate: #{rental_daily_rate}p/day
                     .ui.header 
                         small credit after purchase 
-                        strong #{points_after_purchase}p
+                        strong #{point_balance_after_request}p
                 .column
                     +date_edit key='request_date' label='request date' icon='calendar'
                     +textarea_edit key='notes' label='notes' direct=true

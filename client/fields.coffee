@@ -375,7 +375,7 @@ Template.textarea_view.onRendered ->
 
 
 Template.number_edit.events
-    'blur .edit_number': (e,t)->
+    'change .edit_number': (e,t)->
         # console.log @
         parent = Template.parentData()
         val = parseInt t.$('.edit_number').val()

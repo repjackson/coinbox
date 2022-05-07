@@ -131,20 +131,22 @@ if Meteor.isClient
         is_paying: -> Session.get 'paying'
 
         can_buy: ->
-            Meteor.user().points > @total_cost
+            Meteor.user().points > @amount
 
         need_credit: ->
-            Meteor.user().points < @total_cost
+            Meteor.user().points < @amount
 
 
         submit_button_class: ->
             if @start_datetime and @end_datetime then '' else 'disabled'
 
-        member_balance_after_request: ->
-            rental = Docs.findOne @rental_id
-            if rental
-                current_balance = Meteor.user().points
-                (current_balance-@total_cost).toFixed(2)
+        point_balance_after_request: ->
+            # rental = Docs.findOne @rental_id
+            if @amount 
+                Meteor.user().points - @amount
+            # if rental
+            #     current_balance = Meteor.user().points
+            #     (current_balance-@total_cost).toFixed(2)
 
         # diff: -> moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
 
