@@ -60,7 +60,7 @@ Meteor.publish 'facets', (
 
         # match.site = Meteor.settings.public.site
 
-        console.log 'match:', match
+        # console.log 'match:', match
         # if view_images? then match.components?.image = view_images
 
         # lightbank models
@@ -120,23 +120,23 @@ Meteor.publish 'facets', (
         # #         name: keyword.name
         # #         count: keyword.count
         # #         index: i
-        #
-        # timestamp_tags_cloud = Docs.aggregate [
-        #     { $match: match }
-        #     { $project: timestamp_tags: 1 }
-        #     { $unwind: "$_timestamp_tags" }
-        #     { $group: _id: '$_timestamp_tags', count: $sum: 1 }
-        #     { $match: _id: $nin: picked_timestamp_tags }
-        #     { $sort: count: -1, _id: 1 }
-        #     { $limit: 10 }
-        #     { $project: _id: 0, name: '$_id', count: 1 }
-        #     ]
-        # # console.log 'building timestamp_tags_cloud, ', timestamp_tags_cloud
-        # timestamp_tags_cloud.forEach (timestamp_tag, i) ->
-        #     self.added 'timestamp_tags', Random.id(),
-        #         name: timestamp_tag.name
-        #         count: timestamp_tag.count
-        #         index: i
+        
+        timestamp_tags_cloud = Docs.aggregate [
+            { $match: match }
+            { $project: timestamp_tags: 1 }
+            { $unwind: "$_timestamp_tags" }
+            { $group: _id: '$_timestamp_tags', count: $sum: 1 }
+            { $match: _id: $nin: picked_timestamp_tags }
+            { $sort: count: -1, _id: 1 }
+            { $limit: 10 }
+            { $project: _id: 0, name: '$_id', count: 1 }
+            ]
+        # console.log 'building timestamp_tags_cloud, ', timestamp_tags_cloud
+        timestamp_tags_cloud.forEach (timestamp_tag, i) ->
+            self.added 'timestamp_tags', Random.id(),
+                name: timestamp_tag.name
+                count: timestamp_tag.count
+                index: i
         #
         #
         # building_tag_cloud = Docs.aggregate [
@@ -157,23 +157,23 @@ Meteor.publish 'facets', (
         #         index: i
         #
         #
-        # location_tag_cloud = Docs.aggregate [
-        #     { $match: match }
-        #     { $project: location_tags: 1 }
-        #     { $unwind: "$location_tags" }
-        #     { $group: _id: '$location_tags', count: $sum: 1 }
-        #     { $match: _id: $nin: selected_location_tags }
-        #     { $sort: count: -1, _id: 1 }
-        #     { $limit: limit }
-        #     { $project: _id: 0, name: '$_id', count: 1 }
-        #     ]
-        # # console.log 'location location_tag_cloud, ', location_tag_cloud
-        # location_tag_cloud.forEach (location_tag, i) ->
-        #     self.added 'location_tags', Random.id(),
-        #         name: location_tag.name
-        #         count: location_tag.count
-        #         index: i
-        #
+        location_tag_cloud = Docs.aggregate [
+            { $match: match }
+            { $project: location_tags: 1 }
+            { $unwind: "$location_tags" }
+            { $group: _id: '$location_tags', count: $sum: 1 }
+            { $match: _id: $nin: selected_location_tags }
+            { $sort: count: -1, _id: 1 }
+            { $limit: limit }
+            { $project: _id: 0, name: '$_id', count: 1 }
+            ]
+        # console.log 'location location_tag_cloud, ', location_tag_cloud
+        location_tag_cloud.forEach (location_tag, i) ->
+            self.added 'location_tags', Random.id(),
+                name: location_tag.name
+                count: location_tag.count
+                index: i
+        
         #
         # author_match = match
         # author_match.published = 1

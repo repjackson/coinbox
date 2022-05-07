@@ -22,20 +22,18 @@ template(name='requests')
             // +limit_menu
         .twelve.wide.column
             .sorting_row
-                .ui.button today
-                .ui.button tomorrow
-                .ui.button this week
-                .ui.button next week
-                if selected_tag_plural
-                    .ui.icon.black.compact.button.clear_picked_tags
-                        i.remove.icon
-                each picked_tags
-                    button.ui.blue.compact.large.button.unselect_tag(tabindex='0')
-                        //- i.remove.icon
-                        | #{this}
-                each tags
-                    button.ui.compact.button.tag_result(tabindex="0" class=result_class title=count) #{title}
-                        //- small #{count}
+                .ui.button 
+                    i.chevron.up.blue.icon 
+                    |to me
+                .ui.button 
+                    i.chevron.down.teal.icon 
+                    |from me
+                .ui.button
+                    i.green.checkmark.icon
+                    |paid
+                .ui.button 
+                    i.circle.outline.icon
+                    |unpaid
             .spacer 
             if subs_ready     
                 .ui.stackable.centered.cards.scrolling
@@ -53,7 +51,7 @@ template(name='request_card')
         .content
             a.ui.inline.header.zoomer.fly_right(href="/request/#{_id}/") 
                 | #{title}
-            .ui.inline.header #{daily_rate}p/day
+            .ui.inline.header amount: #{amount}pts
             
             each tags
                 a.ui.small.link.label.flat_pick_tag.spaced #{this}
@@ -95,14 +93,17 @@ template(name='request_view')
         .ui.stackable.padded.grid
             .three.column.row
                 .column 
-                    with request_rental
-                        a.ui.button.fly_left(href="/rental/#{_id}/")
-                            img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
-                            i.left.chevron.icon
-                            .ui.inline.header #{title}
+                    // with request_rental
+                    a.ui.button.fly_left(href="/requests/")
+                        // img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
+                        i.left.chevron.icon
+                        +i name='horn'
+                        .ui.inline.header requests
                     +image_view key='image' label='image' direct=true
                     .ui.small.grey.header 
                         |viewing request #{_id} 
+                    .ui.inline.header 
+                        |#{title}
                     if complete 
                         .ui.large.green.label complete 
                     else 
@@ -164,6 +165,9 @@ template(name='request_edit')
                     .ui.header 
                         strong #{rental.title}
                         small request
+                    +text_edit key='title' label='title'
+                    +boolean_edit key='urgent' label='urgent'
+                    
                     +number_edit key='amount' label='request amount (points)' min='0' max='1000'
                     // with rental
                     //     .ui.inline.header #{daily_rate}c

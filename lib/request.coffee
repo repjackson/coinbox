@@ -4,7 +4,7 @@ if Meteor.isClient
         ), name:'request_view'
     Template.request_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'rental_by_res_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'rental_by_res_id', Router.current().params.doc_id
 
 
     # Template.rental_view_requests.onCreated ->
@@ -25,11 +25,6 @@ if Meteor.isClient
 
     Template.request_events.onCreated ->
         @autorun => Meteor.subscribe 'log_events', Router.current().params.doc_id
-    Template.request_events.helpers
-        log_events: ->
-            Docs.find
-                model:'log_event'
-                parent_id: Router.current().params.doc_id
 
     # Template.rental_stats.onRendered ->
     #     Meteor.setTimeout ->
@@ -59,7 +54,7 @@ if Meteor.isServer
 
     Meteor.publish 'log_events', (parent_id)->
         Docs.find
-            model:'log_event'
+            model:'log'
             parent_id:parent_id
 
     Meteor.publish 'requests_by_product_id', (product_id)->
@@ -116,14 +111,14 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'owner_by_res_id', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'handler_by_res_id', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'user_by_username', 'deb_sclar'
-    # Template.request_edit.onRendered =>
-    #     if Meteor.user()
-    #         Meteor.call 'calc_user_points', Meteor.user().username, ->
+    Template.request_edit.onRendered =>
+        Meteor.call 'log_edit_view', Router.current().params.doc_id, ->
+        if Meteor.user()
+            Meteor.call 'calc_user_points', Meteor.user().username, ->
 
 
 
     Template.request_edit.helpers
-        rental: -> Docs.findOne model:'rental'
         now_button_class: -> if @now then 'active' else ''
         sel_hr_class: -> if @duration_type is 'hour' then 'active' else ''
         sel_day_class: -> if @duration_type is 'day' then 'active' else ''
@@ -240,7 +235,7 @@ if Meteor.isServer
             Meteor.call 'send_payment', Meteor.user().username, 'dev', res.taxes_payout, 'taxes_payment', res_id
 
             Docs.insert
-                model:'log_event'
+                model:'log'
                 parent_id:res_id
                 res_id: res_id
                 rental_id: res.rental_id
@@ -277,7 +272,7 @@ if Meteor.isServer
                 rental_id: res.rental_id
                 reason:reason
             Docs.insert
-                model:'log_event'
+                model:'log'
                 log_type: 'payment'
                 sender_username: from_username
                 target_username: to_username
@@ -304,10 +299,12 @@ if Meteor.isClient
         Session.setDefault 'sort_label', 'available'
         Session.setDefault 'limit', 20
         Session.setDefault 'view_open', true
-        @autorun => @subscribe 'count', ->
-        @autorun => @subscribe 'request_facets',
-            Session.get('query')
+        # @autorun => @subscribe 'count', ->
+        @autorun => @subscribe 'model_docs','request',->
+        @autorun => @subscribe 'facets',
+            'request'
             picked_tags.array()
+            Session.get('current_query')
             picked_location_tags.array()
             Session.get('limit')
             Session.get('sort_key')
@@ -316,9 +313,10 @@ if Meteor.isClient
             Session.get('view_pickup')
             Session.get('view_open')
 
-        @autorun => @subscribe 'request_results',
-            Session.get('query')
+        @autorun => @subscribe 'results',
+            'request'
             picked_tags.array()
+            Session.get('current_query')
             picked_location_tags.array()
             Session.get('limit')
             Session.get('sort_key')
@@ -330,70 +328,21 @@ if Meteor.isClient
     
     Template.requests.events
         'click .request_request': ->
-            title = prompt "different title than #{Session.get('query')}"
+            title = prompt "different title than #{Session.get('current_query')}"
             new_id = 
                 Docs.insert 
                     model:'request'
-                    title:Session.get('query')
+                    title:Session.get('current_query')
 
 
         # 'click .toggle_request': -> Session.set('view_request', !Session.get('view_request'))
         # 'click .toggle_pickup': -> Session.set('view_pickup', !Session.get('view_pickup'))
         # 'click .toggle_open': -> Session.set('view_open', !Session.get('view_open'))
 
-        'click .tag_result': -> picked_tags.push @title
-        'click .unselect_tag': ->
-            picked_tags.remove @valueOf()
-            # console.log picked_tags.array()
-            # if picked_tags.array().length is 1
-                # Meteor.call 'call_wiki', search, ->
-
-            # if picked_tags.array().length > 0
-                # Meteor.call 'search_reddit', picked_tags.array(), ->
-
-        'click .clear_picked_tags': ->
-            Session.set('query',null)
-            picked_tags.clear()
-
-        'keyup .query': _.throttle((e,t)->
-            query = $('.query').val()
-            Session.set('query', query)
-            # console.log Session.get('query')
-            if e.which is 13
-                search = $('.query').val().trim().toLowerCase()
-                if search.length > 0
-                    picked_tags.push search
-                    console.log 'search', search
-                    # Meteor.call 'log_term', search, ->
-                    $('.query').val('')
-                    Session.set('query', null)
-                    # # $('#search').val('').blur()
-                    # # $( "p" ).blur();
-                    # Meteor.setTimeout ->
-                    #     Session.set('dummy', !Session.get('dummy'))
-                    # , 10000
-        , 1000)
-
         'click .calc_request_count': ->
             Meteor.call 'calc_request_count', ->
 
-        # 'keydown #search': _.throttle((e,t)->
-        #     if e.which is 8
-        #         search = $('#search').val()
-        #         if search.length is 0
-        #             last_val = picked_tags.array().slice(-1)
-        #             console.log last_val
-        #             $('#search').val(last_val)
-        #             picked_tags.pop()
-        #             Meteor.call 'search_reddit', picked_tags.array(), ->
-        # , 1000)
-
     Template.requests.helpers
-        query_requests: ->
-            Docs.find
-                model:'request'
-                title:Session.get('query')
-            
         counter: -> Counts.get('request_counter')
         tags: -> Results.find({model:'tag', title:$nin:picked_tags.array()})
         location_tags: -> Results.find({model:'location_tag',title:$nin:picked_location_tags.array()})
@@ -405,23 +354,6 @@ if Meteor.isClient
             else
                 'disabled'
 
-        picked_tags: -> picked_tags.array()
-        picked_tags_plural: -> picked_tags.array().length > 1
-        searching: -> Session.get('searching')
-
-        one_request: ->
-            Docs.find().count() is 1
-        request_docs: ->
-            # if picked_tags.array().length > 0
-            Docs.find {
-                model: 'request'
-                # downvoter_ids:$nin:[Meteor.userId()]
-            },
-                sort: "#{Session.get('sort_key')}":parseInt(Session.get('sort_direction'))
-                limit:Session.get('limit')
-
-        subs_ready: ->
-            Template.instance().subscriptionsReady()
 
 
 if Meteor.isServer 

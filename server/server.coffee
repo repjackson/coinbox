@@ -80,12 +80,12 @@ Meteor.publish 'results', (
     #         match["#{key}"] = $all: key_array
         # console.log 'current facet filter array', current_facet_filter_array
 
-    console.log 'results match', match
     # console.log 'sort key', sort_key
     # console.log 'sort direction', sort_direction
     unless Meteor.userId()
         match.private = $ne:true
         
+    # console.log 'results match', match
     Docs.find match,
         sort:"#{sort_key}":sort_direction
         limit: limit
