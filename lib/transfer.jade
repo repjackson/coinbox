@@ -116,6 +116,9 @@ template(name='transfer_view')
                         .ui.large.center.aligned.header.pointer.zoom
                             |#{_author.name}
                             small (#{_author.points}pts)
+                        .ui.large.label #{transfer_total_received_amount} total received                    
+                        .ui.large.label #{transfer_total_sent_amount} total sent                    
+                            
                 .five.wide.column
                     if in_dev 
                         a.ui.button(href="/transfer/#{_id}/edit")
@@ -145,11 +148,15 @@ template(name='transfer_view')
                     +comments
                     //- +array_view key='location_tags' label='location_tags' direct=true
                 .five.wide.column
-                    a.fly_right.zoomer(href="/user/#{target.username}")
-                        img.ui.circular.centered.fluid.pointer.zoom.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                    a.fly_right.zoomer(href="/user/#{_target.username}")
+                        img.ui.circular.centered.fluid.pointer.zoom.image(src="{{c.url _target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoom
-                            |#{target.name}
-                            small (#{target.points}pts)
+                            |#{_target.name}
+                            small (#{_target.points}pts)
+                            
+                            .ui.large.label #{transfer_total_received_amount} total received                    
+                            .ui.large.label #{transfer_total_sent_amount} total sent                    
+                            
 
 template(name='transfer_edit')
     with current_doc

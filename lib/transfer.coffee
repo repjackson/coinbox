@@ -203,7 +203,7 @@ if Meteor.isClient
     Template.transfer_edit.onCreated ->
         @autorun => Meteor.subscribe 'all_users', ->
         @autorun => Meteor.subscribe 'target_from_transfer_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'author_from_doc_id, ->', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => @subscribe 'tag_results',
             # Router.current().params.doc_id
@@ -211,10 +211,62 @@ if Meteor.isClient
             Session.get('searching')
             Session.get('current_query')
             Session.get('dummy')
-        
+    Template.transfer_view.onCreated ->
+        Meteor.call 'calc_transfer_stats', Router.current().params.doc_id, ->
+            console.log 'calculated transfer stats'
     Template.transfer_edit.onRendered ->
 
 
+if Meteor.isServer
+    Meteor.methods 
+        calc_transfer_stats: (transfer_id)->
+            console.log 'calc transfer stats', transfer_id
+            transfer = Docs.findOne transfer_id
+            Meteor.call 'calc_user_stats', transfer._author_id, ->
+            Meteor.call 'calc_user_stats', transfer.target_user_id, ->
+                
+        calc_user_stats: (user_id)->
+            console.log 'calculating user stats', user_id
+            user = Meteor.users.findOne user_id 
+
+            total_received_amount = 0
+            received_tranfers = 
+                Docs.find(
+                    model:'transfer'
+                    target_user_id:user_id
+                ).fetch()
+                
+            console.log received_tranfers.length
+            for transfer in received_tranfers
+                if transfer.amount
+                    total_received_amount += transfer.amount
+            
+
+            total_sent_amount = 0
+            sent_tranfers = 
+                Docs.find(
+                    model:'transfer'
+                    _author_id:user_id
+                ).fetch()
+            for transfer in sent_tranfers
+                if transfer.amount
+                    total_paid_amount += transfer.amount
+            console.log sent_tranfers.length
+            Meteor.users.update doc._id,
+                $set:
+                    transfer_total_received_amount:total_received_amount
+                    transfer_total_sent_amount:total_paid_amount
+                    transfer_total_point_amount:total_received_amount-total_paid_amount
+                    
+                    
+            console.log 'total_received_amount'
+            console.log 'total_paid_amount'
+            console.log 'total_received_amount-total_paid_amount'
+                    
+                
+                
+                
+if Meteor.isClient            
     Template.transfer_edit.helpers
         # terms: ->
         #     Terms.find()
