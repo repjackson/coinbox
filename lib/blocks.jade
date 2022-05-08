@@ -1,3 +1,17 @@
+template(name='visibility_settings')
+    .ui.header 
+        i.eye.icon
+        |visibility settings
+    if private 
+        .ui.header 
+            i.lock.icon
+            |private
+    if friends_only
+        .ui.header 
+            +i name='friends'
+            |friends only
+
+
 template(name='toggle_sort_direction')
     if session_is 'sort_direction' -1
         .ui.icon.compact.circular.button.toggle(title='toggle sort direction')

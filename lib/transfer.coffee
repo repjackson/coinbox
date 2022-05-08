@@ -43,7 +43,6 @@ if Meteor.isClient
         #             Meteor.call 'search_reddit', picked_tags.array(), ->
         # , 1000)
 
-
     Template.transfers.helpers
         sorting_up: -> parseInt(Session.get('transfer_sort_direction')) is 1
 
@@ -244,6 +243,8 @@ if Meteor.isClient
                 1000
             else 
                 Meteor.user().points
+        balance_after_purchase:->
+            Meteor.user().points-@amount
         
         can_submit: ->
             transfer = Docs.findOne Router.current().params.doc_id

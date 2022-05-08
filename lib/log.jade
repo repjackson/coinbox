@@ -120,22 +120,6 @@ template(name='log_view')
 
 
 
-
-
-template(name='visibility_settings')
-    .ui.header 
-        i.eye.icon
-        |visibility settings
-    if private 
-        .ui.header 
-            i.lock.icon
-            |private
-    if friends_only
-        .ui.header 
-            +i name='friends'
-            |friends only
-
-
 template(name='log_edit')
     with current_doc
         .ui.stackable.padded.grid

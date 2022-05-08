@@ -101,8 +101,6 @@ template(name='transfer_item')
             // if is_admin
             //     .ui.small.header slug: #{slug}
             +print_this
-                    
-                    
 
 template(name='transfer_view')
     with current_doc
@@ -152,13 +150,15 @@ template(name='transfer_view')
                         .ui.large.center.aligned.header.pointer.zoom
                             |#{target.name}
                             small (#{target.points}pts)
-                            
 
 template(name='transfer_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row 
                 .five.wide.column
+                    .ui.header 
+                        +i name='exchange'
+                        |point transfer
                     .ui.large.fluid.basic.circular.button.cancel_transfer
                         i.large.remove.red.icon
                         |cancel
@@ -229,7 +229,9 @@ template(name='transfer_edit')
                     if in_dev
                         +print_this
                 .five.wide.center.aligned.column
-                    .ui.big.header #{amount}pts
+                    .ui.big.header #{amount} points to transfer
+                    .ui.big.header current balance: #{currentUser.points}
+                    .ui.big.header balance after purchase: #{balance_after_purchase}
                     .ui.big.input
                         input.point_amount(type='number' value=amount min='1' max=point_max)
                     div
