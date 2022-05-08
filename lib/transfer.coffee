@@ -251,17 +251,19 @@ if Meteor.isServer
             for transfer in sent_tranfers
                 if transfer.amount
                     total_paid_amount += transfer.amount
-            console.log sent_tranfers.length
-            Meteor.users.update doc._id,
+            console.log 'sent txfer length', sent_tranfers.length
+            console.log 'total_sent_amount', total_sent_amount
+            console.log 'total_received_amount', total_received_amount
+            Meteor.users.update user_id,
                 $set:
                     transfer_total_received_amount:total_received_amount
-                    transfer_total_sent_amount:total_paid_amount
-                    transfer_total_point_amount:total_received_amount-total_paid_amount
+                    transfer_total_sent_amount:total_sent_amount
+                    transfer_total_point_amount:total_received_amount-total_sent_amount
                     
                     
-            console.log 'total_received_amount'
-            console.log 'total_paid_amount'
-            console.log 'total_received_amount-total_paid_amount'
+            # console.log 'total_received_amount'
+            # console.log 'total_paid_amount'
+            # console.log 'total_received_amount-total_paid_amount'
                     
                 
                 
@@ -439,8 +441,10 @@ if Meteor.isServer
 if Meteor.isClient 
     Template.user_transfers.onCreated ->
         @autorun => @subscribe 'model_docs','transfer',->
-            
-            
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.call 'calc_user_stats', user._id, ->
+            console.log 'calculated transfer stats'
+
     Template.user_transfers.helpers
         transfer_out_docs: ->
             current_user = 
@@ -459,3 +463,11 @@ if Meteor.isClient
             Docs.find 
                 model:'transfer'
                 target_user_id:current_user._id
+
+
+
+
+    Router.route '/user/:username/transfers', (->
+        @layout 'profile_layout'
+        @render 'user_transfers'
+        ), name:'user_transfers'

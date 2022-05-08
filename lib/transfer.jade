@@ -116,9 +116,11 @@ template(name='transfer_view')
                         .ui.large.center.aligned.header.pointer.zoom
                             |#{_author.name}
                             small (#{_author.points}pts)
-                        .ui.large.label #{transfer_total_received_amount} total received                    
-                        .ui.large.label #{transfer_total_sent_amount} total sent                    
-                            
+                        .ui.large.label #{_author.transfer_total_received_amount} total received                    
+                        .ui.large.label #{_author.transfer_total_sent_amount} total sent                    
+                    with _author
+                        +calc_user_stats_button
+
                 .five.wide.column
                     if in_dev 
                         a.ui.button(href="/transfer/#{_id}/edit")
@@ -154,9 +156,14 @@ template(name='transfer_view')
                             |#{_target.name}
                             small (#{_target.points}pts)
                             
-                            .ui.large.label #{transfer_total_received_amount} total received                    
-                            .ui.large.label #{transfer_total_sent_amount} total sent                    
-                            
+                            .ui.large.label #{_target.transfer_total_received_amount} total received                    
+                            .ui.large.label #{_target.transfer_total_sent_amount} total sent                    
+                    with _target
+                        +calc_user_stats_button
+                                
+template(name='calc_user_stats_button')
+    .ui.circular.icon.recalc
+        i.large.refresh.icon
 
 template(name='transfer_edit')
     with current_doc
@@ -261,6 +268,9 @@ template(name='transfer_edit')
                                 
                                 
 template(name='user_transfers')
+    .ui.large.label #{current_user.transfer_total_received_amount} total received                    
+    .ui.large.label #{current_user.transfer_total_sent_amount} total sent                    
+
     .ui.header 
         +i name='order-history'
         |#{transfer_out_docs.count} transfers out
@@ -275,7 +285,7 @@ template(name='user_transfers')
             +transfer_in_item
 
 template(name='transfer_in_item')
-    a.item.zoomer(href="/transfer/#{_id}")
+    a.item(href="/transfer/#{_id}")
         if image_id
             img.ui.tiny.image(src="{{c.url image_id width=300 height=300}}")
         //     a.image.zoomer.fly_right(href="/transfer/#{_id}")
@@ -301,7 +311,7 @@ template(name='transfer_in_item')
             //         i.pencil.blue.icon
                     
 template(name='transfer_out_item')
-    a.item.zoomer(href="/transfer/#{_id}")
+    a.item(href="/transfer/#{_id}")
         if image_id
             img.ui.tiny.image(src="{{c.url image_id width=300 height=300}}")
         //     a.image.zoomer.fly_right(href="/transfer/#{_id}")

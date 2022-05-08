@@ -5,6 +5,11 @@ if Meteor.isClient
             Meteor.call 'calc_stats', ->
 
 
+    Template.calc_user_stats_button.events 
+        'click .recalc': ->
+            console.log 'calc user', @username
+            Meteor.call 'calc_user_stats', @_id, ->
+
     Template.add_doc_button.events
         'click .add_doc': ->
             if @model

@@ -224,3 +224,5 @@ Template.footer.helpers
         Docs.find {}
     dev_results: ->
         Results.find()
+    user_results: ->
+        Meteor.users.find()
