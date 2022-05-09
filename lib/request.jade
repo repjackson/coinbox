@@ -55,7 +55,7 @@ template(name='request_card')
                 i.green.large.checkmar.icon
             a.ui.inline.header.zoomer.fly_right(href="/request/#{_id}/") 
                 | #{title}
-            .ui.inline.header amount: #{amount}pts
+            .ui.large.basic.green.label(title='amount') #{amount}pts
             
             each tags
                 a.ui.small.link.label.flat_pick_tag.spaced #{this}
@@ -82,6 +82,8 @@ template(name='request_card')
                 i.marker.icon
                 each location_tags  
                     .ui.label #{this}
+            if group_id 
+                +group_info
         //- .ui.bottom.attached.buttons        
         //-     .ui.green.button.quickbuy
         //-         i.lightning.icon
@@ -113,6 +115,7 @@ template(name='request_view')
                     else 
                         .ui.large.label ongoing (incomplete)
                     +request_events
+                    +group_widget
                 .eight.wide.column
                     if paid 
                         .ui.big.green.label

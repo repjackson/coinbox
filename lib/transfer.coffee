@@ -446,6 +446,7 @@ if Meteor.isServer
 if Meteor.isClient 
     Template.user_transfers.onCreated ->
         @autorun => @subscribe 'model_docs','transfer',->
+    Template.user_transfers.onRendered ->
         user = Meteor.users.findOne username:Router.current().params.username
         Meteor.call 'calc_user_stats', user._id, ->
             console.log 'calculated transfer stats'
