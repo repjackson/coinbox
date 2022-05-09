@@ -211,6 +211,8 @@ if Meteor.isClient
             Session.get('searching')
             Session.get('current_query')
             Session.get('dummy')
+    Template.transfer_view.onRendered ->
+        Meteor.call 'log_view', Router.current().params.doc_id, ->
     Template.transfer_view.onCreated ->
         Meteor.call 'calc_transfer_stats', Router.current().params.doc_id, ->
             console.log 'calculated transfer stats'
@@ -219,6 +221,9 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.methods 
+        log_view: (doc_id)->
+            Docs.update doc_id, 
+                $inc:views:1
         calc_transfer_stats: (transfer_id)->
             console.log 'calc transfer stats', transfer_id
             transfer = Docs.findOne transfer_id

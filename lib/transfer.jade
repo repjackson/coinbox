@@ -86,10 +86,10 @@ template(name='transfer_item')
                 i.chevron.right.icon
                 .ui.large.label #{amount}
                 i.chevron.right.icon
-                a.fly_right(href="/user/#{target.username}")
-                    img.ui.avatar.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                a.fly_right(href="/user/#{_target.username}")
+                    img.ui.avatar.image(src="{{c.url _target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                     .ui.inline.header.pointer.zoomer
-                        |#{target.name}
+                        |#{_target.name}
     
             each tags
                 .ui.label #{this}
@@ -134,6 +134,7 @@ template(name='transfer_view')
                         +remove_button
                     .f14
                         |!{description}
+                    +viewed_info
                     .spacer
                     +image_view key='image_id' label='image' direct=true
                     div 
@@ -160,6 +161,14 @@ template(name='transfer_view')
                             .ui.large.label #{_target.transfer_total_sent_amount} total sent                    
                     with _target
                         +calc_user_stats_button
+                           
+
+template(name='viewed_info')                           
+    .ui.header 
+        i.eye.icon
+        |#{views} views
+    .ui.header 
+        |viewed by
                                 
 template(name='calc_user_stats_button')
     .ui.circular.icon.recalc

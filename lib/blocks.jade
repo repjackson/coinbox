@@ -14,15 +14,15 @@ template(name='visibility_settings')
 
 template(name='toggle_sort_direction')
     if session_is 'sort_direction' -1
-        .ui.icon.compact.circular.button.toggle(title='toggle sort direction')
+        .ui.icon.compact.button.toggle(title='toggle sort direction')
             i.sort.direction.down.large.icon
     if session_is 'sort_direction' 1
-        .ui.icon.compact.circular.button.toggle(title='toggle sort direction')
+        .ui.icon.compact.button.toggle(title='toggle sort direction')
             i.sort.direction.up.large.icon
 
 
 template(name='recalc_stats_button')
-    .ui.circular.icon.button.recalc(title='recalc stats')
+    .ui.icon.button.recalc(title='recalc stats')
         i.refresh.icon
         i.large.line.chart.icon
 
@@ -74,7 +74,7 @@ template(name='facet')
             |#{this}
     each tag_results
         // if title
-        a.ui.compact.circular.button.pick_tag.no_blink
+        a.ui.compact.button.pick_tag.no_blink
             |#{name} 
             // small.ui.grey.text #{count}
 
@@ -112,7 +112,7 @@ template(name='send_points_button')
 
 
 template(name='favorite_icon_toggle')
-    i.large.favorite.link.circular.icon.toggle_fav(class=icon_class)
+    i.large.favorite.link.icon.toggle_fav(class=icon_class)
 
 
 
@@ -131,7 +131,7 @@ template(name='limit_menu')
 
 
 template(name='add_doc_button')
-    .ui.icon.circular.compact.button.add_doc(title="add #{model} doc")
+    .ui.icon.compact.button.add_doc(title="add #{model} doc")
         i.plus.large.icon
 
         
@@ -296,7 +296,7 @@ template(name='session_set')
                 
                 
 template(name='set_sort_key')
-    .ui.circular.button.set_sort(class=sort_button_class)
+    .ui.button.set_sort(class=sort_button_class)
         if color
             .ui.label(class=color) #{label}
         else 
@@ -521,10 +521,10 @@ template(name='voting_full')
     // +ismall name='elections'
     // .ui.inline.header 
     //     |voting
-    .ui.large.icon.circular.button.upvote(title='upvote' class=upvote_class)
+    .ui.large.icon.button.upvote(title='upvote' class=upvote_class)
         i.thumbs.up.outline.icon
         //- |like
-    .ui.large.icon.circular.button.downvote(title='downvote' class=downvote_class)
+    .ui.large.icon.button.downvote(title='downvote' class=downvote_class)
         i.thumbs.down.outline.icon
         //- |dislike
     if points
@@ -635,7 +635,7 @@ template(name='print_this')
 template(name='search_input')
     .ui.icon.input
         if current_query
-            i.circular.remove.red.link.icon.clear_query
+            i.remove.red.link.icon.clear_query
         else 
             i.search.icon
         input.search_field(type='text' placeholder='search...' value=current_query)
@@ -950,10 +950,10 @@ template(name='sort_direction_toggle')
 //     // .ui.inline.header 
 //     //     |voting
 //     // ..upvote(title='upvote')
-//     i.thumbs.up.big.circular.link.icon.upvote(class=upvote_class)
+//     i.thumbs.up.big.link.icon.upvote(class=upvote_class)
 //         //- |like
-//     // .ui.large.icon.circular.button.downvote(title='downvote')
-//     i.thumbs.down.big.circular.link.icon.downvote(class=downvote_class)
+//     // .ui.large.icon.button.downvote(title='downvote')
+//     i.thumbs.down.big.link.icon.downvote(class=downvote_class)
 //         //- |dislike
 //     if points
 //         .ui.large.label(title='points') #{points} pts
@@ -1037,7 +1037,7 @@ template(name='sort_direction_toggle')
         
 
 // template(name='print_this')
-//     i.large.circular.link.code.icon.print_this
+//     i.large.link.code.icon.print_this
 
 
 
