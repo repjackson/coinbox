@@ -70,7 +70,7 @@ template(name='invoice_card')
         
 template(name='invoice_item')
     .ui.fluid.segment.view_invoice.pointer
-        a.ui.header(href="/invoice/#{_id}/view") #{title}
+        a.ui.header(href="/invoice/#{_id}") #{title}
         div
         .ui.small.grey.inline.header #{when}
         .smallscroll

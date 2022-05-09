@@ -378,16 +378,18 @@ template(name='view_full_button')
         |view
 
 template(name='user_status')
-    if online 
-        // .ui.label(class='{{labelClass}}') 
-        .ui.empty.label(title='online')
-        // img.ui.avatar.image(src="https://img.icons8.com/connection-user_status-on/color/48" title='Online' width="48" height="48")
-        // |Online
-    else if idle
-        .ui.empty.yellow.label(title='idle')
-        // .ui.label(class='{{labelClass}}') Idle
-    // else 
-    //     |Offline
+    .ui.label
+        if online 
+            // .ui.label(class='{{labelClass}}') 
+            .ui.empty.label(title='online')
+            // img.ui.avatar.image(src="https://img.icons8.com/connection-user_status-on/color/48" title='Online' width="48" height="48")
+            // |Online
+        else if idle
+            .ui.empty.yellow.label(title='idle')
+            // .ui.label(class='{{labelClass}}') Idle
+        // else 
+        //     |Offline
+        .ui.inline.header status: #{status}
 
 // template(name='user_card')
 //     with user
@@ -560,7 +562,7 @@ template(name='remove_button')
         //- |Delete
 
 template(name='remove_icon')
-    i.remove.icon.remove_doc(title='delete')
+    i.remove.red.link.icon.zoomer.remove_doc(title='delete')
     //- |Delete
 
 template(name='add_button')

@@ -16,29 +16,8 @@ template(name='profile_layout')
                             img.ui.centered.rounded.image(src="{{c.url image_id height=500 width=500 gravity='face' crop='fill'}}")
                         // .spacer
                         // a(href="/user/#{username}")
-                        if first_name
-                            .ui.inline.header #{first_name}
-                        if last_name
-                            .ui.inline.header #{last_name}
-                        // div
-                        if company 
-                            .ui.header
-                                +i name='business' 
-                                |#{company}
-                        if linkedin_link
-                            .ui.circular.compact.button(href=linkedin_link target='_window')
-                                +i name='linkedin'
-                        if twitter_link
-                            .ui.circular.compact.button(href=twitter_link target='_window')
-                                +i name='twitter'
-                        .ui.inline.header
-                            strong @#{username}
-                            //- small @#{user.username}        
-                        a.ui.large.link.label(href="/user/#{username}/points" title='points')
-                            //- +i name='coins'
-                            //- i.coins.icon
-                            |#{points} pts
-                        // if is_current_user
+                        +user_info_small
+                        +user_status
                         a.ui.large.button.fly_down.no_blink(href="/user/#{username}/edit" title='profile settings')
                             i.cog.icon
                             |account
@@ -75,6 +54,34 @@ template(name='profile_layout')
                         .scrolling
                             +yield
                             
+           
+           
+
+template(name='user_info_small')           
+    if first_name
+        .ui.inline.header #{first_name}
+    if last_name
+        .ui.inline.header #{last_name}
+    // div
+    if company 
+        .ui.header
+            +i name='business' 
+            |#{company}
+    if linkedin_link
+        .ui.circular.compact.button(href=linkedin_link target='_window')
+            +i name='linkedin'
+    if twitter_link
+        .ui.circular.compact.button(href=twitter_link target='_window')
+            +i name='twitter'
+    .ui.inline.header
+        strong @#{username}
+        //- small @#{user.username}        
+    a.ui.large.link.label(href="/user/#{username}/points" title='points')
+        //- +i name='coins'
+        //- i.coins.icon
+        |#{points} pts
+    // if is_current_user
+           
                             
 template(name='profile_dashboard')                            
     .ui.stackable.padded.grid

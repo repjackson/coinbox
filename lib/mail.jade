@@ -19,7 +19,7 @@ template(name='recent_logs')
     .ui.header
         +i name='history'
         |#{unread_log_count} log messages
-    .ui.list.scrolling
+    .ui.divided.list.scrolling
         each log_docs
             .item
                 img.ui.avatar.image(src="{{c.url _author.image_id height=100 width=200}}" class=currentUser.invert_class)
