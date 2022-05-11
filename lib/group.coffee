@@ -1,11 +1,31 @@
 Router.route '/group/:doc_id', (->
-    @layout 'layout'
+    @layout 'group_layout'
     @render 'group_view'
     ), name:'group_view'
+Router.route '/group/:doc_id/events', (->
+    @layout 'group_layout'
+    @render 'group_events'
+    ), name:'group_events'
+Router.route '/group/:doc_id/posts', (->
+    @layout 'group_layout'
+    @render 'group_posts'
+    ), name:'group_posts'
+Router.route '/group/:doc_id/members', (->
+    @layout 'group_layout'
+    @render 'group_members'
+    ), name:'group_members'
+Router.route '/group/:doc_id/tasks', (->
+    @layout 'group_layout'
+    @render 'group_tasks'
+    ), name:'group_tasks'
+Router.route '/group/:doc_id/chat', (->
+    @layout 'group_layout'
+    @render 'group_chat'
+    ), name:'group_chat'
 
 
 if Meteor.isClient
-    Template.group_view.onCreated ->
+    Template.group_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         # @autorun => Meteor.subscribe 'children', 'group_update', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'group_members', Router.current().params.doc_id, ->
@@ -13,7 +33,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'group_events', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'group_posts', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'group_products', Router.current().params.doc_id, ->
-    Template.group_view.onRendered ->
+    Template.group_layout.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id, ->
     
     Template.group_edit.onCreated ->
@@ -29,7 +49,7 @@ if Meteor.isClient
                 
                 
                 
-    Template.group_view.helpers
+    Template.group_layout.helpers
         group_events: ->
             Docs.find 
                 model:'event'
@@ -52,7 +72,7 @@ if Meteor.isClient
                     
             Router.go "/product/#{new_id}/edit"
             
-    Template.group_view.events
+    Template.group_layout.events
         'click .add_group_task': ->
             new_id = 
                 Docs.insert 

@@ -31,8 +31,6 @@ if Meteor.isClient
         @autorun => @subscribe 'related_group',Router.current().params.doc_id, ->
 
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-    Template.log_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.log_card.onCreated ->
         @autorun => Meteor.subscribe 'doc_comments', @data._id, ->
 
