@@ -103,6 +103,8 @@ template(name='message_edit')
                             img.ui.small.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}")
                             |#{_author.name}
                     .ui.segment
+                        if cost 
+                            .ui.header cost: #{cost}pts
                         .ui.header target
                         with target
                             i.large.remove.link.icon.remove_target
@@ -144,14 +146,14 @@ template(name='message_edit')
                     //- +array_edit key='location_tags' label='location_tags' direct=true
                 .five.wide.column
                     .ui.center.aligned.basic.segment
-                        if can_submit
+                        if can_send
                             .ui.green.big.icon.button.submit
                                 i.big.checkmark.icon
-                                |send (-10pts)
+                                |send (-#{cost}pts)
                         else 
                             .ui.big.green.big.icon.disabled.button
                                 i.checkmark.big.icon
-                                |send
+                                |send (-#{cost}pts) (add message)
 
 
 template(name='message_item')
@@ -171,6 +173,8 @@ template(name='message_item')
                 img.ui.rounded.small.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
                 .ui.header
                     |#{_target.name}
+            if cost 
+                .ui.header cost: #{cost}pts
             if can_edit
                 +remove_button
             .ui.header
@@ -199,6 +203,10 @@ template(name='message_view')
         .ui.stackable.padded.grid
             .centered.row 
                 .five.wide.column
+                    a.ui.large.fluid.basic.circular.button.fly_right(href="/mail/inbox")
+                        // i.inbox.icon
+                        +i name='inbox'
+                        |mail
                     a.ui.link.card(href="/user/#{_author.username}") 
                         img.ui.rounded.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}")
                         .content
@@ -207,15 +215,10 @@ template(name='message_view')
                                 |sender
                             .ui.header 
                                 |#{_author.name}
-                    a.ui.link.card(href="/user/#{_target.username}")
-                        .content
-                            .ui.header
-                                i.chevron.down.icon
-                                |target
-                            img.ui.rounded.image(src="{{c.url _target.image_id height=500 width=500 gravity='face' crop='fill'}}")
-                            .ui.header
-                                |#{_target.name}
                 .six.wide.column
+                    .ui.header 
+                        |cost 
+                        |#{cost}
                     if can_edit
                         +remove_button
                     .ui.header
@@ -232,9 +235,17 @@ template(name='message_view')
                         i.tags.icon
                         each tags 
                             .ui.big.label #{this}
+                    +voting_full
                     .spacer
                     .spacer
                     +comments
                 .four.wide.column
-                    +voting_full
+                    a.ui.link.card(href="/user/#{_target.username}")
+                        .content
+                            .ui.header
+                                i.chevron.down.icon
+                                |target
+                            img.ui.rounded.image(src="{{c.url _target.image_id height=500 width=500 gravity='face' crop='fill'}}")
+                            .ui.header
+                                |#{_target.name}
                     //- +array_view key='location_tags' label='location_tags' direct=true        

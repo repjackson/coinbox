@@ -3,18 +3,10 @@ if Meteor.isClient
         @layout 'layout'
         @render 'logs'
         ), name:'logs'
-    Router.route '/log/:doc_id/edit', (->
-        @layout 'layout'
-        @render 'log_edit'
-        ), name:'log_edit'
     Router.route '/log/:doc_id', (->
         @layout 'layout'
         @render 'log_view'
         ), name:'log_view'
-    Router.route '/log/:doc_id/view', (->
-        @layout 'layout'
-        @render 'log_view'
-        ), name:'log_view_long'
     
     
     # Template.logs.onCreated ->
@@ -59,73 +51,6 @@ if Meteor.isClient
             Router.go "/log/#{@_id}"
 
 
-    Template.log_edit.events
-        'click .delete_log': ->
-            Swal.fire({
-                title: "delete log?"
-                text: "cannot be undone"
-                icon: 'question'
-                confirmButtonText: 'delete'
-                confirmButtonColor: 'red'
-                showCancelButton: true
-                cancelButtonText: 'cancel'
-                reverseButtons: true
-            }).then((result)=>
-                if result.value
-                    Docs.remove @_id
-                    Swal.fire(
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'log removed',
-                        showConfirmButton: false,
-                        timer: 1500
-                    )
-                    Router.go "/logs"
-            )
-
-        'click .publish': ->
-            Swal.fire({
-                title: "publish log?"
-                text: "point bounty will be held from your account"
-                icon: 'question'
-                confirmButtonText: 'publish'
-                confirmButtonColor: 'green'
-                showCancelButton: true
-                cancelButtonText: 'cancel'
-                reverseButtons: true
-            }).then((result)=>
-                if result.value
-                    Meteor.call 'publish_log', @_id, =>
-                        Swal.fire(
-                            position: 'bottom-end',
-                            icon: 'success',
-                            title: 'log published',
-                            showConfirmButton: false,
-                            timer: 1000
-                        )
-            )
-
-        'click .unpublish': ->
-            Swal.fire({
-                title: "unpublish log?"
-                text: "point bounty will be returned to your account"
-                icon: 'question'
-                confirmButtonText: 'unpublish'
-                confirmButtonColor: 'orange'
-                showCancelButton: true
-                cancelButtonText: 'cancel'
-                reverseButtons: true
-            }).then((result)=>
-                if result.value
-                    Meteor.call 'unpublish_log', @_id, =>
-                        Swal.fire(
-                            position: 'bottom-end',
-                            icon: 'success',
-                            title: 'log unpublished',
-                            showConfirmButton: false,
-                            timer: 1000
-                        )
-            )
             
 if Meteor.isServer
     Meteor.publish 'log_count', (

@@ -39,6 +39,8 @@ if Meteor.isClient
             new_message_id =
                 Docs.insert
                     model:'message'
+                    cost:10
+                    sent:false
             Router.go "/message/#{new_message_id}/edit"
 
     Template.recent_logs.onCreated ->
@@ -89,14 +91,6 @@ if Meteor.isClient
         'click .mark_unread': ->
             Meteor.call 'mark_unread', @_id, ->
             
-if Meteor.isServer
-    Meteor.publish 'inbox', (username)->
-        Docs.find
-            model:'offer'
-
-
-
-
 
 if Meteor.isClient
     Router.route '/messages/', (->
@@ -134,12 +128,12 @@ if Meteor.isClient
 
 
     Template.message_edit.helpers
-        target: ->
+        _target: ->
             message = Docs.findOne Router.current().params.doc_id
             if message.target_user_id
                 Meteor.users.findOne
                     _id: message.target_user_id
-        members: ->
+        available_targets: ->
             message = Docs.findOne Router.current().params.doc_id
             Meteor.users.find 
                 # levels: $in: ['member']
@@ -154,10 +148,12 @@ if Meteor.isClient
             else 
                 Meteor.user().points
         
-        can_submit: ->
+        can_send: ->
             true
             message = Docs.findOne Router.current().params.doc_id
             message.description and message.target_user_id
+            
+            
     Template.message_edit.events
         'click .add_target': ->
             Docs.update Router.current().params.doc_id,
