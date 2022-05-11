@@ -1,8 +1,20 @@
 if Meteor.isClient
-    Router.route '/inbox', (->
+    Router.route '/mail/inbox', (->
         @layout 'layout'
         @render 'inbox'
         ), name:'inbox'
+    Router.route 'mail/drafts', (->
+        @layout 'layout'
+        @render 'inbox'
+        ), name:'drafts'
+    Router.route 'mail/sent', (->
+        @layout 'layout'
+        @render 'inbox'
+        ), name:'sent'
+    Router.route 'mail/archive', (->
+        @layout 'layout'
+        @render 'archive'
+        ), name:'archive'
 
     Template.inbox.onCreated ->
         @autorun -> Meteor.subscribe 'user_model_docs', 'message', Router.current().params.username, ->

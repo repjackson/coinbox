@@ -4,10 +4,15 @@ template(name='inbox')
             .four.wide.column
                 .ui.header 
                     i.big.inbox.icon
-                    |inbox
+                    |mail
                 .ui.basic.big.compact.circular.button.add_message
                     i.chat.blue.icon
                     |+ message
+                .ui.vertical.menu
+                    a.item(href="/mail/inbox") inbox
+                    a.item(href="/mail/drafts") drafts
+                    a.item(href="/mail/sent") sent
+                    a.item(href="/mail/archive") archive
             .six.wide.column
                 +recent_logs
                 +sent_messages
@@ -23,22 +28,7 @@ template(name='recent_logs')
         |#{unread_log_count} unread
     .ui.divided.list.selection.scrolling
         each logs
-            .item
-                img.ui.avatar.image(src="{{c.url _author.image_id height=100 width=200}}" class=currentUser.invert_class)
-                .content
-                    .header
-                        |#{when} from #{_author.name}
-                    .description
-                        |#{description} #{body}
-                        a.ui.icon.button(href="/message/#{_id}")
-                            i.chevron.right.icon
-                        +viewing
-                        |last viewed {{from_now last_viewed}}
-                        | {{views}} views
-                        if can_edit
-                            +remove_icon
-                        if is_dev
-                            +print_this
+            +log_item
 
 
 

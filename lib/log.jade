@@ -68,16 +68,32 @@ template(name='log_item')
             | !{content}
         each tags 
             .ui.basic.small.label #{this}
-        
+        .item
+            img.ui.avatar.image(src="{{c.url _author.image_id height=100 width=200}}" class=currentUser.invert_class)
+            .content
+                .header
+                    |#{when} from #{_author.name}
+                .description
+                    |#{description} #{body}
+                    a.ui.icon.button(href="/message/#{_id}")
+                        i.chevron.right.icon
+                    +viewing
+                    |last viewed {{from_now last_viewed}}
+                    | {{views}} views
+                    if can_edit
+                        +remove_icon
+                    if is_dev
+                        +print_this
+  
 
 template(name='log_view')
     with current_doc
         .ui.stackable.padded.grid
             .row 
                 .four.wide.column.scrolling
-                    a.ui.circular.icon.button(href="/logs" title='logs')
+                    a.ui.large.button(href="/logs" title='logs')
                         i.chevron.left.icon
-                        +i name='log'
+                        +i name='event-log'
                         |logs
                     if can_edit
                         a.ui.circular.icon.button.fly_down(href="/log/#{_id}/edit" title='edit')
@@ -110,7 +126,6 @@ template(name='log_view')
                         +youtube_view key='youtube_id'
                     +comments
                 .two.wide.column
-                    +tips
                     
                 // .four.wide.column
                 
