@@ -241,7 +241,6 @@ template(name='reviews')
 
 
 template(name='viewing')
-    div
     .ui.inline.header #{views} views
     if currentUser
         unless viewed_by
@@ -251,9 +250,10 @@ template(name='viewing')
             if is_dev
                 .ui.icon.button.mark_unread
                     i.cancel.icon
-    .ui.inline.header viewed by
-    each read_ids
-        +user_info
+    if read_user_ids
+        .ui.inline.header viewed by
+        each read_user_ids
+            +user_info
 
 template(name='user_info')
     with user_from_id this

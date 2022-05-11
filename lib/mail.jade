@@ -16,24 +16,29 @@ template(name='inbox')
 
 
 template(name='recent_logs')
-    .ui.header
-        +i name='history'
-        |#{unread_log_count} log messages
-    .ui.divided.list.scrolling
-        each log_docs
+    .ui.inline.header
+        +i name='event-log'
+        |#{logs.count} log messages
+    .ui.small.inline.header
+        |#{unread_log_count} unread
+    .ui.divided.list.selection.scrolling
+        each logs
             .item
                 img.ui.avatar.image(src="{{c.url _author.image_id height=100 width=200}}" class=currentUser.invert_class)
                 .content
                     .header
-                        |#{when} from #{author.name}
-                    |#{description} #{body}
-                    .meta    
-                        a(href="/message/#{_id}/view")
-                    +toggle_view_icon
-                    if can_edit
-                        +remove_icon
-                    if is_dev
-                        +print_this
+                        |#{when} from #{_author.name}
+                    .description
+                        |#{description} #{body}
+                        a.ui.icon.button(href="/message/#{_id}")
+                            i.chevron.right.icon
+                        +viewing
+                        |last viewed {{from_now last_viewed}}
+                        | {{views}} views
+                        if can_edit
+                            +remove_icon
+                        if is_dev
+                            +print_this
 
 
 
@@ -80,7 +85,7 @@ template(name='sent_messages')
 
                                 
 template(name='toggle_view_icon')
-    if is_read
+    if has_read
         i.eye.circular.link.grey.icon.mark_unread(title='mark unread')
     else
         i.eye.circular.link.large.icon.mark_read(title='mark read')

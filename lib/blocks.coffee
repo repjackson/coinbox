@@ -509,8 +509,8 @@ if Meteor.isClient
                     # $(e.currentTarget).closest('.comment').transition('pulse')
                     $('.unread_icon').transition('pulse')
         'click .mark_unread': (e,t)->
-            Docs.update @_id,
-                $inc:views:-1
+            # Docs.update @_id,
+            #     $inc:views:-1
             Meteor.call 'mark_unread', @_id, ->
                 # $(e.currentTarget).closest('.comment').transition('pulse')
                 $('.unread_icon').transition('pulse')
@@ -526,8 +526,23 @@ if Meteor.isClient
                         readers.push Docs.findOne reader_id
             readers
 
+Meteor.methods
+    mark_read: (doc_id)->
+        doc = Docs.findOne doc_id
+        Docs.update doc_id,
+            $addToSet:
+                read_user_ids: Meteor.userId()
+            $set:
+                last_viewed: Date.now() 
+            $inc:views:1
+    mark_unread: (doc_id)->
+        doc = Docs.findOne doc_id
+        Docs.update doc_id,
+            $pull:
+                read_user_ids: Meteor.userId()
+            $inc:views:-1
 
-
+if Meteor.isClient
     Template.email_validation_check.events
         'click .send_verification': ->
             console.log @
@@ -661,22 +676,6 @@ if Meteor.isClient
 
 
 
-
-Meteor.methods
-    mark_read: (doc_id)->
-        doc = Docs.findOne doc_id
-        Docs.update doc_id,
-            $addToSet:
-                read_user_ids: Meteor.userId()
-            $set:
-                last_viewed: Date.now() 
-            $inc:views:1
-    mark_unread: (doc_id)->
-        doc = Docs.findOne doc_id
-        Docs.update doc_id,
-            $pull:
-                read_user_ids: Meteor.userId()
-            $inc:views:-1
 
 
 

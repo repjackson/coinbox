@@ -29,7 +29,15 @@ if Meteor.isClient
                     model:'message'
             Router.go "/message/#{new_message_id}/edit"
 
-
+    Template.recent_logs.onCreated ->
+        @autorun => @subscribe 'recent_logs', ->
+            
+if Meteor.isServer
+    Meteor.publish 'recent_logs', ->
+        Docs.find 
+            model:'log'
+            
+if Meteor.isClient            
     Template.recent_logs.helpers
         unread_log_count: ->
             Docs.find(
@@ -37,7 +45,10 @@ if Meteor.isClient
                 read_user_ids:$nin:[Meteor.userId()]
             ).count()
 
-
+        logs: ->
+            Docs.find {
+                model:'log'
+            }, sort:_timestamp:-1
     Template.inbox.helpers
         my_sent_messages: ->
             current_user = Meteor.users.findOne(username:Router.current().params.username)
@@ -58,7 +69,7 @@ if Meteor.isClient
                 sort:_timestamp:-1
 
     Template.toggle_view_icon.helpers
-        is_read: ->
+        has_read: ->
             @read_user_ids and Meteor.userId() in @read_user_ids
     Template.toggle_view_icon.events
         'click .mark_read': ->
@@ -82,7 +93,7 @@ if Meteor.isClient
         ), name:'messages'
     
 
-    Router.route '/message/:doc_id/view', (->
+    Router.route '/message/:doc_id', (->
         @layout 'layout'
         @render 'message_view'
         ), name:'message_view'
@@ -96,12 +107,6 @@ if Meteor.isClient
 
 
 
-if Meteor.isServer
-    Meteor.publish 'product_from_message_id', (message_id)->
-        message = Docs.findOne message_id
-        Docs.find 
-            _id:message.product_id
-            
             
 if Meteor.isClient
     Router.route '/message/:doc_id/edit', (->
@@ -182,16 +187,16 @@ if Meteor.isClient
         #     # , 7000
 
     
-        'blur .edit_description': (e,t)->
-            textarea_val = t.$('.edit_textarea').val()
-            Docs.update Router.current().params.doc_id,
-                $set:description:textarea_val
+        # 'blur .edit_description': (e,t)->
+        #     textarea_val = t.$('.edit_textarea').val()
+        #     Docs.update Router.current().params.doc_id,
+        #         $set:description:textarea_val
     
     
-        'blur .edit_text': (e,t)->
-            val = t.$('.edit_text').val()
-            Docs.update Router.current().params.doc_id,
-                $set:"#{@key}":val
+        # 'blur .edit_text': (e,t)->
+        #     val = t.$('.edit_text').val()
+        #     Docs.update Router.current().params.doc_id,
+        #         $set:"#{@key}":val
     
     
 
@@ -224,16 +229,16 @@ if Meteor.isClient
                         Swal.fire(
                             title:"message sent"
                             icon:'success'
-                            showClass:
-                                popup: 'swal2-noanimation',
-                                backdrop: 'swal2-noanimation'
-                            hideClass:
-                                popup: '',
-                                backdrop: ''
+                            # showClass:
+                            #     popup: 'swal2-noanimation',
+                            #     backdrop: 'swal2-noanimation'
+                            # hideClass:
+                            #     popup: '',
+                            #     backdrop: ''
                             showConfirmButton: false
                             timer: 1000
                         )
-                        Router.go "/message/#{@_id}/view"
+                        Router.go "/message/#{@_id}"
             )
 
 
