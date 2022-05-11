@@ -5,7 +5,7 @@ template(name='inbox')
                 .ui.header 
                     i.big.inbox.icon
                     |mail
-                .ui.basic.big.compact.circular.button.add_message
+                .ui.basic.big.circular.button.add_message
                     i.chat.blue.icon
                     |+ message
                 .ui.vertical.large.menu
@@ -106,13 +106,13 @@ template(name='message_edit')
                         if cost 
                             .ui.header cost: #{cost}pts
                         .ui.header target
-                        with target
+                        with _target
                             i.large.remove.link.icon.remove_target
                             a.pointer(href="/user/#{name}")
                                 img.ui.tiny.inline.image(src="{{c.url image_id height=400 width=400 gravity='face' crop='fill'}}")
                                 .ui.inline.header #{name}
                                 .ui.small.grey.inline.header #{points}
-                        unless target
+                        unless _target
                             .ui.divider
                             +single_user_edit key='target_user_id' label='search member' icon='user plus' direct=true
 

@@ -85,7 +85,11 @@ if Meteor.isClient
                 Docs.insert 
                     model:'transfer'
                     transfer_type:'internal'
-            Router.go "/transfer/#{new_transfer}"
+            Router.go "/transfer/#{new_transfer}/edit"
+            
+            
+            
+            
 
     Template.profile_layout.helpers
         user_rental_docs: ->
