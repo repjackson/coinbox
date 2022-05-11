@@ -200,103 +200,25 @@ template(name='group_view')
     .ui.stackable.padded.grid
         .row
             .sixteen.wide.column
-                +image_view key='image_id' icon='image' label='image'
-                +array_view key='tags' icon='tags'
-                .spacer
-                if link
-                    a.ui.circular.button(href=link target='_window')
-                        i.external.icon
-                        |#{link}
-                    .spacer
-                div
-                if address
-                    a.ui.compact.circular.button(href=address_link target='_window')
-                        i.marker.icon
-                        |#{address}
-                +viewing
-                if in_dev 
-                    +print_this
                 +multi_user_view key='member_ids' label='members' direct=true
                     
-            // .twelve.wide.column
-            // .ui.header
-            //     i.info.icon
-            //     |about
-            // .content
-            //     +html_view key='description' icon='content' label='description'
-            //     if watson 
-            //         +watson_view
-            // .ui.header
-            //     // +i name='groups'
-            //     i.large.users.icon
-            //     |people
-            // .content
-            //     if leaders_id
-            //         .ui.inline.header 
-            //             // +i name='crown' cl='ui avatar image'
-            //             i.crown.icon
-            //             |leaders: 
-            //         each leader_ids 
-            //             +user_info
-            //     div
-            //     .ui.inline.header 
-            //         // +i name='groups'
-            //         i.users.icon
-            //         |#{member_ids.length} members
-            //     each member_ids
-            //         +user_info
-            //     // .ui.large.selection.animated.list
-            //             // a.item(href="/group/#{_id}/#{username}")
-            //             //     img.ui.mini.image(src="{{c.url image_id width=200 height=200}}")
-            //             //     .content
-            //             //         .header
-            //             //             |#{username}
-            //     if currentUser
-            //         +doc_array_togggle key='member_ids' value=currentUser._id add_label='join' remove_label='leave'
-            //     else 
-            //         a.ui.big.button(href="/login")
-            //             +i name='internal'
-            //             |join
-            // .ui.header
-            //     +i name='rss'
-            //     // i.large.rss.icon
-            //     |activity
-            // .content
-            //     each log_items
-            //         +log_item
-            //     .ui.header 
-            //         // +i name='line-chart'
-            //         i.large.line.chart.icon
-            //         |stats
-            //     i.refresh.link.icon.refresh_group_stats
-            //     .ui.large.list
-            //         .item #{member_count} members
-            //         .item #{events} events
-            //         .item #{events} events
-            //         // .item #{dish_count} dishes
-            //         // .item #{total_credit_exchanged} credits exchanged
-            //     +comments
-            // +group_events
-            // +group_posts
-            // if has_shop
-            //     .title
-            //         i.large.shop.icon
-            //         |shop
-            //         i.dropdown.icon
-            //     .content
-            //         +group_shop
-            // if has_tasks 
-            //     .ui.header
-            //         i.tasks.icon
-            //         |tasks
-            //     if currentUser
-            //         i.large.circular.link.plus.icon.add_group_task
-            //     .ui.large.list 
-            //         each group_tasks 
-            //             a.item(href="/tasks/#{_id}")
-            //                 |#{title}
-            // .ten.wide.column
-            //     +group_about
+            .twelve.wide.column
+            .ui.header
+                i.info.icon
+                |about
+            .content
+                +html_view key='description' icon='content' label='description'
+                if watson 
+                    +watson_view
+            .ui.header
+                +i name='groups'
+                // i.large.users.icon
+                |people
+            .content
+                +user_members
+                +comments
+            .ten.wide.column
+                +group_about
             //     if has_members
             //         +group_members
             //     // .ui.large.selection.animated.list
@@ -324,6 +246,96 @@ template(name='group_view')
             //             +group_shop
             //     if has_tasks 
             //         +group_tasks
+               
+               
+            
+            
+template(name='group_members')
+    .ui.header
+        +i name='groups'
+        |people
+    .ui.button.add_user_member
+        |add member
+    if leaders_id
+        .ui.inline.header 
+            +i name='crown' cl='ui avatar image'
+            // i.crown.icon
+            |leaders: 
+        each leader_ids 
+            +user_info
+    div
+    .ui.inline.header 
+        +i name='groups'
+        // i.users.icon
+        |#{member_ids.length} members
+    each member_ids
+        +user_info
+
+               
+            
+               
+template(name='group_about')                  
+    +image_view key='image_id' icon='image' label='image'
+    +array_view key='tags' icon='tags'
+    .spacer
+    if link
+        a.ui.circular.button(href=link target='_window')
+            i.external.icon
+            |#{link}
+        .spacer
+    div
+    if address
+        a.ui.compact.circular.button(href=address_link target='_window')
+            i.marker.icon
+            |#{address}
+    +viewing
+    if in_dev 
+        +print_this
+    .content
+        // each log_items
+        //     +log_item
+        .ui.header 
+            // +i name='line-chart'
+            i.large.line.chart.icon
+            |stats
+        i.refresh.link.icon.refresh_group_stats
+        .ui.large.list
+            .item #{member_count} members
+            .item #{events} events
+            .item #{events} events
+            // .item #{dish_count} dishes
+            // .item #{total_credit_exchanged} credits exchanged
+
+                  
+                  
+template(name='user_members')
+    if leaders_id
+        .ui.inline.header 
+            // +i name='crown' cl='ui avatar image'
+            i.crown.icon
+            |leaders: 
+        each leader_ids 
+            +user_info
+    div
+    .ui.inline.header 
+        // +i name='groups'
+        i.users.icon
+        |#{member_ids.length} members
+    each member_ids
+        +user_info
+    // .ui.large.selection.animated.list
+            // a.item(href="/group/#{_id}/#{username}")
+            //     img.ui.mini.image(src="{{c.url image_id width=200 height=200}}")
+            //     .content
+            //         .header
+            //             |#{username}
+    if currentUser
+        +doc_array_togggle key='member_ids' value=currentUser._id add_label='join' remove_label='leave'
+    else 
+        a.ui.big.button(href="/login")
+            +i name='internal'
+            |join
+
                             
 template(name='group_posts')                
     .ui.inline.header

@@ -112,18 +112,17 @@ template(name='footer')
                             a.fly_right(href="/#{model}/#{_id}") 
                                 i.chevron.right.circular.link.icon
                             +print_this
-                .four.wide.column
-                    .ui.inverted.link.list
-                        each dev_results
-                            .item #{title} #{model}
-                .four.wide.column
-                    .ui.inverted header 
+                .eight.wide.column
+                    each dev_results
+                        .ui.label #{title} #{model}
+                    .ui.inverted.header
                         i.users.icon
                         |users
-                    .ui.inverted.link.list
-                        each user_results
-                            .item #{username} 
-                                +print_this
+                    each user_results
+                        .ui.label 
+                            img.ui.avatar.image(src="{{c.url image_id}}")
+                            |#{username} 
+                            +print_this
 
 
 
