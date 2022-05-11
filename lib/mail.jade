@@ -46,20 +46,24 @@ template(name='received_messages')
         |#{my_received_messages.count} received messages
     .ui.list.medscroll
         each my_received_messages
-            .item
-                img.ui.avatar.image(src="{{c.url author.image_id height=100 width=200}}" class=currentUser.invert_class)
-                .content
-                    .header
-                        |#{when} from #{_author.name}
-                    |#{description} #{body}
-                    .meta    
-                        a.ui.icon.button.fly_right(href="/message/#{_id}/view")
-                            i.eye.link.icon
-                    +toggle_view_icon
-                    if can_edit
-                        +remove_icon
-                    if is_dev
-                        +print_this
+            +received_message
+        
+template(name='received_message')
+    .item
+        img.ui.avatar.image(src="{{c.url _author.image_id height=100 width=200}}" class=currentUser.invert_class)
+        .content
+            .header
+                |#{when} from #{_author.name}
+            |!{description} !{body}
+            .meta    
+                a.ui.button.fly_right(href="/message/#{_id}")
+                    i.chevron.right.link.icon
+                    |view
+                +toggle_view_icon
+                if can_edit
+                    +remove_icon
+                if is_dev
+                    +print_this
                     
                     
 template(name='sent_messages')                    

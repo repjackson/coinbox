@@ -17,16 +17,16 @@ template(name='groups')
             //         i.remove.icon
             +facet model='group' key='tag'
         .twelve.wide.column
+            +session_set key='view_mode' value='cards' icon='th'
+            +session_set key='view_mode' value='list' icon='list'
             span.sorting_row
                 +search_input key='title'
-                +set_sort_key key='member_ids' label='$/serving' icon='money'
-                +set_sort_key key='private' label='available' icon='clock'
+                +set_sort_key key='member_ids' label='member count' icon='money'
+                +set_sort_key key='private' label='private' icon='visible'
                 +set_sort_key key='_timestamp' label='added' icon='clock'
                 +set_sort_key key='comment_count' label='comment count' icon='chat'
                 +sort_direction_toggle
                 |&nbsp;
-            +session_set key='view_mode' value='cards' icon='th'
-            +session_set key='view_mode' value='list' icon='list'
             if session_is 'view_mode' 'cards'
                 if one_result
                     .ui.stackable.one.cards.scrolling

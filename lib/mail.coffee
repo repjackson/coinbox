@@ -13,7 +13,7 @@ if Meteor.isClient
         ), name:'sent'
     Router.route 'mail/archive', (->
         @layout 'layout'
-        @render 'archive'
+        @render 'inbox'
         ), name:'archive'
 
     Template.inbox.onCreated ->

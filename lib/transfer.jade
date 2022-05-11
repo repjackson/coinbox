@@ -18,6 +18,8 @@ template(name='transfers')
                 .item #{transfered_in} points transfered in
         .twelve.wide.column
             span.sorting_row
+                +session_set key='view_mode' value='grid' icon='th'
+                +session_set key='view_mode' value='list' icon='list'
                 +search_input key='title'
                 |sort by
                 +set_sort_key key='private' label='available' icon='clock'
@@ -25,8 +27,6 @@ template(name='transfers')
                 +set_sort_key key='comment_count' label='comment count' icon='chat'
                 +sort_direction_toggle
                 |&nbsp;
-            +session_set key='view_mode' value='grid' icon='th'
-            +session_set key='view_mode' value='list' icon='list'
             if session_is 'view_mode' 'grid'
                 if one_result
                     .ui.stackable.one.cards.scrolling
@@ -78,23 +78,22 @@ template(name='transfer_item')
             a.image.zoomer.fly_right(href="/transfer/#{_id}")
                 img.ui.image(src="{{c.url image_id width=600 height=600}}")
         .content
-            .header 
-                a(href="/user/#{_author.username}") 
-                    img.ui.avatar.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                    .ui.inline.header.pointer.zoomer
-                        |#{_author.name}
-                i.chevron.right.icon
-                .ui.large.label #{amount}
-                i.chevron.right.icon
-                a.fly_right(href="/user/#{_target.username}")
-                    img.ui.avatar.image(src="{{c.url _target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                    .ui.inline.header.pointer.zoomer
-                        |#{_target.name}
+            a(href="/user/#{_author.username}") 
+                img.ui.small.inline.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                .ui.inline.header.pointer.zoomer
+                    |#{_author.name}
+            i.chevron.right.icon
+            .ui.large.label #{amount}
+            i.chevron.right.icon
+            a.fly_right(href="/user/#{_target.username}")
+                img.ui.small.inline.image(src="{{c.url _target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                .ui.inline.header.pointer.zoomer
+                    |#{_target.name}
     
             each tags
                 .ui.label #{this}
-            .smallscroll
-                |!{description}
+            // .smallscroll
+            |!{description}
             //+ismall name='tags' cl='ui inline image'
             a.ui.icon.button.zoomer.fly_right(href="/transfer/#{_id}")
                 i.chevron.right.icon

@@ -1,4 +1,49 @@
 if Meteor.isClient
+    Template.search_input.helpers
+        current_search: -> Session.get('current_search')
+    Template.search_input.events
+        'click .clear_search': (e,t)->
+            Session.set('current_search', null)
+            t.$('.current_search').val('')
+            $('body').toast({
+                title: "search cleared"
+                # message: 'Please see desk staff for key.'
+                class : 'info'
+                icon:'remove'
+                position:'bottom right'
+                # className:
+                #     toast: 'ui massive message'
+                # displayTime: 5000
+                transition:
+                  showMethod   : 'zoom',
+                  showDuration : 250,
+                  hideMethod   : 'fade',
+                  hideDuration : 250
+                })
+    
+    
+        'keyup .query_field': _.throttle((e,t)->
+            query = $('.query_field').val()
+            Session.set('current_search', query)
+            
+            console.log Session.get('current_search')
+            if e.which is 13
+                search = $('.query_field').val().trim().toLowerCase()
+                if search.length > 0
+                    picked_tags.push search
+                    console.log 'search', search
+                    # Meteor.call 'log_term', search, ->
+                    $('.search').val('')
+                    Session.set('current_search', null)
+                    # # $( "p" ).blur();
+                    # Meteor.setTimeout ->
+                    #     Session.set('dummy', !Session.get('dummy'))
+                    # , 10000
+        , 500)
+    
+        
+
+    
     Template.recalc_stats_button.events
         'click .recalc': ->
             console.log 'recalc'
