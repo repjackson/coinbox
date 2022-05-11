@@ -77,6 +77,16 @@ if Meteor.isClient
     #     user_section_template: ->
     #         "user_#{Router.current().params.group}"
 
+
+
+    Template.user_bank.events 
+        'click .add_savings_amount': ->
+            new_transfer = 
+                Docs.insert 
+                    model:'transfer'
+                    transfer_type:'internal'
+            Router.go "/transfer/#{new_transfer}"
+
     Template.profile_layout.helpers
         user_rental_docs: ->
             Docs.find

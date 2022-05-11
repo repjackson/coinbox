@@ -3,12 +3,15 @@ template(name='add')
         .ui.center.aligned.massive.header 
             +i name='plus' 
             |add 
-        .ui.cards
+        .ui.centered.cards
             +add_button_big model='post' label='post' icon='blog'
             +add_button_big model='event' label='event' icon='calendar'
             +add_button_big model='rental' label='rental' icon='clock'
             +add_button_big model='product' label='product' icon='shop'
             +add_button_big model='service' label='service' icon='wrench'
+            +add_button_big model='invoice' label='invoice' icon='invoice'
+            +add_button_big model='organization' label='organization' icon='building'
+            +add_button_big model='group' label='group' icon='campfire'
     
     
 template(name='add_button_big')
