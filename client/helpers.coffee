@@ -1,4 +1,10 @@
 
+Template.registerHelper 'my_received_messages', () ->
+    Docs.find 
+        model:'message'
+        target_user_id:Meteor.userId()
+
+
 Template.registerHelper 'parent', () -> Template.parentData()
 Template.registerHelper 'parent_doc', () ->
     Docs.findOne @parent_id
